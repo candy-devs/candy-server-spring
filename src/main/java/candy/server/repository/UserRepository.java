@@ -1,4 +1,4 @@
-package candy.server.respository;
+package candy.server.repository;
 
 import candy.server.model.CaUserEntity;
 
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository {
-    Optional<CaUserEntity> findByUserNickName(String name);
+    Optional<CaUserEntity> findByUserNickname(String name);
 
     CaUserEntity save(CaUserEntity caUserEntity);
 

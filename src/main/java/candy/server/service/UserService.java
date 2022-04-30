@@ -1,7 +1,7 @@
 package candy.server.service;
 
 import candy.server.model.CaUserEntity;
-import candy.server.respository.UserRepository;
+import candy.server.repository.UserRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
