@@ -7,27 +7,37 @@ import java.util.Objects;
 @Entity
 @Table(name = "CA_USER", schema = "PUBLIC", catalog = "TEST")
 public class CaUserEntity {
-    private int userId;
-    private Object userIdid;
-    private Object userPw;
-    private Object userNickname;
-    private Timestamp userSignupTime;
-    private Timestamp userLastLoginTime;
-    private int userRest;
-
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "USER_ID")
-    public int getUserId() {
+    private long userId;
+    @Basic
+    @Column(name = "USER_IDID")
+    private Object userIdid;
+    @Basic
+    @Column(name = "USER_PW")
+    private Object userPw;
+    @Basic
+    @Column(name = "USER_NICKNAME")
+    private Object userNickname;
+    @Basic
+    @Column(name = "USER_SIGNUP_TIME")
+    private Timestamp userSignupTime;
+    @Basic
+    @Column(name = "USER_LAST_LOGIN_TIME")
+    private Timestamp userLastLoginTime;
+    @Basic
+    @Column(name = "USER_REST")
+    private int userRest;
+
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 
-    @Basic
-    @Column(name = "USER_IDID")
     public Object getUserIdid() {
         return userIdid;
     }
@@ -36,8 +46,6 @@ public class CaUserEntity {
         this.userIdid = userIdid;
     }
 
-    @Basic
-    @Column(name = "USER_PW")
     public Object getUserPw() {
         return userPw;
     }
@@ -46,8 +54,6 @@ public class CaUserEntity {
         this.userPw = userPw;
     }
 
-    @Basic
-    @Column(name = "USER_NICKNAME")
     public Object getUserNickname() {
         return userNickname;
     }
@@ -56,8 +62,6 @@ public class CaUserEntity {
         this.userNickname = userNickname;
     }
 
-    @Basic
-    @Column(name = "USER_SIGNUP_TIME")
     public Timestamp getUserSignupTime() {
         return userSignupTime;
     }
@@ -66,8 +70,6 @@ public class CaUserEntity {
         this.userSignupTime = userSignupTime;
     }
 
-    @Basic
-    @Column(name = "USER_LAST_LOGIN_TIME")
     public Timestamp getUserLastLoginTime() {
         return userLastLoginTime;
     }
@@ -76,8 +78,6 @@ public class CaUserEntity {
         this.userLastLoginTime = userLastLoginTime;
     }
 
-    @Basic
-    @Column(name = "USER_REST")
     public int getUserRest() {
         return userRest;
     }

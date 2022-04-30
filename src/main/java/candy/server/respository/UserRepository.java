@@ -1,5 +1,2 @@
-package candy.server.respository;
-
-public interface UserRepository {
-
+package candy.server.respository;public interface UserRepository {
 }
