@@ -1,10 +1,13 @@
 package candy.server.model;
 
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@ToString
 @Table(name = "CA_USER", schema = "PUBLIC", catalog = "TEST")
 public class CaUserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

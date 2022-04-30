@@ -1,7 +1,6 @@
 package candy.server.repository;
 
 import candy.server.model.CaUserEntity;
-import candy.server.service.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
