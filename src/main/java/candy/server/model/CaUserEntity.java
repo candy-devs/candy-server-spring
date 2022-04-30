@@ -11,7 +11,6 @@ public class CaUserEntity {
     @Id
     @Column(name = "USER_ID")
     private long userId;
-    @Basic
     @Column(name = "USER_IDID")
     private String userIdid;
     @Basic
