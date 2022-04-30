@@ -13,13 +13,13 @@ public class CaUserEntity {
     private long userId;
     @Basic
     @Column(name = "USER_IDID")
-    private Object userIdid;
+    private String userIdid;
     @Basic
     @Column(name = "USER_PW")
-    private Object userPw;
+    private String userPw;
     @Basic
     @Column(name = "USER_NICKNAME")
-    private Object userNickname;
+    private String userNickname;
     @Basic
     @Column(name = "USER_SIGNUP_TIME")
     private Timestamp userSignupTime;
@@ -38,27 +38,27 @@ public class CaUserEntity {
         this.userId = userId;
     }
 
-    public Object getUserIdid() {
+    public String getUserIdid() {
         return userIdid;
     }
 
-    public void setUserIdid(Object userIdid) {
+    public void setUserIdid(String userIdid) {
         this.userIdid = userIdid;
     }
 
-    public Object getUserPw() {
+    public String getUserPw() {
         return userPw;
     }
 
-    public void setUserPw(Object userPw) {
+    public void setUserPw(String userPw) {
         this.userPw = userPw;
     }
 
-    public Object getUserNickname() {
+    public String getUserNickname() {
         return userNickname;
     }
 
-    public void setUserNickname(Object userNickname) {
+    public void setUserNickname(String userNickname) {
         this.userNickname = userNickname;
     }
 
