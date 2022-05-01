@@ -2,6 +2,7 @@ package candy.server.controller;
 
 import candy.server.model.CaUserEntity;
 import candy.server.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
+@Slf4j
 public class UserController {
     private final UserService userService;
 
@@ -39,6 +41,7 @@ public class UserController {
         caUserEntity.setUserLastLoginTime(new Timestamp(System.currentTimeMillis()));
         caUserEntity.setUserRest(0);
         userService.join(caUserEntity);
+        log.info("/user/insert!");
         return "redirect:/";
     }
 }
