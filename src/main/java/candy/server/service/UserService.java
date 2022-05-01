@@ -3,11 +3,12 @@ package candy.server.service;
 import candy.server.model.CaUserEntity;
 import candy.server.repository.UserRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Transactional
 public class UserService {
     private final UserRepository userRepository;

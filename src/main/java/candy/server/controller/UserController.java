@@ -3,6 +3,7 @@ package candy.server.controller;
 import candy.server.model.CaUserEntity;
 import candy.server.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.sql.Timestamp;
 import java.util.List;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @Slf4j
 public class UserController {
