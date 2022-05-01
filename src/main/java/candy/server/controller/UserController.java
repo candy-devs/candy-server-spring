@@ -28,16 +28,17 @@ public class UserController {
 
     @GetMapping("/user/insert")
     public String userInsert(@RequestParam(value = "id", required = true) String id,
-                          @RequestParam(value = "pw", required = true) String pw,
-                          @RequestParam(value = "nickname", required = true) String nickname) {
-        CaUserEntity caUserEntity = new CaUserEntity();
-//        caUserEntity.setUserId(0);
-        caUserEntity.setUserIdid(id);
-        caUserEntity.setUserPw(pw);
-        caUserEntity.setUserNickname(nickname);
-        caUserEntity.setUserSignupTime(new Timestamp(System.currentTimeMillis()));
-        caUserEntity.setUserLastLoginTime(new Timestamp(System.currentTimeMillis()));
-        caUserEntity.setUserRest(0);
+                             @RequestParam(value = "pw", required = true) String pw,
+                             @RequestParam(value = "nickname", required = true) String nickname) {
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+        CaUserEntity caUserEntity = CaUserEntity.UserBuilder()
+                .userIdid(id)
+                .userPw(pw)
+                .userNickname(nickname)
+                .userSignupTime(currentTime)
+                .userLastLoginTime(currentTime)
+                .userRest(0)
+                .build();
         userService.join(caUserEntity);
         log.info("/user/insert!");
         return "redirect:/";

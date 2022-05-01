@@ -1,6 +1,6 @@
 package candy.server.model;
 
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,6 +11,9 @@ import java.util.Objects;
 @Entity
 @ToString
 @Table(name = "CA_USER", schema = "PUBLIC", catalog = "TEST")
+@NoArgsConstructor(access  = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder(builderMethodName = "UserBuilder")
 public class CaUserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
@@ -105,4 +108,5 @@ public class CaUserEntity {
 
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList = new ArrayList<>();
+
 }
