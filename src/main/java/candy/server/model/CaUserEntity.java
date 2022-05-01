@@ -4,6 +4,8 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -100,4 +102,7 @@ public class CaUserEntity {
     public int hashCode() {
         return Objects.hash(userId, userIdid, userPw, userNickname, userSignupTime, userLastLoginTime, userRest);
     }
+
+    @OneToMany(mappedBy = "userId")
+    private List<CaUserLoginEntity> caUserLoginEntityList = new ArrayList<>();
 }
