@@ -1,5 +1,6 @@
 package candy.server.controller;
 
+import candy.server.dto.UserDto;
 import candy.server.model.CaUserEntity;
 import candy.server.service.UserService;
 import lombok.AllArgsConstructor;
@@ -27,19 +28,8 @@ public class UserController {
     }
 
     @GetMapping("/user/insert")
-    public String userInsert(@RequestParam(value = "id", required = true) String id,
-                             @RequestParam(value = "pw", required = true) String pw,
-                             @RequestParam(value = "nickname", required = true) String nickname) {
-        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-        CaUserEntity caUserEntity = CaUserEntity.UserBuilder()
-                .userIdid(id)
-                .userPw(pw)
-                .userNickname(nickname)
-                .userSignupTime(currentTime)
-                .userLastLoginTime(currentTime)
-                .userRest(0)
-                .build();
-        userService.join(caUserEntity);
+    public String userInsert(@RequestParam UserDto.Insert dto) {
+        userService.join(dto);
         log.info("/user/insert!");
         return "redirect:/";
     }

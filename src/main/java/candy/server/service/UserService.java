@@ -1,5 +1,6 @@
 package candy.server.service;
 
+import candy.server.dto.UserDto;
 import candy.server.model.CaUserEntity;
 import candy.server.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public void join(CaUserEntity caUserEntity) {
-        userRepository.save(caUserEntity);
+    public void join(UserDto.Insert caUserEntity) {
+        userRepository.save(caUserEntity.toEntity());
     }
 }
