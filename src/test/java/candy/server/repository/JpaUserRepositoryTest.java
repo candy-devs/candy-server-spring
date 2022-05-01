@@ -4,12 +4,15 @@ import candy.server.model.CaUserEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
+@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class JpaUserRepositoryTest {
@@ -19,13 +22,14 @@ public class JpaUserRepositoryTest {
 
     @BeforeEach
     void beforeEach() {
-        CaUserEntity caUserEntity = new CaUserEntity();
-        caUserEntity.setUserIdid("testid");
-        caUserEntity.setUserPw("testpw");
-        caUserEntity.setUserNickname("testnickname");
-        caUserEntity.setUserSignupTime(new Timestamp(System.currentTimeMillis()));
-        caUserEntity.setUserLastLoginTime(new Timestamp(System.currentTimeMillis()));
-        caUserEntity.setUserRest(0);
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        CaUserEntity caUserEntity = CaUserEntity.UserBuilder()
+                .userIdid("testid")
+                .userPw("testpw")
+                .userNickname("testnickname")
+                .userSignupTime(timestamp)
+                .userLastLoginTime(timestamp)
+                .build();
         userRepository.save(caUserEntity);
     }
 
