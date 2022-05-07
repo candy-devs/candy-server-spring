@@ -1,36 +1,24 @@
 package candy.server.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @Table(name = "CA_USER_OAUTH", schema = "PUBLIC", catalog = "TEST")
 @IdClass(CaUserOauthEntityPK.class)
 public class CaUserOauthEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "OAUTH_ID")
-    private int oauthId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ManyToOne
+    @JoinColumn(name = "OAUTH_ID")
+    private CaOauthEntity oauthId;
     @Id
-    @Column(name = "USER_ID")
-    private int userId;
-
-    public int getOauthId() {
-        return oauthId;
-    }
-
-    public void setOauthId(int oauthId) {
-        this.oauthId = oauthId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private CaUserEntity userId;
 
     @Override
     public boolean equals(Object o) {

@@ -16,9 +16,8 @@ public class CaUserLoginEntity {
     @Column(name = "LOGIN_ID")
     private long loginId;
 //    @Basic
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "USER_ID")
-//    @Column(name = "USER_ID")
     private CaUserEntity userId;
     @Basic
     @Column(name = "OAUTH_ID")
@@ -30,14 +29,14 @@ public class CaUserLoginEntity {
     @Column(name = "LOGIN_IP")
     private String loginIp;
     @Basic
-    @Column(name = "LOGIN_TYPE")
-    private int loginType;
+    @Column(name = "LOGIN_TYPE", length = 64)
+    private CaUserLoginTypeEnum loginType;
     @Basic
     @Column(name = "LOGIN_LOC")
-    private int loginLoc;
+    private CaUserLoginLocEnum loginLoc;
     @Basic
     @Column(name = "LOGIN_SUCC")
-    private int loginSucc;
+    private CaUserLoginSuccEnum loginSucc;
 
     @Override
     public boolean equals(Object o) {

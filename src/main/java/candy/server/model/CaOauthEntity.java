@@ -1,10 +1,14 @@
 package candy.server.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @Table(name = "CA_OAUTH", schema = "PUBLIC", catalog = "TEST")
 public class CaOauthEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,45 +17,14 @@ public class CaOauthEntity {
     private long oauthId;
     @Basic
     @Column(name = "OAUTH_TYPE")
-    private int oauthType;
+    private CaOauthTypeEnum oauthType;
     @Basic
     @Column(name = "OAUTH_TIMED")
     private Timestamp oauthTimed;
     @Basic
+    @Lob
     @Column(name = "OAUTH_META")
     private String oauthMeta;
-
-    public long getOauthId() {
-        return oauthId;
-    }
-
-    public void setOauthId(long oauthId) {
-        this.oauthId = oauthId;
-    }
-
-    public int getOauthType() {
-        return oauthType;
-    }
-
-    public void setOauthType(int oauthType) {
-        this.oauthType = oauthType;
-    }
-
-    public Timestamp getOauthTimed() {
-        return oauthTimed;
-    }
-
-    public void setOauthTimed(Timestamp oauthTimed) {
-        this.oauthTimed = oauthTimed;
-    }
-
-    public String getOauthMeta() {
-        return oauthMeta;
-    }
-
-    public void setOauthMeta(String oauthMeta) {
-        this.oauthMeta = oauthMeta;
-    }
 
     @Override
     public boolean equals(Object o) {

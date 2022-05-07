@@ -1,6 +1,7 @@
 package candy.server.model;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -21,23 +22,29 @@ public class CaUserEntity {
     @Id
     @Column(name = "USER_ID")
     private long userId;
-    @Column(name = "USER_IDID")
+    @Column(name = "USER_IDID", length = 255)
     private String userIdid;
     @Basic
-    @Column(name = "USER_PW")
+    @Column(name = "USER_PW", length = 512)
     private String userPw;
     @Basic
-    @Column(name = "USER_NICKNAME")
+    @Column(name = "USER_NICKNAME", length = 20)
     private String userNickname;
     @Basic
     @Column(name = "USER_SIGNUP_TIME")
+    @CreationTimestamp
     private Timestamp userSignupTime;
     @Basic
     @Column(name = "USER_LAST_LOGIN_TIME")
+    @CreationTimestamp
     private Timestamp userLastLoginTime;
     @Basic
     @Column(name = "USER_REST")
     private int userRest;
+
+    @OneToMany(mappedBy = "userId")
+    private List<CaUserLoginEntity> caUserLoginEntityList;
+
 
     @Override
     public boolean equals(Object o) {
@@ -51,8 +58,5 @@ public class CaUserEntity {
     public int hashCode() {
         return Objects.hash(userId, userIdid, userPw, userNickname, userSignupTime, userLastLoginTime, userRest);
     }
-
-    @OneToMany(mappedBy = "userId")
-    private List<CaUserLoginEntity> caUserLoginEntityList = new ArrayList<>();
 
 }

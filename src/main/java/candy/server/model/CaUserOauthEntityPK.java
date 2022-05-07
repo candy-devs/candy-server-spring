@@ -1,37 +1,23 @@
 package candy.server.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+
+@Getter @Setter
 public class CaUserOauthEntityPK implements Serializable {
-    @Column(name = "OAUTH_ID")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int oauthId;
-    @Column(name = "USER_ID")
+    @ManyToOne
+    @JoinColumn(name = "OAUTH_ID")
+    private CaOauthEntity oauthId;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userId;
-
-    public int getOauthId() {
-        return oauthId;
-    }
-
-    public void setOauthId(int oauthId) {
-        this.oauthId = oauthId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private CaUserEntity userId;
 
     @Override
     public boolean equals(Object o) {
