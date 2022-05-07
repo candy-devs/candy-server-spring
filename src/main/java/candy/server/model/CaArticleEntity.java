@@ -1,25 +1,34 @@
 package candy.server.model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 @Entity
+@Getter @Setter
 @Table(name = "CA_ARTICLE", schema = "PUBLIC", catalog = "TEST")
+@NoArgsConstructor(access  = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder(builderMethodName = "ArticleBuilder")
 public class CaArticleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ARTICLE_ID")
     private long articleId;
-    @Basic
-    @Column(name = "BOARD_ID")
-    private int boardId;
-    @Basic
-    @Column(name = "ANON_ID")
-    private Integer anonId;
-    @Basic
-    @Column(name = "USER_ID")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "BOARD_ID")
+    private CaBoardEntity boardId;
+    @ManyToOne
+    @JoinColumn(nullable = true, name = "ANON_ID")
+    private CaAnonEntity anonId;
+    @ManyToOne
+    @JoinColumn(nullable = true, name = "USER_ID")
+    private CaUserEntity userId;
     @Basic
     @Column(name = "ARTICLE_TITLE")
     private String articleTitle;
@@ -80,198 +89,6 @@ public class CaArticleEntity {
     @Basic
     @Column(name = "ARTICLE_BOOKMARK_COUNT")
     private int articleBookmarkCount;
-
-    public long getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(long articleId) {
-        this.articleId = articleId;
-    }
-
-    public int getBoardId() {
-        return boardId;
-    }
-
-    public void setBoardId(int boardId) {
-        this.boardId = boardId;
-    }
-
-    public Integer getAnonId() {
-        return anonId;
-    }
-
-    public void setAnonId(Integer anonId) {
-        this.anonId = anonId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getArticleTitle() {
-        return articleTitle;
-    }
-
-    public void setArticleTitle(String articleTitle) {
-        this.articleTitle = articleTitle;
-    }
-
-    public String getArticleTitlePretty() {
-        return articleTitlePretty;
-    }
-
-    public void setArticleTitlePretty(String articleTitlePretty) {
-        this.articleTitlePretty = articleTitlePretty;
-    }
-
-    public String getArticleBody() {
-        return articleBody;
-    }
-
-    public void setArticleBody(String articleBody) {
-        this.articleBody = articleBody;
-    }
-
-    public Integer getArticleUserSpecific() {
-        return articleUserSpecific;
-    }
-
-    public void setArticleUserSpecific(Integer articleUserSpecific) {
-        this.articleUserSpecific = articleUserSpecific;
-    }
-
-    public String getArticleIp() {
-        return articleIp;
-    }
-
-    public void setArticleIp(String articleIp) {
-        this.articleIp = articleIp;
-    }
-
-    public String getArticleNickname() {
-        return articleNickname;
-    }
-
-    public void setArticleNickname(String articleNickname) {
-        this.articleNickname = articleNickname;
-    }
-
-    public String getArticlePassword() {
-        return articlePassword;
-    }
-
-    public void setArticlePassword(String articlePassword) {
-        this.articlePassword = articlePassword;
-    }
-
-    public int getArticleType() {
-        return articleType;
-    }
-
-    public void setArticleType(int articleType) {
-        this.articleType = articleType;
-    }
-
-    public Timestamp getArticleWriteTime() {
-        return articleWriteTime;
-    }
-
-    public void setArticleWriteTime(Timestamp articleWriteTime) {
-        this.articleWriteTime = articleWriteTime;
-    }
-
-    public Timestamp getArticleLastUpdateTime() {
-        return articleLastUpdateTime;
-    }
-
-    public void setArticleLastUpdateTime(Timestamp articleLastUpdateTime) {
-        this.articleLastUpdateTime = articleLastUpdateTime;
-    }
-
-    public int getArticleCommentCount() {
-        return articleCommentCount;
-    }
-
-    public void setArticleCommentCount(int articleCommentCount) {
-        this.articleCommentCount = articleCommentCount;
-    }
-
-    public int getArticleNotice() {
-        return articleNotice;
-    }
-
-    public void setArticleNotice(int articleNotice) {
-        this.articleNotice = articleNotice;
-    }
-
-    public int getArticleView() {
-        return articleView;
-    }
-
-    public void setArticleView(int articleView) {
-        this.articleView = articleView;
-    }
-
-    public int getArticleUpvote() {
-        return articleUpvote;
-    }
-
-    public void setArticleUpvote(int articleUpvote) {
-        this.articleUpvote = articleUpvote;
-    }
-
-    public int getArticleDownvote() {
-        return articleDownvote;
-    }
-
-    public void setArticleDownvote(int articleDownvote) {
-        this.articleDownvote = articleDownvote;
-    }
-
-    public int getArticleDevice() {
-        return articleDevice;
-    }
-
-    public void setArticleDevice(int articleDevice) {
-        this.articleDevice = articleDevice;
-    }
-
-    public int getArticleAbuse() {
-        return articleAbuse;
-    }
-
-    public void setArticleAbuse(int articleAbuse) {
-        this.articleAbuse = articleAbuse;
-    }
-
-    public int getArticleDel() {
-        return articleDel;
-    }
-
-    public void setArticleDel(int articleDel) {
-        this.articleDel = articleDel;
-    }
-
-    public int getArticleHide() {
-        return articleHide;
-    }
-
-    public void setArticleHide(int articleHide) {
-        this.articleHide = articleHide;
-    }
-
-    public int getArticleBookmarkCount() {
-        return articleBookmarkCount;
-    }
-
-    public void setArticleBookmarkCount(int articleBookmarkCount) {
-        this.articleBookmarkCount = articleBookmarkCount;
-    }
 
     @Override
     public boolean equals(Object o) {
