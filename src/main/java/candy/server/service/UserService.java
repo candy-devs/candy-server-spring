@@ -14,15 +14,22 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-//    public UserService(UserRepository userRepository) {
-//        this.userRepository = userRepository;
-//    }
-
     public List<CaUserEntity> findAll() {
         return userRepository.findAll();
     }
 
-    public void join(UserDto.Insert caUserEntity) {
-        userRepository.save(caUserEntity.toEntity());
+    private String convertPasswordToHash(String pw) {
+        return pw;
+    }
+
+    public void join(UserDto.Insert dto) {
+        if (userRepository.findByUserIdid(dto.getId()).isPresent())
+            throw new IllegalArgumentException("User-id is exists!");
+        if (userRepository.findByUserNickname(dto.getNickname()).isPresent())
+            throw new IllegalArgumentException("User-nickname is exists!");
+
+        dto.setPw(convertPasswordToHash(dto.getPw()));
+
+        userRepository.save(dto.toEntity());
     }
 }

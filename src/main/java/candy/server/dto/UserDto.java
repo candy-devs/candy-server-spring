@@ -28,7 +28,6 @@ public class UserDto {
                     .userRest(0)
                     .build();
         }
-
     }
 
 }

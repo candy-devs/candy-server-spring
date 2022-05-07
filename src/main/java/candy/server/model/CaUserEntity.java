@@ -22,6 +22,7 @@ public class CaUserEntity {
     @Id
     @Column(name = "USER_ID")
     private long userId;
+    @Basic
     @Column(name = "USER_IDID", length = 255)
     private String userIdid;
     @Basic
