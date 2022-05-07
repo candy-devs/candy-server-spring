@@ -10,6 +10,8 @@ import java.util.Objects;
 
 @Entity
 @ToString
+@Getter
+@Setter
 @Table(name = "CA_USER", schema = "PUBLIC", catalog = "TEST")
 @NoArgsConstructor(access  = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -36,62 +38,6 @@ public class CaUserEntity {
     @Basic
     @Column(name = "USER_REST")
     private int userRest;
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public String getUserIdid() {
-        return userIdid;
-    }
-
-    public void setUserIdid(String userIdid) {
-        this.userIdid = userIdid;
-    }
-
-    public String getUserPw() {
-        return userPw;
-    }
-
-    public void setUserPw(String userPw) {
-        this.userPw = userPw;
-    }
-
-    public String getUserNickname() {
-        return userNickname;
-    }
-
-    public void setUserNickname(String userNickname) {
-        this.userNickname = userNickname;
-    }
-
-    public Timestamp getUserSignupTime() {
-        return userSignupTime;
-    }
-
-    public void setUserSignupTime(Timestamp userSignupTime) {
-        this.userSignupTime = userSignupTime;
-    }
-
-    public Timestamp getUserLastLoginTime() {
-        return userLastLoginTime;
-    }
-
-    public void setUserLastLoginTime(Timestamp userLastLoginTime) {
-        this.userLastLoginTime = userLastLoginTime;
-    }
-
-    public int getUserRest() {
-        return userRest;
-    }
-
-    public void setUserRest(int userRest) {
-        this.userRest = userRest;
-    }
 
     @Override
     public boolean equals(Object o) {

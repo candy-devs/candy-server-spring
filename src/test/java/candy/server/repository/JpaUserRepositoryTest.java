@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 @Transactional
 public class JpaUserRepositoryTest {
@@ -38,6 +37,5 @@ public class JpaUserRepositoryTest {
         CaUserEntity caUserEntity = userRepository.findByUserNickname("testnickname").get();
         Assertions.assertThat(caUserEntity).isNotNull();
     }
-
 
 }

@@ -2,6 +2,7 @@ package candy.server.dto;
 
 import candy.server.model.CaUserEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ public class UserDto {
 
     @Data
     @AllArgsConstructor
+    @Builder
     public static class Insert {
         private String id;
         private String pw;
