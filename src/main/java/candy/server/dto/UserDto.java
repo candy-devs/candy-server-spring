@@ -12,7 +12,7 @@ public class UserDto {
     @Data
     @AllArgsConstructor
     @Builder
-    public static class Insert {
+    public static class Signup {
         private String id;
         private String pw;
         private String nickname;

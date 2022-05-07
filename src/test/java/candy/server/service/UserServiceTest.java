@@ -20,26 +20,26 @@ public class UserServiceTest {
 
     @Test
     void 유저_회원가입_성공() {
-        UserDto.Insert insert = UserDto.Insert
+        UserDto.Signup signup = UserDto.Signup
                 .builder()
                 .id("testid")
                 .pw("testpw")
                 .nickname("testnickname")
                 .build();
 
-        userService.join(insert);
+        userService.join(signup);
     }
 
     @Test
     void 유저_회원가입_실패() {
-        UserDto.Insert insert = UserDto.Insert
+        UserDto.Signup signup = UserDto.Signup
                 .builder()
                 .id("testid")
                 .pw("testpw")
                 .nickname("testnickname")
                 .build();
 
-        userService.join(insert);
-        assertThatIllegalArgumentException().isThrownBy(() -> userService.join(insert));
+        userService.join(signup);
+        assertThatIllegalArgumentException().isThrownBy(() -> userService.join(signup));
     }
 }

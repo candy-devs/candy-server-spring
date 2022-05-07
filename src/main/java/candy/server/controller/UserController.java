@@ -27,10 +27,10 @@ public class UserController {
         return userService.findAll();
     }
 
-    @GetMapping("/user/insert")
-    public String userInsert(@RequestParam UserDto.Insert dto) {
+    @GetMapping("/user/signup")
+    public String userSignup(@RequestParam UserDto.Signup dto) {
         userService.join(dto);
-        log.info("/user/insert!");
+        log.info("/user/signup!");
         return "redirect:/";
     }
 }

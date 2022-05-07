@@ -22,7 +22,7 @@ public class UserService {
         return pw;
     }
 
-    public void join(UserDto.Insert dto) {
+    public void join(UserDto.Signup dto) {
         if (userRepository.findByUserIdid(dto.getId()).isPresent())
             throw new IllegalArgumentException("User-id is exists!");
         if (userRepository.findByUserNickname(dto.getNickname()).isPresent())
