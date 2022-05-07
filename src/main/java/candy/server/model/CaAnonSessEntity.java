@@ -1,19 +1,23 @@
 package candy.server.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @Table(name = "CA_ANON_SESS", schema = "PUBLIC", catalog = "TEST")
 public class CaAnonSessEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ANONSESS_ID")
     private long anonsessId;
-    @Basic
-    @Column(name = "ANON_ID")
-    private int anonId;
+    @ManyToOne
+    @JoinColumn(name = "ANON_ID")
+    private CaAnonEntity anonId;
     @Basic
     @Column(name = "ANONSESS_IP")
     private String anonsessIp;
@@ -26,54 +30,6 @@ public class CaAnonSessEntity {
     @Basic
     @Column(name = "ANONSESS_PRE_SESS")
     private String anonsessPreSess;
-
-    public long getAnonsessId() {
-        return anonsessId;
-    }
-
-    public void setAnonsessId(long anonsessId) {
-        this.anonsessId = anonsessId;
-    }
-
-    public int getAnonId() {
-        return anonId;
-    }
-
-    public void setAnonId(int anonId) {
-        this.anonId = anonId;
-    }
-
-    public String getAnonsessIp() {
-        return anonsessIp;
-    }
-
-    public void setAnonsessIp(String anonsessIp) {
-        this.anonsessIp = anonsessIp;
-    }
-
-    public Timestamp getAnonsessTime() {
-        return anonsessTime;
-    }
-
-    public void setAnonsessTime(Timestamp anonsessTime) {
-        this.anonsessTime = anonsessTime;
-    }
-
-    public int getAnonsessRefresh() {
-        return anonsessRefresh;
-    }
-
-    public void setAnonsessRefresh(int anonsessRefresh) {
-        this.anonsessRefresh = anonsessRefresh;
-    }
-
-    public String getAnonsessPreSess() {
-        return anonsessPreSess;
-    }
-
-    public void setAnonsessPreSess(String anonsessPreSess) {
-        this.anonsessPreSess = anonsessPreSess;
-    }
 
     @Override
     public boolean equals(Object o) {

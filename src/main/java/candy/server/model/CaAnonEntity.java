@@ -1,10 +1,15 @@
 package candy.server.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @Table(name = "CA_ANON", schema = "PUBLIC", catalog = "TEST")
 public class CaAnonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,53 +32,10 @@ public class CaAnonEntity {
     @Column(name = "ANON_TYPE")
     private int anonType;
 
-    public long getAnonId() {
-        return anonId;
-    }
-
-    public void setAnonId(long anonId) {
-        this.anonId = anonId;
-    }
-
-    public Timestamp getAnonTime() {
-        return anonTime;
-    }
-
-    public void setAnonTime(Timestamp anonTime) {
-        this.anonTime = anonTime;
-    }
-
-    public Timestamp getAnonLastTime() {
-        return anonLastTime;
-    }
-
-    public void setAnonLastTime(Timestamp anonLastTime) {
-        this.anonLastTime = anonLastTime;
-    }
-
-    public String getAnonSess() {
-        return anonSess;
-    }
-
-    public void setAnonSess(String anonSess) {
-        this.anonSess = anonSess;
-    }
-
-    public String getAnonJwt() {
-        return anonJwt;
-    }
-
-    public void setAnonJwt(String anonJwt) {
-        this.anonJwt = anonJwt;
-    }
-
-    public int getAnonType() {
-        return anonType;
-    }
-
-    public void setAnonType(int anonType) {
-        this.anonType = anonType;
-    }
+    @OneToMany(mappedBy = "anonId")
+    private List<CaAnonJwtEntity> caAnonJwtEntityList;
+    @OneToMany(mappedBy = "anonId")
+    private List<CaAnonSessEntity> caAnonSessEntityList;
 
     @Override
     public boolean equals(Object o) {
