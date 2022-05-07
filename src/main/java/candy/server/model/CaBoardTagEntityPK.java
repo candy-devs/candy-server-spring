@@ -1,37 +1,22 @@
 package candy.server.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
+@Getter @Setter
 public class CaBoardTagEntityPK implements Serializable {
-    @Column(name = "TAG_ID")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int tagId;
-    @Column(name = "BOARD_ID")
+    @ManyToOne
+    @JoinColumn(name = "TAG_ID")
+    private CaTagEntity tagId;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int boardId;
-
-    public int getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(int tagId) {
-        this.tagId = tagId;
-    }
-
-    public int getBoardId() {
-        return boardId;
-    }
-
-    public void setBoardId(int boardId) {
-        this.boardId = boardId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "BOARD_ID")
+    private CaBoardEntity boardId;
 
     @Override
     public boolean equals(Object o) {

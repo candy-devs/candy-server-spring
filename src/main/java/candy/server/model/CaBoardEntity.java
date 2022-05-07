@@ -1,6 +1,7 @@
 package candy.server.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,35 +12,14 @@ public class CaBoardEntity {
     @Column(name = "BOARD_ID")
     private long boardId;
     @Basic
-    @Column(name = "BOARD_KEY")
+    @Column(name = "BOARD_KEY", length = 50)
     private String boardKey;
     @Basic
-    @Column(name = "BOARD_NAME")
+    @Column(name = "BOARD_NAME", length = 50)
     private String boardName;
 
-    public long getBoardId() {
-        return boardId;
-    }
-
-    public void setBoardId(long boardId) {
-        this.boardId = boardId;
-    }
-
-    public String getBoardKey() {
-        return boardKey;
-    }
-
-    public void setBoardKey(String boardKey) {
-        this.boardKey = boardKey;
-    }
-
-    public String getBoardName() {
-        return boardName;
-    }
-
-    public void setBoardName(String boardName) {
-        this.boardName = boardName;
-    }
+    @OneToMany(mappedBy = "boardId")
+    private List<CaArticleEntity> caArticleEntityList;
 
     @Override
     public boolean equals(Object o) {

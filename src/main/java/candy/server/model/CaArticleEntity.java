@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Objects;
 
 import static com.google.common.base.Preconditions.checkArgument;
@@ -30,29 +31,30 @@ public class CaArticleEntity {
     @JoinColumn(nullable = true, name = "USER_ID")
     private CaUserEntity userId;
     @Basic
-    @Column(name = "ARTICLE_TITLE")
+    @Column(name = "ARTICLE_TITLE", length = 50)
     private String articleTitle;
     @Basic
-    @Column(name = "ARTICLE_TITLE_PRETTY")
+    @Column(name = "ARTICLE_TITLE_PRETTY", length = 50)
     private String articleTitlePretty;
     @Basic
+    @Lob
     @Column(name = "ARTICLE_BODY")
     private String articleBody;
     @Basic
     @Column(name = "ARTICLE_USER_SPECIFIC")
     private Integer articleUserSpecific;
     @Basic
-    @Column(name = "ARTICLE_IP")
+    @Column(name = "ARTICLE_IP", length = 64)
     private String articleIp;
     @Basic
-    @Column(name = "ARTICLE_NICKNAME")
+    @Column(name = "ARTICLE_NICKNAME", length = 50)
     private String articleNickname;
     @Basic
-    @Column(name = "ARTICLE_PASSWORD")
+    @Column(name = "ARTICLE_PASSWORD", length = 255)
     private String articlePassword;
     @Basic
     @Column(name = "ARTICLE_TYPE")
-    private int articleType;
+    private CaArticleTypeEnum articleType;
     @Basic
     @Column(name = "ARTICLE_WRITE_TIME")
     private Timestamp articleWriteTime;
@@ -89,6 +91,19 @@ public class CaArticleEntity {
     @Basic
     @Column(name = "ARTICLE_BOOKMARK_COUNT")
     private int articleBookmarkCount;
+
+    @OneToMany(mappedBy = "articleId")
+    private List<CaArticleMetaEntity> caArticleMetaEntityList;
+    @OneToMany(mappedBy = "articleId")
+    private List<CaArticleTagEntity> caArticleTagEntityList;
+    @OneToMany(mappedBy = "articleId")
+    private List<CaArticleReadUserEntity> caArticleReadUserEntityList;
+    @OneToMany(mappedBy = "articleId")
+    private List<CaArticleReadAnonEntity> caArticleReadAnonEntityList;
+    @OneToMany(mappedBy = "articleId")
+    private List<CaArticleAbuseEntity> caArticleAbuseEntityList;
+    @OneToMany(mappedBy = "articleId")
+    private List<CaArticleUpdateRecordEntity> caArticleUpdateRecordEntityList;
 
     @Override
     public boolean equals(Object o) {

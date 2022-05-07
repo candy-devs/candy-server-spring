@@ -1,79 +1,35 @@
 package candy.server.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @Table(name = "CA_ARTICLE_UPDATE_RECORD", schema = "PUBLIC", catalog = "TEST")
 public class CaArticleUpdateRecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "AUR_ID")
     private long aurId;
-    @Basic
-    @Column(name = "ARTICLE_ID")
-    private int articleId;
-    @Basic
-    @Column(name = "ANON_ID")
-    private int anonId;
-    @Basic
-    @Column(name = "USER_ID")
-    private int userId;
+    @ManyToOne
+    @JoinColumn(name = "ARTICLE_ID")
+    private CaArticleEntity articleId;
+    @ManyToOne
+    @JoinColumn(name = "ANON_ID")
+    private CaAnonEntity anonId;
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private CaUserEntity userId;
     @Basic
     @Column(name = "AUR_TIME")
     private Timestamp aurTime;
     @Basic
-    @Column(name = "AUR_IP")
+    @Column(name = "AUR_IP", length = 64)
     private String aurIp;
-
-    public long getAurId() {
-        return aurId;
-    }
-
-    public void setAurId(long aurId) {
-        this.aurId = aurId;
-    }
-
-    public int getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
-    }
-
-    public int getAnonId() {
-        return anonId;
-    }
-
-    public void setAnonId(int anonId) {
-        this.anonId = anonId;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public Timestamp getAurTime() {
-        return aurTime;
-    }
-
-    public void setAurTime(Timestamp aurTime) {
-        this.aurTime = aurTime;
-    }
-
-    public String getAurIp() {
-        return aurIp;
-    }
-
-    public void setAurIp(String aurIp) {
-        this.aurIp = aurIp;
-    }
 
     @Override
     public boolean equals(Object o) {

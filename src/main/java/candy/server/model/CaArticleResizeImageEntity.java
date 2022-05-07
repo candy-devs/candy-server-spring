@@ -20,8 +20,11 @@ public class CaArticleResizeImageEntity {
     @Column(name = "ARI_FILENAME")
     private String ariFilename;
     @Basic
-    @Column(name = "ARI_EXT")
+    @Column(name = "ARI_EXT", length = 10)
     private String ariExt;
+
+    @OneToOne(mappedBy = "ariId")
+    private CaArticleMetaEntity caArticleMetaEntity;
 
     public long getAriId() {
         return ariId;

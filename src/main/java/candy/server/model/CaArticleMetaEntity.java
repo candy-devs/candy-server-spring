@@ -1,22 +1,27 @@
 package candy.server.model;
 
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @Table(name = "CA_ARTICLE_META", schema = "PUBLIC", catalog = "TEST")
 public class CaArticleMetaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "AM_ID")
     private long amId;
-    @Basic
-    @Column(name = "ARTICLE_ID")
-    private int articleId;
-    @Basic
-    @Column(name = "ARI_ID")
-    private Integer ariId;
+    @ManyToOne
+    @JoinColumn(name = "ARTICLE_ID")
+    private CaArticleEntity articleId;
+    @OneToOne
+    @JoinColumn(name = "ARI_ID")
+    private CaArticleResizeImageEntity ariId;
     @Basic
     @Column(name = "AM_TOKEN")
     private String amToken;
@@ -33,13 +38,14 @@ public class CaArticleMetaEntity {
     @Column(name = "AM_SIZE")
     private long amSize;
     @Basic
-    @Column(name = "AM_EXT")
+    @Column(name = "AM_EXT", length = 10)
     private String amExt;
     @Basic
     @Column(name = "AM_IP")
     private String amIp;
     @Basic
     @Column(name = "AM_WRITE_TIME")
+    @CreationTimestamp
     private Timestamp amWriteTime;
     @Basic
     @Column(name = "AM_REF")
@@ -50,118 +56,6 @@ public class CaArticleMetaEntity {
     @Basic
     @Column(name = "AM_HEIGHT")
     private Integer amHeight;
-
-    public long getAmId() {
-        return amId;
-    }
-
-    public void setAmId(long amId) {
-        this.amId = amId;
-    }
-
-    public int getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
-    }
-
-    public Integer getAriId() {
-        return ariId;
-    }
-
-    public void setAriId(Integer ariId) {
-        this.ariId = ariId;
-    }
-
-    public String getAmToken() {
-        return amToken;
-    }
-
-    public void setAmToken(String amToken) {
-        this.amToken = amToken;
-    }
-
-    public String getAmOFilename() {
-        return amOFilename;
-    }
-
-    public void setAmOFilename(String amOFilename) {
-        this.amOFilename = amOFilename;
-    }
-
-    public String getAmFilename() {
-        return amFilename;
-    }
-
-    public void setAmFilename(String amFilename) {
-        this.amFilename = amFilename;
-    }
-
-    public int getAmType() {
-        return amType;
-    }
-
-    public void setAmType(int amType) {
-        this.amType = amType;
-    }
-
-    public long getAmSize() {
-        return amSize;
-    }
-
-    public void setAmSize(long amSize) {
-        this.amSize = amSize;
-    }
-
-    public String getAmExt() {
-        return amExt;
-    }
-
-    public void setAmExt(String amExt) {
-        this.amExt = amExt;
-    }
-
-    public String getAmIp() {
-        return amIp;
-    }
-
-    public void setAmIp(String amIp) {
-        this.amIp = amIp;
-    }
-
-    public Timestamp getAmWriteTime() {
-        return amWriteTime;
-    }
-
-    public void setAmWriteTime(Timestamp amWriteTime) {
-        this.amWriteTime = amWriteTime;
-    }
-
-    public int getAmRef() {
-        return amRef;
-    }
-
-    public void setAmRef(int amRef) {
-        this.amRef = amRef;
-    }
-
-    public Integer getAmWidth() {
-        return amWidth;
-    }
-
-    public void setAmWidth(Integer amWidth) {
-        this.amWidth = amWidth;
-    }
-
-    public Integer getAmHeight() {
-        return amHeight;
-    }
-
-    public void setAmHeight(Integer amHeight) {
-        this.amHeight = amHeight;
-    }
 
     @Override
     public boolean equals(Object o) {

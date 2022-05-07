@@ -1,36 +1,24 @@
 package candy.server.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Getter @Setter
 @Table(name = "CA_ARTICLE_TAG", schema = "PUBLIC", catalog = "TEST")
 @IdClass(CaArticleTagEntityPK.class)
 public class CaArticleTagEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "TAG_ID")
-    private int tagId;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ManyToOne
+    @JoinColumn(name = "TAG_ID")
+    private CaTagEntity tagId;
     @Id
-    @Column(name = "ARTICLE_ID")
-    private int articleId;
-
-    public int getTagId() {
-        return tagId;
-    }
-
-    public void setTagId(int tagId) {
-        this.tagId = tagId;
-    }
-
-    public int getArticleId() {
-        return articleId;
-    }
-
-    public void setArticleId(int articleId) {
-        this.articleId = articleId;
-    }
+    @ManyToOne
+    @JoinColumn(name = "ARTICLE_ID")
+    private CaArticleEntity articleId;
 
     @Override
     public boolean equals(Object o) {
