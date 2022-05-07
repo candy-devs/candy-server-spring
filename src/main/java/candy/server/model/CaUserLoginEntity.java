@@ -16,7 +16,7 @@ public class CaUserLoginEntity {
     @Column(name = "LOGIN_ID")
     private long loginId;
 //    @Basic
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
 //    @Column(name = "USER_ID")
     private CaUserEntity userId;
