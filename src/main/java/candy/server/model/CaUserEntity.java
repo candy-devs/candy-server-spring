@@ -23,13 +23,13 @@ public class CaUserEntity {
     @Column(name = "USER_ID")
     private long userId;
     @Basic
-    @Column(name = "USER_IDID", length = 255)
+    @Column(name = "USER_IDID", length = 255, unique = true)
     private String userIdid;
     @Basic
     @Column(name = "USER_PW", length = 512)
     private String userPw;
     @Basic
-    @Column(name = "USER_NICKNAME", length = 20)
+    @Column(name = "USER_NICKNAME", length = 20, unique = true)
     private String userNickname;
     @Basic
     @Column(name = "USER_SIGNUP_TIME")
