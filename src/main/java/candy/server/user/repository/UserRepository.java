@@ -1,4 +1,4 @@
-package candy.server.repository;
+package candy.server.user.repository;
 
 import candy.server.model.CaUserEntity;
 

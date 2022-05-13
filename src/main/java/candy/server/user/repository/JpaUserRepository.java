@@ -1,9 +1,7 @@
-package candy.server.repository;
+package candy.server.user.repository;
 
 import candy.server.model.CaUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.Optional;
 
 public interface JpaUserRepository extends JpaRepository<CaUserEntity, UserRepository>, UserRepository {
 //    private final EntityManager em;

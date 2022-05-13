@@ -1,13 +1,11 @@
-package candy.server.service;
+package candy.server.user.service;
 
-import candy.server.dto.UserDto;
-import candy.server.model.CaUserEntity;
+import candy.server.user.dto.UserDto;
+import candy.server.user.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.sql.Timestamp;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 

@@ -1,19 +1,16 @@
-package candy.server.controller;
+package candy.server.user.controller;
 
-import candy.server.dto.UserDto;
+import candy.server.user.dto.UserDto;
 import candy.server.model.CaUserEntity;
-import candy.server.service.UserService;
-import lombok.AllArgsConstructor;
+import candy.server.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 @RequiredArgsConstructor
