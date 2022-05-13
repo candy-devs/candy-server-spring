@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 
 public class UserDto {
 
@@ -30,4 +31,18 @@ public class UserDto {
         }
     }
 
+    @Data
+    @AllArgsConstructor
+    @Builder
+    public static class Login {
+        private String id;
+        private String pw;
+    }
+
+    public record UserCreateData (
+
+    ) {
+
+    }
 }
+
