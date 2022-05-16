@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -30,5 +31,14 @@ public class UserService {
         dto.setPw(convertPasswordToHash(dto.getPw()));
 
         userRepository.save(dto.toEntity());
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserDto.UserListsResponse> findAllUsers() {
+        return userRepository
+                .findAll()
+                .stream()
+                .map(UserDto.UserListsResponse::new)
+                .collect(Collectors.toList());
     }
 }

@@ -4,6 +4,7 @@ import candy.server.model.CaUserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 
 import java.sql.Timestamp;
 import java.time.OffsetDateTime;
@@ -32,11 +33,22 @@ public class UserDto {
     }
 
     @Data
-    @AllArgsConstructor
+    @Getter
     @Builder
     public static class Login {
         private String id;
         private String pw;
+    }
+
+    @Getter
+    public static class UserListsResponse {
+        private final String id;
+        private final String nickname;
+
+        public UserListsResponse(CaUserEntity entity) {
+            this.id = entity.getUserIdid();
+            this.nickname = entity.getUserNickname();
+        }
     }
 
     public record UserCreateData (
