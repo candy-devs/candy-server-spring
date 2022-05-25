@@ -1,0 +1,2 @@
+CREATE SCHEMA IF NOT EXISTS candyserver;
+CREATE SCHEMA IF NOT EXISTS candyservertest;

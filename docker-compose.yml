@@ -1,0 +1,22 @@
+services:
+  candymysql:
+    platform: linux/x86_64
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - ./config/:/docker-entrypoint-initdb.d/
+    ports:
+      - 3306:3306
+
+#  myredis:
+#    image: redis
+#    container_name: myredis
+#    command:
+#      - redis-server --port 6379
+#    labels:
+#      - "name=redis"
+#      - "mode=standalone"
+#    ports:
+#      - 6379:6379
