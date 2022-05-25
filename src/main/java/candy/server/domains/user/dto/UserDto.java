@@ -1,4 +1,4 @@
-package candy.server.user.dto;
+package candy.server.domains.user.dto;
 
 import candy.server.model.CaUserEntity;
 import lombok.AllArgsConstructor;

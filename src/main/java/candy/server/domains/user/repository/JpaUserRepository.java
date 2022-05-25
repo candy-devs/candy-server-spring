@@ -1,4 +1,4 @@
-package candy.server.user.repository;
+package candy.server.domains.user.repository;
 
 import candy.server.model.CaUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

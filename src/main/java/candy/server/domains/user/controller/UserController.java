@@ -1,8 +1,8 @@
-package candy.server.user.controller;
+package candy.server.domains.user.controller;
 
-import candy.server.user.dto.UserDto;
+import candy.server.domains.user.dto.UserDto;
 import candy.server.model.CaUserEntity;
-import candy.server.user.service.UserService;
+import candy.server.domains.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

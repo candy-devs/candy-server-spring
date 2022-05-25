@@ -1,8 +1,8 @@
-package candy.server.user.service;
+package candy.server.domains.user.service;
 
-import candy.server.user.dto.UserDto;
+import candy.server.domains.user.dto.UserDto;
+import candy.server.domains.user.repository.UserRepository;
 import candy.server.model.CaUserEntity;
-import candy.server.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
