@@ -25,6 +25,12 @@ public class CaOauthEntity {
     @Lob
     @Column(name = "OAUTH_META")
     private String oauthMeta;
+    @Column
+    private String name;
+    @Column
+    private String email;
+    @Column
+    private String picture;
 
     @Override
     public boolean equals(Object o) {
