@@ -13,7 +13,7 @@ public class ArticleController {
 
     @PostMapping("/article/write")
     @ResponseBody
-    public void articleWrite(HttpSession session, @RequestBody ArticleDto.ArticleWriteRequest dto) {
-
+    public String articleWrite(HttpSession session, @RequestBody ArticleDto.ArticleWriteRequest dto) {
+        return "hello";
     }
 }

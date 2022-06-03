@@ -13,11 +13,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .mvcMatchers("/").permitAll()
-                .mvcMatchers("/**").permitAll()
-                .mvcMatchers("/admin").hasRole("ADMIN")
-                .anyRequest().authenticated();
+        // csrf issue: https://stackoverflow.com/a/38669526/3355656
+        http
+                .csrf().disable()
+                .headers().frameOptions().disable()
+                .and()
+                    .authorizeRequests()
+                    .mvcMatchers("/", "/article/write").permitAll()
+                    .mvcMatchers("/admin").hasRole("ADMIN")
+                    .anyRequest().authenticated();
         http.formLogin();
         http.httpBasic();
     }
