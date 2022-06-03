@@ -26,6 +26,11 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation 'com.google.guava:guava:31.1-jre'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'com.querydsl:querydsl-jpa:5.0.0'
+	annotationProcessor(
+			"javax.persistence:javax.persistence-api",
+			"javax.annotation:javax.annotation-api",
+			"com.querydsl:querydsl-apt:5.0.0:jpa")
 //	testImplementation 'org.springframework.security:spring-security-test'
 }
 
