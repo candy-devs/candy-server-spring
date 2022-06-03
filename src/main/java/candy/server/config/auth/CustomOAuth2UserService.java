@@ -1,6 +1,6 @@
 //package candy.server.config.auth;
 //
-//import candy.server.model.CaOauthEntity;
+//import candy.server.domains.auth.entity.CaOauthEntity;
 //import candy.server.user.repository.UserRepository;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.security.core.authority.SimpleGrantedAuthority;
