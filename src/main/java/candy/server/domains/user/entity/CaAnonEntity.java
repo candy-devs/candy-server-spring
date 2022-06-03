@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ANON", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_ANON", schema = "PUBLIC")
 public class CaAnonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

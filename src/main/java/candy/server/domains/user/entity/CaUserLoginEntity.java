@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_USER_LOGIN", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_USER_LOGIN", schema = "PUBLIC")
 public class CaUserLoginEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

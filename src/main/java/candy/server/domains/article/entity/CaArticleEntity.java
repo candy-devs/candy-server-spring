@@ -15,7 +15,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_ARTICLE", schema = "PUBLIC")
 @AllArgsConstructor
 @Builder(builderMethodName = "ArticleBuilder")
 public class CaArticleEntity {

@@ -8,7 +8,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_BOARD_TAG", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_BOARD_TAG", schema = "PUBLIC")
 @IdClass(CaBoardTagEntityPK.class)
 public class CaBoardTagEntity {
     @Id

@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_META", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_ARTICLE_META", schema = "PUBLIC")
 public class CaArticleMetaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

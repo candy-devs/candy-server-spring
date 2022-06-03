@@ -12,7 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_READ_ANON", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_ARTICLE_READ_ANON", schema = "PUBLIC")
 @DynamicInsert
 public class CaArticleReadAnonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)

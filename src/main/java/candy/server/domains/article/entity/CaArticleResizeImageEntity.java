@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CA_ARTICLE_RESIZE_IMAGE", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_ARTICLE_RESIZE_IMAGE", schema = "PUBLIC")
 public class CaArticleResizeImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

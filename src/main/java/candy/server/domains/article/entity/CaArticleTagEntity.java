@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_TAG", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_ARTICLE_TAG", schema = "PUBLIC")
 @IdClass(CaArticleTagEntityPK.class)
 public class CaArticleTagEntity {
     @Id

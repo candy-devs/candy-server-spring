@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_OAUTH", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_OAUTH", schema = "PUBLIC")
 public class CaOauthEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

@@ -12,7 +12,7 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
-@Table(name = "CA_USER", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_USER", schema = "PUBLIC")
 @NoArgsConstructor(access  = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder(builderMethodName = "UserBuilder")

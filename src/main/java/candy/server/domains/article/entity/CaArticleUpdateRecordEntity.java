@@ -11,7 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_UPDATE_RECORD", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_ARTICLE_UPDATE_RECORD", schema = "PUBLIC")
 public class CaArticleUpdateRecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

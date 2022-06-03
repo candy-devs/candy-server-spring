@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_USER_OAUTH", schema = "PUBLIC", catalog = "TEST")
+@Table(name = "CA_USER_OAUTH", schema = "PUBLIC")
 @IdClass(CaUserOauthEntityPK.class)
 public class CaUserOauthEntity {
     @Id
