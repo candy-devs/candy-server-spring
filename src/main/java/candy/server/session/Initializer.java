@@ -1,6 +1,5 @@
-package candy.server.domains.user.service;
+package candy.server.session;
 
-import candy.server.session.Config;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 
 public class Initializer extends AbstractHttpSessionApplicationInitializer {

@@ -6,8 +6,12 @@ import candy.server.domains.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static candy.server.session.SessionData.SESS_USER_ID;
 
 @RequiredArgsConstructor
 @Transactional
@@ -40,5 +44,18 @@ public class UserService {
                 .stream()
                 .map(UserDto.UserListsResponse::new)
                 .collect(Collectors.toList());
+    }
+
+    public boolean tryLogin(HttpSession session, UserDto.Login dto) {
+        Optional<CaUserEntity> userIdid = userRepository.findByUserIdid(dto.getId());
+        if (userIdid.isEmpty())
+            return false;
+
+        if (!userIdid.get().getUserPw().equals(convertPasswordToHash(dto.getPw())))
+            return false;
+
+        // login success
+        session.setAttribute(SESS_USER_ID.name(), userIdid.get().getUserId());
+        return true;
     }
 }

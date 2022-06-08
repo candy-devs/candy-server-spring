@@ -15,6 +15,8 @@ public class AccountIterceptor implements HandlerInterceptor {
             Object handler) throws Exception {
         HttpSession session = request.getSession(false);
 
+
+
         if (session != null) {
 
         }

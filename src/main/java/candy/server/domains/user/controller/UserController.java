@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -34,7 +35,7 @@ public class UserController {
     }
 
     @PostMapping("/user/login")
-    public String userLogin(@RequestParam UserDto.Login dto) {
+    public String userLogin(HttpSession session, @RequestParam UserDto.Login dto) {
         log.info("try login ");
         return "redirect:/";
     }

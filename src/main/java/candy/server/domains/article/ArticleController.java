@@ -19,10 +19,4 @@ public class ArticleController {
         return "hello";
     }
 
-    @GetMapping("/article/session")
-    @ResponseBody
-    public String getSession(HttpSession session) {
-        System.out.println(session.getAttribute("id"));
-        return session.getAttribute("id").toString();
-    }
 }
