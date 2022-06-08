@@ -45,6 +45,9 @@ public class CaUserEntity {
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_ID")
+    private List<CaUserRoleEntity> caUserRoleEntityList;
 
     @Override
     public boolean equals(Object o) {

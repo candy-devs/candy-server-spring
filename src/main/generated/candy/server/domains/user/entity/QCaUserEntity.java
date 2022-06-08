@@ -22,6 +22,8 @@ public class QCaUserEntity extends EntityPathBase<CaUserEntity> {
 
     public final ListPath<CaUserLoginEntity, QCaUserLoginEntity> caUserLoginEntityList = this.<CaUserLoginEntity, QCaUserLoginEntity>createList("caUserLoginEntityList", CaUserLoginEntity.class, QCaUserLoginEntity.class, PathInits.DIRECT2);
 
+    public final ListPath<CaUserRoleEntity, QCaUserRoleEntity> caUserRoleEntityList = this.<CaUserRoleEntity, QCaUserRoleEntity>createList("caUserRoleEntityList", CaUserRoleEntity.class, QCaUserRoleEntity.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
     public final StringPath userIdid = createString("userIdid");
