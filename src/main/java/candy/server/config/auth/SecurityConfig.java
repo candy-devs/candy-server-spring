@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
+import org.springframework.security.web.csrf.CsrfLogoutHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -51,6 +52,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .accessDecisionManager(accessDecisionManager());
         http.formLogin();
         http.httpBasic();
+
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/")
+                .invalidateHttpSession(true);
     }
 
     @Override
