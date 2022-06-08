@@ -10,51 +10,27 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_META", schema = "PUBLIC")
 public class CaArticleMetaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "AM_ID")
     private long amId;
     @ManyToOne
-    @JoinColumn(name = "ARTICLE_ID")
+    @JoinColumn(name = "articleId")
     private CaArticleEntity articleId;
     @OneToOne
-    @JoinColumn(name = "ARI_ID")
     private CaArticleResizeImageEntity ariId;
-    @Basic
-    @Column(name = "AM_TOKEN")
     private String amToken;
-    @Basic
-    @Column(name = "AM_O_FILENAME")
     private String amOFilename;
-    @Basic
-    @Column(name = "AM_FILENAME")
     private String amFilename;
-    @Basic
-    @Column(name = "AM_TYPE")
     private int amType;
-    @Basic
-    @Column(name = "AM_SIZE")
     private long amSize;
-    @Basic
-    @Column(name = "AM_EXT", length = 10)
+    @Column( length = 10)
     private String amExt;
-    @Basic
-    @Column(name = "AM_IP")
     private String amIp;
-    @Basic
-    @Column(name = "AM_WRITE_TIME")
     @CreationTimestamp
     private Timestamp amWriteTime;
-    @Basic
-    @Column(name = "AM_REF")
     private int amRef;
-    @Basic
-    @Column(name = "AM_WIDTH")
     private Integer amWidth;
-    @Basic
-    @Column(name = "AM_HEIGHT")
     private Integer amHeight;
 
     @Override

@@ -9,16 +9,15 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_TAG", schema = "PUBLIC")
 @IdClass(CaArticleTagEntityPK.class)
 public class CaArticleTagEntity {
     @Id
     @ManyToOne
-    @JoinColumn(name = "TAG_ID")
+    @JoinColumn(name = "tagId")
     private CaTagEntity tagId;
     @Id
     @ManyToOne
-    @JoinColumn(name = "ARTICLE_ID")
+    @JoinColumn(name = "articleId")
     private CaArticleEntity articleId;
 
     @Override

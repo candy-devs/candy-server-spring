@@ -12,26 +12,14 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ANON", schema = "PUBLIC")
 public class CaAnonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ANON_ID")
     private long anonId;
-    @Basic
-    @Column(name = "ANON_TIME")
     private Timestamp anonTime;
-    @Basic
-    @Column(name = "ANON_LAST_TIME")
     private Timestamp anonLastTime;
-    @Basic
-    @Column(name = "ANON_SESS")
     private String anonSess;
-    @Basic
-    @Column(name = "ANON_JWT")
     private String anonJwt;
-    @Basic
-    @Column(name = "ANON_TYPE")
     private int anonType;
 
     @OneToMany(mappedBy = "anonId")

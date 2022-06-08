@@ -12,41 +12,29 @@ import java.util.Objects;
 @ToString
 @Getter
 @Setter
-@Table(name = "CA_USER", schema = "PUBLIC")
 @NoArgsConstructor(access  = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder(builderMethodName = "UserBuilder")
 public class CaUserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "USER_ID")
     private long userId;
-    @Basic
-    @Column(name = "USER_IDID", length = 255, unique = true)
+    @Column(length = 255, unique = true)
     private String userIdid;
-    @Basic
-    @Column(name = "USER_PW", length = 512)
+    @Column( length = 512)
     private String userPw;
-    @Basic
-    @Column(name = "USER_NICKNAME", length = 20, unique = true)
+    @Column(length = 20, unique = true)
     private String userNickname;
-    @Basic
-    @Column(name = "USER_SIGNUP_TIME")
     @CreationTimestamp
     private Timestamp userSignupTime;
-    @Basic
-    @Column(name = "USER_LAST_LOGIN_TIME")
     @CreationTimestamp
     private Timestamp userLastLoginTime;
-    @Basic
-    @Column(name = "USER_REST")
     private int userRest;
 
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "USER_ID")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userId")
     private List<CaUserRoleEntity> caUserRoleEntityList;
 
     @Override

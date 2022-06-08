@@ -4,23 +4,14 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CA_ARTICLE_RESIZE_IMAGE", schema = "PUBLIC")
 public class CaArticleResizeImageEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ARI_ID")
     private long ariId;
-    @Basic
-    @Column(name = "ARI_SIZE")
     private int ariSize;
-    @Basic
-    @Column(name = "ARI_TOKEN")
     private String ariToken;
-    @Basic
-    @Column(name = "ARI_FILENAME")
     private String ariFilename;
-    @Basic
-    @Column(name = "ARI_EXT", length = 10)
+    @Column(length = 10)
     private String ariExt;
 
     @OneToOne(mappedBy = "ariId")

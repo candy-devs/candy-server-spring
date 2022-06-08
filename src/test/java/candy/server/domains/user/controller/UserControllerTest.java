@@ -1,4 +1,4 @@
-package candy.server.user.controller;
+package candy.server.domains.user.controller;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

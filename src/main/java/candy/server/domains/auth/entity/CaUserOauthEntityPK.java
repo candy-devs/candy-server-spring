@@ -13,11 +13,11 @@ import java.util.Objects;
 public class CaUserOauthEntityPK implements Serializable {
     @Id
     @ManyToOne
-    @JoinColumn(name = "OAUTH_ID")
+    @JoinColumn(name = "oauthId")
     private CaOauthEntity oauthId;
     @Id
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "userId")
     private CaUserEntity userId;
 
     @Override

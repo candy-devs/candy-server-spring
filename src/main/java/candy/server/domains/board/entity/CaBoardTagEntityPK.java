@@ -11,11 +11,11 @@ import java.util.Objects;
 public class CaBoardTagEntityPK implements Serializable {
     @Id
     @ManyToOne
-    @JoinColumn(name = "TAG_ID")
+    @JoinColumn(name = "tagId")
     private CaTagEntity tagId;
     @Id
     @ManyToOne
-    @JoinColumn(name = "BOARD_ID")
+    @JoinColumn(name = "boardId")
     private CaBoardEntity boardId;
 
     @Override

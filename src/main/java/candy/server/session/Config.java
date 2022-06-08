@@ -10,8 +10,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 import javax.sql.DataSource;
 
-//@EnableJdbcHttpSession
-@EnableRedisHttpSession
 public class Config {
 
 //    @Bean

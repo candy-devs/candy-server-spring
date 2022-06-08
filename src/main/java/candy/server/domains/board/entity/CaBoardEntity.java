@@ -7,17 +7,13 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CA_BOARD", schema = "PUBLIC")
 public class CaBoardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "BOARD_ID")
     private long boardId;
-    @Basic
-    @Column(name = "BOARD_KEY", length = 50)
+    @Column(length = 50)
     private String boardKey;
-    @Basic
-    @Column(name = "BOARD_NAME", length = 50)
+    @Column(length = 50)
     private String boardName;
 
     @OneToMany(mappedBy = "boardId")

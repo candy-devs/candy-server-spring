@@ -12,25 +12,20 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_READ_ANON", schema = "PUBLIC")
 @DynamicInsert
 public class CaArticleReadAnonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "READA_ID")
     private long readaId;
     @ManyToOne
-    @JoinColumn(name = "ARTICLE_ID")
+    @JoinColumn(name = "articleId")
     private CaArticleEntity articleId;
     @ManyToOne
-    @JoinColumn(name = "ANON_ID")
+    @JoinColumn(name = "anonId")
     private CaAnonEntity anonId;
-    @Basic
-    @Column(nullable = false, name = "READA_TIME")
+    @Column(nullable = false)
     @CreationTimestamp
     private Timestamp readaTime;
-    @Basic
-    @Column(name = "READA_CLOCK")
     private int readaClock;
 
     @Override

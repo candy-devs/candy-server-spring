@@ -10,26 +10,16 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ANON_SESS", schema = "PUBLIC")
 public class CaAnonSessEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ANONSESS_ID")
     private long anonsessId;
     @ManyToOne
-    @JoinColumn(name = "ANON_ID")
+    @JoinColumn(name = "anonId")
     private CaAnonEntity anonId;
-    @Basic
-    @Column(name = "ANONSESS_IP")
     private String anonsessIp;
-    @Basic
-    @Column(name = "ANONSESS_TIME")
     private Timestamp anonsessTime;
-    @Basic
-    @Column(name = "ANONSESS_REFRESH")
     private int anonsessRefresh;
-    @Basic
-    @Column(name = "ANONSESS_PRE_SESS")
     private String anonsessPreSess;
 
     @Override

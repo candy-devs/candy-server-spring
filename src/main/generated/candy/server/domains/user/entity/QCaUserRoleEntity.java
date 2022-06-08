@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,24 +18,35 @@ public class QCaUserRoleEntity extends EntityPathBase<CaUserRoleEntity> {
 
     private static final long serialVersionUID = 1019285739L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QCaUserRoleEntity caUserRoleEntity = new QCaUserRoleEntity("caUserRoleEntity");
 
     public final NumberPath<Long> roleId = createNumber("roleId", Long.class);
 
     public final StringPath roleName = createString("roleName");
 
-    public final NumberPath<Long> userId = createNumber("userId", Long.class);
+    public final QCaUserEntity userId;
 
     public QCaUserRoleEntity(String variable) {
-        super(CaUserRoleEntity.class, forVariable(variable));
+        this(CaUserRoleEntity.class, forVariable(variable), INITS);
     }
 
     public QCaUserRoleEntity(Path<? extends CaUserRoleEntity> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QCaUserRoleEntity(PathMetadata metadata) {
-        super(CaUserRoleEntity.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QCaUserRoleEntity(PathMetadata metadata, PathInits inits) {
+        this(CaUserRoleEntity.class, metadata, inits);
+    }
+
+    public QCaUserRoleEntity(Class<? extends CaUserRoleEntity> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.userId = inits.isInitialized("userId") ? new QCaUserEntity(forProperty("userId")) : null;
     }
 
 }

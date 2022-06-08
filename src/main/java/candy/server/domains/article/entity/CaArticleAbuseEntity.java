@@ -8,21 +8,16 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_ABUSE", schema = "PUBLIC")
 public class CaArticleAbuseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "AA_ID")
     private long aaId;
     @ManyToOne
-    @JoinColumn(name = "ARTICLE_ID")
+    @JoinColumn(name = "articleId")
     private CaArticleEntity articleId;
-    @Basic
     @Lob
-    @Column(name = "AA_BODY")
     private String aaBody;
-    @Basic
-    @Column(name = "AA_IP", length = 64)
+    @Column(length = 64)
     private String aaIp;
 
     @Override

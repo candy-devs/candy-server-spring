@@ -10,26 +10,16 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ANON_JWT", schema = "PUBLIC")
 public class CaAnonJwtEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ANONJWT_ID")
     private long anonjwtId;
     @ManyToOne
-    @JoinColumn(name = "ANON_ID")
+    @JoinColumn(name = "anonId")
     private CaAnonEntity anonId;
-    @Basic
-    @Column(name = "ANONJWT_IP")
     private String anonjwtIp;
-    @Basic
-    @Column(name = "ANONJWT_TIME")
     private Timestamp anonjwtTime;
-    @Basic
-    @Column(name = "ANONJWT_REFRESH")
     private int anonjwtRefresh;
-    @Basic
-    @Column(name = "ANONJWT_PRE_JWT")
     private String anonjwtPreJwt;
 
     @Override

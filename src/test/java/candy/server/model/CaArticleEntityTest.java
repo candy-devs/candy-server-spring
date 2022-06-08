@@ -8,7 +8,7 @@ class CaArticleEntityTest {
 
     @Test
     void 글_생성_성공() {
-        final CaArticleEntity caArticleEntity = CaArticleEntity.ArticleBuilder().build();
+        final CaArticleEntity caArticleEntity = CaArticleEntity.builder().build();
 
         Assertions.assertThat(caArticleEntity.getArticleId()).isEqualTo(0);
     }

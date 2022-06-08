@@ -15,84 +15,47 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE", schema = "PUBLIC")
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(builderMethodName = "ArticleBuilder")
+@Builder
 public class CaArticleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ARTICLE_ID")
     private long articleId;
     @ManyToOne
-    @JoinColumn(name = "BOARD_ID")
+    @JoinColumn(name = "boardId")
     private CaBoardEntity boardId;
     @ManyToOne
-    @JoinColumn(nullable = true, name = "ANON_ID")
+    @JoinColumn(nullable = true, name = "anonId")
     private CaAnonEntity anonId;
     @ManyToOne
-    @JoinColumn(nullable = true, name = "USER_ID")
+    @JoinColumn(nullable = true, name = "userId")
     private CaUserEntity userId;
-    @Basic
-    @Column(name = "ARTICLE_TITLE", length = 50)
+    @Column(length = 50)
     private String articleTitle;
-    @Basic
-    @Column(name = "ARTICLE_TITLE_PRETTY", length = 50)
+    @Column(length = 50)
     private String articleTitlePretty;
-    @Basic
     @Lob
-    @Column(name = "ARTICLE_BODY")
     private String articleBody;
-    @Basic
-    @Column(name = "ARTICLE_USER_SPECIFIC")
     private Integer articleUserSpecific;
-    @Basic
-    @Column(name = "ARTICLE_IP", length = 64)
+    @Column(length = 64)
     private String articleIp;
-    @Basic
-    @Column(name = "ARTICLE_NICKNAME", length = 50)
+    @Column(length = 50)
     private String articleNickname;
-    @Basic
-    @Column(name = "ARTICLE_PASSWORD", length = 255)
+    @Column(length = 255)
     private String articlePassword;
-    @Basic
-    @Column(name = "ARTICLE_TYPE")
     private CaArticleTypeEnum articleType;
-    @Basic
-    @Column(name = "ARTICLE_WRITE_TIME")
     private Timestamp articleWriteTime;
-    @Basic
-    @Column(name = "ARTICLE_LAST_UPDATE_TIME")
     private Timestamp articleLastUpdateTime;
-    @Basic
-    @Column(name = "ARTICLE_COMMENT_COUNT")
     private int articleCommentCount;
-    @Basic
-    @Column(name = "ARTICLE_NOTICE")
     private int articleNotice;
-    @Basic
-    @Column(name = "ARTICLE_VIEW")
     private int articleView;
-    @Basic
-    @Column(name = "ARTICLE_UPVOTE")
     private int articleUpvote;
-    @Basic
-    @Column(name = "ARTICLE_DOWNVOTE")
     private int articleDownvote;
-    @Basic
-    @Column(name = "ARTICLE_DEVICE")
     private int articleDevice;
-    @Basic
-    @Column(name = "ARTICLE_ABUSE")
     private int articleAbuse;
-    @Basic
-    @Column(name = "ARTICLE_DEL")
     private int articleDel;
-    @Basic
-    @Column(name = "ARTICLE_HIDE")
     private int articleHide;
-    @Basic
-    @Column(name = "ARTICLE_BOOKMARK_COUNT")
     private int articleBookmarkCount;
 
     @OneToMany(mappedBy = "articleId")

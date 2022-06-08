@@ -11,26 +11,21 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_ARTICLE_UPDATE_RECORD", schema = "PUBLIC")
 public class CaArticleUpdateRecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "AUR_ID")
     private long aurId;
     @ManyToOne
-    @JoinColumn(name = "ARTICLE_ID")
+    @JoinColumn(name = "articleId")
     private CaArticleEntity articleId;
     @ManyToOne
-    @JoinColumn(name = "ANON_ID")
+    @JoinColumn(name = "anonId")
     private CaAnonEntity anonId;
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "userId")
     private CaUserEntity userId;
-    @Basic
-    @Column(name = "AUR_TIME")
     private Timestamp aurTime;
-    @Basic
-    @Column(name = "AUR_IP", length = 64)
+    @Column(length = 64)
     private String aurIp;
 
     @Override

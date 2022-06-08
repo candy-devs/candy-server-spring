@@ -4,7 +4,7 @@ spring:
     port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${db.url:jdbc:mysql://localhost:3307/candyserver?characterEncoding=UTF-8&serverTimezone=UTC}
+    url: ${db.url:jdbc:mysql://localhost:3307/candyserver}
     username: ${db.username:root}
     password: ${db.password:1234}
   jpa:
@@ -14,6 +14,8 @@ spring:
       hibernate:
         format_sql: false
         dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          time_zone: UTC
       javax:
         persistence:
           validation:

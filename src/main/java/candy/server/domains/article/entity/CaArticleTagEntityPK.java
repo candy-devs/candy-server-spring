@@ -12,11 +12,11 @@ import java.util.Objects;
 public class CaArticleTagEntityPK implements Serializable {
     @Id
     @ManyToOne
-    @JoinColumn(name = "TAG_ID")
+    @JoinColumn(name = "tagId")
     private CaTagEntity tagId;
     @Id
     @ManyToOne
-    @JoinColumn(name = "ARTICLE_ID")
+    @JoinColumn(name = "articleId")
     private CaArticleEntity articleId;
 
     @Override

@@ -5,20 +5,12 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "CA_CONN", schema = "PUBLIC")
 public class CaConnEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "CONN_ID")
     private long connId;
-    @Basic
-    @Column(name = "CONN_IP")
     private String connIp;
-    @Basic
-    @Column(name = "CONN_TIME")
     private Timestamp connTime;
-    @Basic
-    @Column(name = "CONN_UA")
     private String connUa;
 
     public long getConnId() {

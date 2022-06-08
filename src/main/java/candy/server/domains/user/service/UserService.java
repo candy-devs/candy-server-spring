@@ -1,9 +1,10 @@
 package candy.server.domains.user.service;
 
-import candy.server.domains.user.repository.UserRepository;
+import candy.server.domains.user.repository.JpaUserRepository;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
@@ -15,8 +16,9 @@ import static candy.server.session.SessionData.SESS_USER_ID;
 
 @RequiredArgsConstructor
 @Transactional
+@Service
 public class UserService {
-    private final UserRepository userRepository;
+    private final JpaUserRepository userRepository;
 
     public List<CaUserEntity> findAll() {
         return userRepository.findAll();

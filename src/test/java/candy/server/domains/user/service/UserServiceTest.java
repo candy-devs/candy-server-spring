@@ -1,4 +1,4 @@
-package candy.server.user.service;
+package candy.server.domains.user.service;
 
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.service.UserService;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 @SpringBootTest
-@Transactional
+//@Transactional
 public class UserServiceTest {
 
     @Autowired

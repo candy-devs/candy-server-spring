@@ -9,33 +9,20 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_USER_LOGIN", schema = "PUBLIC")
 public class CaUserLoginEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "LOGIN_ID")
     private long loginId;
 //    @Basic
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
+    @JoinColumn(name = "userId")
     private CaUserEntity userId;
-    @Basic
-    @Column(name = "OAUTH_ID")
     private Integer oauthId;
-    @Basic
-    @Column(name = "LOGIN_TIME")
     private Timestamp loginTime;
-    @Basic
-    @Column(name = "LOGIN_IP")
     private String loginIp;
-    @Basic
-    @Column(name = "LOGIN_TYPE", length = 64)
+    @Column(length = 64)
     private CaUserLoginTypeEnum loginType;
-    @Basic
-    @Column(name = "LOGIN_LOC")
     private CaUserLoginLocEnum loginLoc;
-    @Basic
-    @Column(name = "LOGIN_SUCC")
     private CaUserLoginSuccEnum loginSucc;
 
     @Override

@@ -8,17 +8,11 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_TAG", schema = "PUBLIC")
 public class CaTagEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "TAG_ID")
     private long tagId;
-    @Basic
-    @Column(name = "TAG_NAME", length = 50)
     private String tagName;
-    @Basic
-    @Column(name = "TAG_REF")
     private int tagRef;
 
     @Override

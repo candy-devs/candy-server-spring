@@ -9,21 +9,13 @@ import java.util.Objects;
 
 @Entity
 @Getter @Setter
-@Table(name = "CA_OAUTH", schema = "PUBLIC")
 public class CaOauthEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "OAUTH_ID")
     private long oauthId;
-    @Basic
-    @Column(name = "OAUTH_TYPE")
     private CaOauthTypeEnum oauthType;
-    @Basic
-    @Column(name = "OAUTH_TIMED")
     private Timestamp oauthTimed;
-    @Basic
     @Lob
-    @Column(name = "OAUTH_META")
     private String oauthMeta;
     @Column
     private String name;
