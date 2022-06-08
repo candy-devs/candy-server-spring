@@ -36,7 +36,7 @@ public class UserController {
 
     @PostMapping("/user/login")
     public String userLogin(HttpSession session, @RequestParam UserDto.Login dto) {
-        log.info("try login ");
+        userService.tryLogin(session, dto);
         return "redirect:/";
     }
 
