@@ -4,12 +4,12 @@ spring:
     port: 6379
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ${db.url:jdbc:mysql://localhost:3307/candyserver}
+    url: ${db.url:jdbc:mysql://localhost:3307/candyserver?characterEncoding=UTF-8&serverTimezone=UTC}
     username: ${db.username:root}
     password: ${db.password:1234}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: false
@@ -23,6 +23,18 @@ spring:
   flyway:
     enabled: true
 
+  session:
+    store-type: redis
+#    store-type: jdbc
+#    jdbc:
+#      initialize-schema: always
+#      table-name: SPRING_SESSION
+#      schema: classpath:org/springframework/session/jdbc/schema-mysql.sql
+
+server:
+  servlet:
+    session:
+      timeout: 30m
 
 #spring:
 #  datasource:

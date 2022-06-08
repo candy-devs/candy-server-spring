@@ -20,7 +20,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .mvcMatchers("/", "/article/write").permitAll()
+                    .mvcMatchers("/", "/article/write", "/article/session").permitAll()
                     .mvcMatchers("/admin").hasRole("ADMIN")
                     .anyRequest().authenticated();
         http.formLogin();

@@ -10,13 +10,11 @@ services:
     ports:
       - 3307:3306
 
-#  myredis:
-#    image: redis
-#    container_name: myredis
-#    command:
-#      - redis-server --port 6379
-#    labels:
-#      - "name=redis"
-#      - "mode=standalone"
-#    ports:
-#      - 6379:6379
+  candy-redis:
+    image: redis
+    container_name: candy-redis
+    labels:
+      - "name=redis"
+      - "mode=standalone"
+    ports:
+      - 6379:6379
