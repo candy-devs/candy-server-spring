@@ -57,6 +57,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
+
+        http.sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionFixation()
+                .changeSessionId()
+                .invalidSessionUrl("/")
+                .maximumSessions(1)
+//                    .expiredUrl("/")
+                .maxSessionsPreventsLogin(true);
     }
 
     @Override
