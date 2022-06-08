@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
+import static org.junit.Assert.assertThrows;
 
 @SpringBootTest
 //@Transactional
@@ -17,7 +18,7 @@ public class UserServiceTest {
     private UserService userService;
 
     @Test
-    void 유저_회원가입_성공() {
+    void 유저_회원가입_성공() throws Exception {
         UserDto.Signup signup = UserDto.Signup
                 .builder()
                 .id("testid")
@@ -29,7 +30,7 @@ public class UserServiceTest {
     }
 
     @Test
-    void 유저_회원가입_실패() {
+    void 유저_회원가입_실패() throws Exception {
         UserDto.Signup signup = UserDto.Signup
                 .builder()
                 .id("testid")
@@ -38,7 +39,7 @@ public class UserServiceTest {
                 .build();
 
         userService.join(signup);
-        assertThatIllegalArgumentException().isThrownBy(() -> userService.join(signup));
+        assertThrows(IllegalArgumentException.class, () -> userService.join(signup));
     }
 
     @Test

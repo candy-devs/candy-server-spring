@@ -26,7 +26,7 @@ dependencies {
 	implementation 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
-	implementation 'junit:junit:4.13.1'
+	implementation 'junit:junit'
 	runtimeOnly 'mysql:mysql-connector-java'
 	implementation 'com.google.guava:guava:31.1-jre'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

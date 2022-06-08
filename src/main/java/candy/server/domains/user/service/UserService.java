@@ -4,6 +4,9 @@ import candy.server.domains.user.repository.JpaUserRepository;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,18 +20,20 @@ import static candy.server.session.SessionData.SESS_USER_ID;
 @RequiredArgsConstructor
 @Transactional
 @Service
+@Slf4j
 public class UserService {
     private final JpaUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public List<CaUserEntity> findAll() {
         return userRepository.findAll();
     }
 
     private String convertPasswordToHash(String pw) {
-        return pw;
+        return passwordEncoder.encode(pw);
     }
 
-    public void join(UserDto.Signup dto) {
+    public void join(UserDto.Signup dto) throws Exception {
         if (userRepository.findByUserIdid(dto.getId()).isPresent())
             throw new IllegalArgumentException("User-id is exists!");
         if (userRepository.findByUserNickname(dto.getNickname()).isPresent())

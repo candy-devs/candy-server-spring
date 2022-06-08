@@ -1,6 +1,7 @@
-package candy.server.domains.security;
+package candy.server.domains.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import candy.server.domains.user.entity.CaUserEntity;
+import candy.server.domains.user.repository.JpaUserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,29 +9,27 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
-public class AccountService implements UserDetailsService {
-    private AccountRepository accountRepository;
+public class UserSecurityService implements UserDetailsService {
+    private JpaUserRepository userRepository;
 
     private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findByUsername(username);
-        if (account == null) {
+        Optional<CaUserEntity> userEntityOptional = userRepository.findByUserIdid(username);
+        if (userEntityOptional.isEmpty()) {
             throw new UsernameNotFoundException(username);
         }
 
+        CaUserEntity user = userEntityOptional.get();
+
         return User.builder()
-                .username(account.getUsername())
-                .password(account.getPassword())
-                .roles(account.getRole())
+                .username(user.getUserIdid())
+                .password(user.getUserPw())
+                .roles(user.getCaUserRoleEntity().getRoleName())
                 .build();
     }
-
-    public Account createNew(Account account) {
-        account.encodePassword(passwordEncoder);
-        return accountRepository.save(account);
-    }
-
 }

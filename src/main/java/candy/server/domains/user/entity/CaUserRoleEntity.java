@@ -13,7 +13,7 @@ public class CaUserRoleEntity {
     @Id
     private Long roleId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "userId")
     private CaUserEntity userId;
 

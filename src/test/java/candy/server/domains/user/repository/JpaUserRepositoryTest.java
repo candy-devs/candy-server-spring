@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-@Transactional
+//@Transactional
 public class JpaUserRepositoryTest {
 
     @Autowired
@@ -57,7 +57,7 @@ public class JpaUserRepositoryTest {
                     .build();
 
             CaUserRoleEntity userRole = CaUserRoleEntity.builder()
-                    .roleName("ROLE_ADMIN")
+                    .roleName("ADMIN")
                     .build();
 
             user.setCaUserRoleEntityList(List.of(userRole));

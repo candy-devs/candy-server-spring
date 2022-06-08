@@ -5,11 +5,9 @@ import candy.server.domains.user.service.UserService;
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -18,6 +16,7 @@ import java.util.List;
 @Controller
 @Slf4j
 public class UserController {
+
     private final UserService userService;
 
     @GetMapping("/user/all")
@@ -28,14 +27,14 @@ public class UserController {
 
     @PostMapping("/user/signup")
     @ResponseBody
-    public String userSignup(@RequestParam UserDto.Signup dto) {
+    public String userSignup(@RequestBody UserDto.Signup dto) throws Exception {
         userService.join(dto);
         log.info("/user/signup!");
         return "redirect:/";
     }
 
     @PostMapping("/user/login")
-    public String userLogin(HttpSession session, @RequestParam UserDto.Login dto) {
+    public String userLogin(HttpSession session, @RequestBody UserDto.Login dto) {
         userService.tryLogin(session, dto);
         return "redirect:/";
     }

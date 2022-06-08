@@ -1,10 +1,7 @@
 package candy.server.domains.user.dto;
 
 import candy.server.domains.user.entity.CaUserEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import java.sql.Timestamp;
 
@@ -12,6 +9,7 @@ public class UserDto {
 
     @Data
     @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     public static class Signup {
         private String id;
