@@ -30,7 +30,8 @@ public class UserDto {
     }
 
     @Data
-    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
     @Builder
     public static class Login {
         private String id;

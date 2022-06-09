@@ -56,7 +56,7 @@ public class QCaUserLoginEntity extends EntityPathBase<CaUserLoginEntity> {
 
     public QCaUserLoginEntity(Class<? extends CaUserLoginEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.userId = inits.isInitialized("userId") ? new QCaUserEntity(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new QCaUserEntity(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

@@ -2,6 +2,7 @@ package candy.server.domains.user;
 
 import candy.server.domains.user.entity.CaUserEntity;
 import candy.server.domains.user.repository.JpaUserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@RequiredArgsConstructor
 @Service
 public class UserSecurityService implements UserDetailsService {
-    private JpaUserRepository userRepository;
+    private final JpaUserRepository userRepository;
 
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

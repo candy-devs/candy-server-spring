@@ -34,7 +34,8 @@ public class CaUserEntity {
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "userId")
+    @OneToOne
+    @JoinColumn(name = "roleId")
     private CaUserRoleEntity caUserRoleEntity;
 
     @Override

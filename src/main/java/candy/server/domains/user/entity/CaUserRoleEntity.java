@@ -12,10 +12,5 @@ public class CaUserRoleEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private Long roleId;
-
-    @OneToOne
-    @JoinColumn(name = "userId")
-    private CaUserEntity userId;
-
     private String roleName;
 }

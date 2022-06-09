@@ -56,11 +56,11 @@ public class JpaUserRepositoryTest {
                     .userLastLoginTime(timestamp)
                     .build();
 
-            CaUserRoleEntity userRole = CaUserRoleEntity.builder()
-                    .roleName("ADMIN")
-                    .build();
-
-            user.setCaUserRoleEntityList(List.of(userRole));
+//            CaUserRoleEntity userRole = CaUserRoleEntity.builder()
+//                    .roleName("ADMIN")
+//                    .build();
+//
+//            user.setCaUserRoleEntityList(List.of(userRole));
             userRepository.save(user);
         }
 

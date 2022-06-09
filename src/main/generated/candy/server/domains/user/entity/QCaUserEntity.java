@@ -18,11 +18,13 @@ public class QCaUserEntity extends EntityPathBase<CaUserEntity> {
 
     private static final long serialVersionUID = -933650987L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QCaUserEntity caUserEntity = new QCaUserEntity("caUserEntity");
 
     public final ListPath<CaUserLoginEntity, QCaUserLoginEntity> caUserLoginEntityList = this.<CaUserLoginEntity, QCaUserLoginEntity>createList("caUserLoginEntityList", CaUserLoginEntity.class, QCaUserLoginEntity.class, PathInits.DIRECT2);
 
-    public final ListPath<CaUserRoleEntity, QCaUserRoleEntity> caUserRoleEntityList = this.<CaUserRoleEntity, QCaUserRoleEntity>createList("caUserRoleEntityList", CaUserRoleEntity.class, QCaUserRoleEntity.class, PathInits.DIRECT2);
+    public final QCaUserRoleEntity caUserRoleEntity;
 
     public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
@@ -39,15 +41,24 @@ public class QCaUserEntity extends EntityPathBase<CaUserEntity> {
     public final DateTimePath<java.sql.Timestamp> userSignupTime = createDateTime("userSignupTime", java.sql.Timestamp.class);
 
     public QCaUserEntity(String variable) {
-        super(CaUserEntity.class, forVariable(variable));
+        this(CaUserEntity.class, forVariable(variable), INITS);
     }
 
     public QCaUserEntity(Path<? extends CaUserEntity> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QCaUserEntity(PathMetadata metadata) {
-        super(CaUserEntity.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QCaUserEntity(PathMetadata metadata, PathInits inits) {
+        this(CaUserEntity.class, metadata, inits);
+    }
+
+    public QCaUserEntity(Class<? extends CaUserEntity> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.caUserRoleEntity = inits.isInitialized("caUserRoleEntity") ? new QCaUserRoleEntity(forProperty("caUserRoleEntity")) : null;
     }
 
 }

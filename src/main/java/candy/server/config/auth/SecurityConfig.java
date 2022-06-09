@@ -8,6 +8,7 @@ import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -53,8 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .mvcMatchers("/", "/article/write", "/article/session").permitAll()
-                    .mvcMatchers("/user/signup").permitAll()
-                    .mvcMatchers("/admin").hasRole("ADMIN")
+                    .mvcMatchers("/user/signup", "/user/login").permitAll()
+                    .mvcMatchers("/admin", "/user/all").hasRole("ADMIN")
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager());
         http.formLogin();
@@ -65,14 +66,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
 
-        http.sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .sessionFixation()
-                .changeSessionId()
-                .invalidSessionUrl("/")
-                .maximumSessions(1)
-//                    .expiredUrl("/")
-                .maxSessionsPreventsLogin(true);
+//        http.sessionManagement()
+////                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .sessionFixation()
+//                .changeSessionId()
+//                .invalidSessionUrl("/")
+//                .maximumSessions(1)
+////                    .expiredUrl("/")
+//                .maxSessionsPreventsLogin(true);
     }
 
     @Override
@@ -81,16 +82,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("rollrat").password("{noop}1234").roles("USER").and()
-                .withUser("admin").password("{noop}1234").roles("ADMIN");
-    }
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        String password = passwordEncoder().encode("1234");
+//        auth.inMemoryAuthentication()
+//                .withUser("rollrat").password(password).roles("USER").and()
+//                .withUser("admin").password(password).roles("ADMIN");
+//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
 //        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }
