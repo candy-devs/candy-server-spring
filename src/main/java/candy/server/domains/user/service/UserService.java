@@ -3,6 +3,7 @@ package candy.server.domains.user.service;
 import candy.server.domains.user.repository.JpaUserRepository;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,11 +34,25 @@ public class UserService {
         return passwordEncoder.encode(pw);
     }
 
+    private boolean checkProperIdFormat(String id) {
+        if (id.length() < 6 || id.length() > 255)
+            return false;
+        return id.matches("\\w+");
+    }
+
+    private boolean checkProperPwFormat(String pw) {
+        return 8 <= pw.length() && pw.length() <= 64;
+    }
+
     public void join(UserDto.Signup dto) throws Exception {
         if (userRepository.findByUserIdid(dto.getId()).isPresent())
             throw new IllegalArgumentException("User-id is exists!");
         if (userRepository.findByUserNickname(dto.getNickname()).isPresent())
             throw new IllegalArgumentException("User-nickname is exists!");
+
+        if (!checkProperIdFormat(dto.getId()) || !checkProperPwFormat(dto.getPw())) {
+            throw new IllegalArgumentException("check id or pw format!");
+        }
 
         dto.setPw(convertPasswordToHash(dto.getPw()));
 
