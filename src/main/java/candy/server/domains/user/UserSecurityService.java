@@ -19,12 +19,8 @@ public class UserSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<CaUserEntity> userEntityOptional = userRepository.findByUserIdid(username);
-        if (userEntityOptional.isEmpty()) {
-            throw new UsernameNotFoundException(username);
-        }
-
-        CaUserEntity user = userEntityOptional.get();
+        CaUserEntity user = userRepository.findByUserIdid(username).orElseThrow(
+                () -> new UsernameNotFoundException(username));
 
         return User.builder()
                 .username(user.getUserIdid())

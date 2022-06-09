@@ -6,6 +6,7 @@ import candy.server.domains.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @PostMapping("/user/login")
+    @PostMapping(value = "/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public String userLogin(HttpSession session, @RequestBody UserDto.Login dto) {
         userService.tryLogin(session, dto);
         return "redirect:/";
