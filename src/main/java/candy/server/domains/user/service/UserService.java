@@ -1,20 +1,17 @@
 package candy.server.domains.user.service;
 
-import candy.server.domains.user.entity.CaUserRoleEntity;
-import candy.server.domains.user.repository.JpaUserRepository;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
+import candy.server.domains.user.entity.UserRoleEnum;
+import candy.server.domains.user.repository.JpaUserRepository;
 import candy.server.domains.user.repository.JpaUserRoleRepository;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,8 +20,6 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static candy.server.session.SessionData.SESS_USER_ID;
 
 @RequiredArgsConstructor
 @Transactional
@@ -54,12 +49,6 @@ public class UserService {
         return 8 <= pw.length() && pw.length() <= 64;
     }
 
-    private CaUserRoleEntity getUserRoleEntity() {
-        Optional<CaUserRoleEntity> roleEntityOptional = userRoleRepository.findByRoleName("USER");
-        return roleEntityOptional.orElseGet(() ->
-                userRoleRepository.save(CaUserRoleEntity.builder().roleName("USER").build()));
-    }
-
     public void join(UserDto.Signup dto) throws Exception {
         if (userRepository.findByUserIdid(dto.getId()).isPresent())
             throw new IllegalArgumentException("User-id is exists!");
@@ -73,7 +62,7 @@ public class UserService {
         dto.setPw(convertPasswordToHash(dto.getPw()));
 
         CaUserEntity user = dto.toEntity();
-        user.setCaUserRoleEntity(getUserRoleEntity());
+        user.setUserRole(UserRoleEnum.USER);
 
         userRepository.save(user);
     }

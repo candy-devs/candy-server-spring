@@ -1,19 +1,13 @@
 package candy.server.domains.user.repository;
 
 import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.entity.CaUserRoleEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -56,11 +50,6 @@ public class JpaUserRepositoryTest {
                     .userLastLoginTime(timestamp)
                     .build();
 
-//            CaUserRoleEntity userRole = CaUserRoleEntity.builder()
-//                    .roleName("ADMIN")
-//                    .build();
-//
-//            user.setCaUserRoleEntityList(List.of(userRole));
             userRepository.save(user);
         }
 

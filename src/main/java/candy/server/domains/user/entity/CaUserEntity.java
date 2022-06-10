@@ -31,13 +31,12 @@ public class CaUserEntity {
     private Timestamp userLastLoginTime;
     private int userRest;
     private String userImage;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private UserRoleEnum userRole;
 
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
-
-    @OneToOne
-    @JoinColumn(name = "roleId")
-    private CaUserRoleEntity caUserRoleEntity;
 
     @Override
     public boolean equals(Object o) {

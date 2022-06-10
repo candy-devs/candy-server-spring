@@ -27,7 +27,7 @@ public class UserSecurityService implements UserDetailsService {
         return User.builder()
                 .username(user.getUserIdid())
                 .password(user.getUserPw())
-                .roles(user.getCaUserRoleEntity().getRoleName())
+                .roles(user.getUserRole().name())
                 .build();
     }
 }

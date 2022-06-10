@@ -1,5 +1,6 @@
 package candy.server.config.auth;
 
+import candy.server.domains.user.entity.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -33,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public AccessDecisionManager accessDecisionManager() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        roleHierarchy.setHierarchy("ADMIN > USER");
+        roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
 
         DefaultWebSecurityExpressionHandler handler = new DefaultWebSecurityExpressionHandler();
         handler.setRoleHierarchy(roleHierarchy);
@@ -55,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .authorizeRequests()
                     .mvcMatchers("/", "/article/write", "/article/session").permitAll()
                     .mvcMatchers("/user/signup", "/user/login").permitAll()
-                    .mvcMatchers("/admin", "/user/all").hasRole("ADMIN")
+                    .mvcMatchers("/admin", "/user/all").hasRole(UserRoleEnum.ADMIN.name())
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager());
         http.formLogin();
