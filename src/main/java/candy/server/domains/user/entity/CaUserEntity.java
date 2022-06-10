@@ -30,6 +30,7 @@ public class CaUserEntity {
     @CreationTimestamp
     private Timestamp userLastLoginTime;
     private int userRest;
+    private String userImage;
 
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
