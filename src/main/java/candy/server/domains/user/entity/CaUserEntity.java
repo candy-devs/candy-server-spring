@@ -23,6 +23,8 @@ public class CaUserEntity {
     private String userIdid;
     @Column( length = 512)
     private String userPw;
+    @Column(length = 255)
+    private String userEmail;
     @Column(length = 20, unique = true)
     private String userNickname;
     @CreationTimestamp
