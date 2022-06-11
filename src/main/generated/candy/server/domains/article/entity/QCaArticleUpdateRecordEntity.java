@@ -54,7 +54,7 @@ public class QCaArticleUpdateRecordEntity extends EntityPathBase<CaArticleUpdate
         super(type, metadata, inits);
         this.anonId = inits.isInitialized("anonId") ? new candy.server.domains.user.entity.QCaAnonEntity(forProperty("anonId")) : null;
         this.articleId = inits.isInitialized("articleId") ? new QCaArticleEntity(forProperty("articleId"), inits.get("articleId")) : null;
-        this.userId = inits.isInitialized("userId") ? new candy.server.domains.user.entity.QCaUserEntity(forProperty("userId"), inits.get("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new candy.server.domains.user.entity.QCaUserEntity(forProperty("userId")) : null;
     }
 
 }

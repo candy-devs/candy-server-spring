@@ -40,6 +40,13 @@ public class CaUserEntity {
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
 
+    public CaUserEntity update(String name, String picture) {
+        this.userNickname = name;
+        this.userImage = picture;
+
+        return this;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

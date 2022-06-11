@@ -35,9 +35,12 @@ public class UserController {
     }
 
     @PostMapping(value = "/user/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
     public String userLogin(HttpSession session, @RequestBody UserDto.Login dto) {
-        userService.tryLogin(session, dto);
-        return "redirect:/";
+        if (userService.tryLogin(session, dto)) {
+            return "success";
+        }
+       return "fail";
     }
 
 }

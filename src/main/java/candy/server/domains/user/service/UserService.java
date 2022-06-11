@@ -1,10 +1,10 @@
 package candy.server.domains.user.service;
 
+import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
 import candy.server.domains.user.entity.UserRoleEnum;
 import candy.server.domains.user.repository.JpaUserRepository;
-import candy.server.domains.user.repository.JpaUserRoleRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +27,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UserService {
     private final JpaUserRepository userRepository;
-    private final JpaUserRoleRepository userRoleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
@@ -76,13 +75,13 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public void tryLogin(HttpSession session, UserDto.Login dto) {
+    public boolean tryLogin(HttpSession session, UserDto.Login dto) {
         Optional<CaUserEntity> userIdid = userRepository.findByUserIdid(dto.getId());
         if (userIdid.isEmpty())
-            throw new IllegalArgumentException();
+            return false;
 
         if (!passwordEncoder.matches(dto.getPw(), userIdid.get().getUserPw()))
-            throw new IllegalArgumentException();
+            return false;
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(userIdid.get().getUserIdid(), dto.getPw()));
@@ -91,6 +90,8 @@ public class UserService {
 
         // login success
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-//        session.setAttribute(SESS_USER_ID.name(), userIdid.get().getUserId());
+        session.setAttribute("user", new SessionUser(userIdid.get()));
+
+        return true;
     }
 }

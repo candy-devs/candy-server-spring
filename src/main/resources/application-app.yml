@@ -1,0 +1,100 @@
+spring:
+  config:
+    activate:
+      on-profile: app
+  redis:
+    host: localhost
+    port: 6379
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${db.url:jdbc:mysql://localhost:3307/candyserver}
+    username: ${db.username:root}
+    password: ${db.password:1234}
+    hikari:
+      connection-timeout: 20000
+      minimum-idle: 10
+      maximum-pool-size: 10
+      idle-timeout: 10000
+      max-lifetime: 1000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        jdbc:
+          time_zone: UTC
+      javax:
+        persistence:
+          validation:
+            mode: none
+    show-sql: true
+
+  flyway:
+    enabled: true
+
+  session:
+    store-type: redis
+  #    store-type: jdbc
+  #    jdbc:
+  #      initialize-schema: always
+  #      table-name: SPRING_SESSION
+  #      schema: classpath:org/springframework/session/jdbc/schema-mysql.sql
+
+  security:
+    oauth2.client:
+      provider:
+        naver:
+          authorizationUri: https://nid.naver.com/oauth2.0/authorize
+          tokenUri: https://nid.naver.com/oauth2.0/token
+          userInfoUri: https://openapi.naver.com/v1/nid/me
+          userNameAttribute: response
+        kakao:
+          authorizationUri: https://kauth.kakao.com/oauth/authorize
+          tokenUri: https://kauth.kakao.com/oauth/token
+          userInfoUri: https://kapi.kakao.com/v2/user/me
+          userNameAttribute: id
+
+server:
+  servlet:
+    session:
+      timeout: 30m
+
+
+#spring:
+#  datasource:
+#    url: jdbc:h2:tcp://localhost/~/test;MODE=LEGACY
+#    driver-class-name: org.h2.Driver
+#    username: sa
+#  jpa:
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: update
+##      naming:
+##        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#      use-new-id-generator-mappings: false
+#    properties:
+#      hibernate.format_sql: true
+#    open-in-view: true
+
+
+#
+## H2 DB ??
+#  spring.datasource.url=jdbc:h2:tcp://localhost/~/test;MODE=LEGACY
+#  spring.datasource.driver-class-name=org.h2.Driver
+#  #spring.jpa.defer-datasource-initialization=true
+#  spring.datasource.username=sa
+#  spring.jpa.show-sql=true
+#  spring.jpa.hibernate.ddl-auto=none
+##spring.h2.console.enabled=false
+##hibernate.dialect=org.hibernate.dialect.H2Dialect
+#
+## http://yoonbumtae.com/?p=2581
+## sql ??
+##spring.jpa.show_sql = true
+#
+## h2
+##spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+##spring.jpa.properties.hibernate.dialect.storage_engine=innodb
+##spring.datasource.hikari.jdbc-url=jdbc:h2:mem://localhost/~/testdb;MODE=MYSQL
