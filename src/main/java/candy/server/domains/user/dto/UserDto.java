@@ -1,5 +1,6 @@
 package candy.server.domains.user.dto;
 
+import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.*;
 
@@ -11,7 +12,7 @@ public class UserDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Signup {
+    public static class SignupRequest {
         private String id;
         private String pw;
         private String nickname;
@@ -33,7 +34,7 @@ public class UserDto {
     @AllArgsConstructor
     @NoArgsConstructor
     @Builder
-    public static class Login {
+    public static class LoginRequest {
         private String id;
         private String pw;
     }
@@ -49,10 +50,17 @@ public class UserDto {
         }
     }
 
-    public record UserCreateData (
+    @Getter
+    public static class UserSimpInfoResponse {
+        private final String name;
+        private final String email;
+        private final String picture;
 
-    ) {
-
+        public UserSimpInfoResponse(SessionUser sessionUser) {
+            this.name = sessionUser.getName();
+            this.email = sessionUser.getEmail();
+            this.picture = sessionUser.getPicture();
+        }
     }
 }
 
