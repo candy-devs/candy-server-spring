@@ -75,11 +75,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin();
         http.httpBasic();
 
-        http.logout()
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .invalidateHttpSession(true);
-
 //        http.sessionManagement()
 ////                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                .sessionFixation()
