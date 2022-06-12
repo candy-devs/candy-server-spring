@@ -2,6 +2,7 @@ package candy.server.config.auth;
 
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.Getter;
+import org.hibernate.Session;
 
 import java.io.Serializable;
 
@@ -12,10 +13,14 @@ public class SessionUser implements Serializable {
     private final String email;
     private final String picture;
 
-    public SessionUser(CaUserEntity user) {
+    private SessionUser(CaUserEntity user) {
         this.id = user.getUserId();
         this.name = user.getUserNickname();
         this.email = user.getUserEmail();
         this.picture = user.getUserImage();
+    }
+
+    public static SessionUser fromEntity(CaUserEntity entity) {
+        return new SessionUser(entity);
     }
 }

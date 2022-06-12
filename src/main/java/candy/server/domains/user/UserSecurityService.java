@@ -27,7 +27,7 @@ public class UserSecurityService implements UserDetailsService {
         CaUserEntity user = userRepository.findByUserIdid(username).orElseThrow(
                 () -> new UsernameNotFoundException(username));
 
-        httpSession.setAttribute("user", new SessionUser(user));
+        httpSession.setAttribute("user", SessionUser.fromEntity(user));
 
         return User.builder()
                 .username(user.getUserIdid())

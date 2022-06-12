@@ -41,7 +41,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         CaUserEntity user = saveOrUpdate(attributes);
 
-        httpSession.setAttribute("user", new SessionUser(user));
+        httpSession.setAttribute("user", SessionUser.fromEntity(user));
 
         return new DefaultOAuth2User(
                 Collections.singleton(
