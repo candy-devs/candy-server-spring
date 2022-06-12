@@ -90,7 +90,7 @@ public class UserService {
 
         // login success
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-        session.setAttribute("user", new SessionUser(userIdid.get()));
+        session.setAttribute("user", SessionUser.fromEntity(userIdid.get()));
 
         return true;
     }

@@ -19,7 +19,7 @@ public class UserServiceTest {
 
     @Test
     void 유저_회원가입_성공() throws Exception {
-        UserDto.Signup signup = UserDto.Signup
+        UserDto.SignupRequest signup = UserDto.SignupRequest
                 .builder()
                 .id("testid")
                 .pw("testpw")
@@ -31,7 +31,7 @@ public class UserServiceTest {
 
     @Test
     void 유저_회원가입_실패() throws Exception {
-        UserDto.Signup signup = UserDto.Signup
+        UserDto.SignupRequest signup = UserDto.SignupRequest
                 .builder()
                 .id("testid")
                 .pw("testpw")
@@ -44,7 +44,7 @@ public class UserServiceTest {
 
     @Test
     void 유저_로그인_실패() {
-        UserDto.Login login = UserDto.Login
+        UserDto.SignupRequest login = UserDto.SignupRequest
                 .builder()
                 .id("testid")
                 .pw("testpw")
