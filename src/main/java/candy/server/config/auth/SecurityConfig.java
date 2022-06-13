@@ -59,7 +59,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .mvcMatchers("/", "/article/write", "/article/session").permitAll()
-                    .mvcMatchers("/user/signup", "/user/login").permitAll()
+                    .mvcMatchers("/user/**").permitAll()
                     .mvcMatchers("/admin", "/user/all").hasRole(UserRoleEnum.ADMIN.name())
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager())
