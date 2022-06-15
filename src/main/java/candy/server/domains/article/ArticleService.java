@@ -4,22 +4,19 @@ import candy.server.config.auth.SessionUser;
 import candy.server.domains.article.dto.ArticleDto;
 import candy.server.domains.article.entity.CaArticleEntity;
 import candy.server.domains.article.entity.CaArticleTypeEnum;
-import candy.server.domains.article.repository.JpaArticleRepository;
+import candy.server.domains.article.dao.JpaArticleRepository;
 import candy.server.domains.board.entity.CaBoardEntity;
-import candy.server.domains.board.repository.JpaBoardRepository;
+import candy.server.domains.board.dao.JpaBoardRepository;
 import candy.server.domains.common.utils.HttpReqRespUtils;
 import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.repository.JpaUserRepository;
+import candy.server.domains.user.controller.JpaUserRepository;
 import candy.server.utils.ScalarUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional

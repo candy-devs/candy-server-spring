@@ -2,7 +2,7 @@ package candy.server.domains.security;
 
 import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.repository.JpaUserRepository;
+import candy.server.domains.user.controller.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,7 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service

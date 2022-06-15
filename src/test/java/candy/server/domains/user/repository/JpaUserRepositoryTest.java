@@ -1,5 +1,6 @@
 package candy.server.domains.user.repository;
 
+import candy.server.domains.user.controller.JpaUserRepository;
 import candy.server.domains.user.entity.CaUserEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

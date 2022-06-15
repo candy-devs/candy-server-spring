@@ -1,4 +1,4 @@
-package candy.server.domains.article.repository;
+package candy.server.domains.article.dao;
 
 import candy.server.domains.article.entity.CaArticleEntity;
 import candy.server.domains.user.entity.CaUserEntity;

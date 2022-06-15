@@ -1,24 +1,16 @@
 package candy.server.domains.user.service;
 
-import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.entity.UserRoleEnum;
-import candy.server.domains.user.repository.JpaUserRepository;
+import candy.server.domains.user.controller.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor

@@ -1,19 +1,14 @@
 package candy.server.domains.article;
 
-import candy.server.domains.article.ArticleService;
 import candy.server.domains.article.dto.ArticleDto;
 import candy.server.domains.board.entity.CaBoardEntity;
-import candy.server.domains.board.repository.JpaBoardRepository;
-import lombok.RequiredArgsConstructor;
+import candy.server.domains.board.dao.JpaBoardRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional

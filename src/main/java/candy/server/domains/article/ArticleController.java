@@ -2,6 +2,7 @@ package candy.server.domains.article;
 
 import candy.server.domains.article.dto.ArticleDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +31,13 @@ public class ArticleController {
     public ArticleDto.ArticleReadResponse articleRead(HttpSession session,
                                                       @RequestBody ArticleDto.ArticleReadRequest dto) {
         return articleService.articleRead(session, dto);
+    }
+
+    @GetMapping("/admin/article/read")
+    @Secured("hasRole('ROLE_ADMIN')")
+    public ArticleDto.ArticleWriteResponse adminArticleRead(HttpSession session,
+                                                       @RequestBody ArticleDto.ArticleReadRequest dto) {
+        return null;
     }
 
 }
