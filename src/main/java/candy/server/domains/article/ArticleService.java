@@ -1,5 +1,6 @@
 package candy.server.domains.article;
 
+import candy.server.config.auth.SessionUser;
 import candy.server.domains.article.dto.ArticleDto;
 import candy.server.domains.article.entity.CaArticleEntity;
 import candy.server.domains.article.entity.CaArticleTypeEnum;
@@ -7,6 +8,9 @@ import candy.server.domains.article.repository.JpaArticleRepository;
 import candy.server.domains.board.entity.CaBoardEntity;
 import candy.server.domains.board.repository.JpaBoardRepository;
 import candy.server.domains.common.utils.HttpReqRespUtils;
+import candy.server.domains.user.entity.CaUserEntity;
+import candy.server.domains.user.repository.JpaUserRepository;
+import candy.server.utils.ScalarUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.annotation.Secured;
@@ -24,6 +28,7 @@ public class ArticleService {
 
     private final JpaArticleRepository articleRepository;
     private final JpaBoardRepository boardRepository;
+    private final JpaUserRepository userRepository;
 
     private boolean checkArticleWriteDto(ArticleDto.ArticleWriteRequest dto) {
         return dto.getTitle().length() <= 50;
@@ -46,6 +51,8 @@ public class ArticleService {
         // 익명 글쓰기의 경우 request dto에 nickname과 pw가 포함되어야 함
         if (dto.getNickname() == null || dto.getPassword() == null)
             return -1L;
+        if (!ScalarUtils.inside(dto.getNickname().length(), 2, 16) || !ScalarUtils.inside(dto.getPassword().length(), 4, 32))
+            return -1L;
 
         CaBoardEntity board = getBoardFromKey(dto.getBoardKey());
 
@@ -55,10 +62,61 @@ public class ArticleService {
 
         CaArticleEntity article = defaultEntityFromDto(dto);
         article.setBoardId(board);
+        article.setArticleNickname(dto.getNickname());
+        article.setArticlePassword(dto.getPassword());
 
         articleRepository.save(article);
 
-        return -1L;
+        return article.getArticleId();
+    }
+
+    private Long articleWriteUser(SessionUser user, ArticleDto.ArticleWriteRequest dto) {
+        CaUserEntity userEntity = userRepository.findById(user.getId()).orElse(null);
+
+        if (userEntity == null)
+            return -1L;
+
+        CaBoardEntity board = getBoardFromKey(dto.getBoardKey());
+
+        // 게시판 존재하지 않음
+        if (board == null)
+            return -1L;
+
+        CaArticleEntity article = defaultEntityFromDto(dto);
+        article.setBoardId(board);
+        article.setUserId(userEntity);
+
+        articleRepository.save(article);
+
+        return article.getArticleId();
+    }
+
+    private Long articleWriteUserAnonymous(SessionUser user, ArticleDto.ArticleWriteRequest dto) {
+        // 로그인-익명 글쓰기의 경우 request dto에 nickname이 포함되어야 함
+        if (dto.getNickname() == null)
+            return -1L;
+        if (!ScalarUtils.inside(dto.getNickname().length(), 2, 16))
+            return -1L;
+
+        CaUserEntity userEntity = userRepository.findById(user.getId()).orElse(null);
+
+        if (userEntity == null)
+            return -1L;
+
+        CaBoardEntity board = getBoardFromKey(dto.getBoardKey());
+
+        // 게시판 존재하지 않음
+        if (board == null)
+            return -1L;
+
+        CaArticleEntity article = defaultEntityFromDto(dto);
+        article.setBoardId(board);
+        article.setArticleNickname(userEntity.getUserNickname());
+        article.setUserId(userEntity);
+
+        articleRepository.save(article);
+
+        return article.getArticleId();
     }
 
     public Long articleWrite(HttpSession session, ArticleDto.ArticleWriteRequest dto) {
@@ -66,37 +124,35 @@ public class ArticleService {
         if (!checkArticleWriteDto(dto) || dto.getBoardKey() == null)
             return -1L;
 
-        // 비로그인 상태 글쓰기
-        if (session == null)
-            return articleWriteAnonymous(dto);
-
         var user = session.getAttribute("user");
 
         // 비로그인 상태 글쓰기
         if (user == null)
             return articleWriteAnonymous(dto);
-
-        return -1L;
+        else if (dto.getNickname() == null)
+            return articleWriteUser((SessionUser)user, dto);
+        else
+            return articleWriteUserAnonymous((SessionUser)user, dto);
     }
 
     public ArticleDto.ArticleReadResponse articleRead(HttpSession session, ArticleDto.ArticleReadRequest dto)  {
-        CaArticleEntity entity = articleRepository.findById(dto.getArticleId()).orElse(null);
+        CaArticleEntity articleEntity = articleRepository.findById(dto.getArticleId()).orElse(null);
 
-        if (entity == null || entity.getArticleDel() == 1)
+        if (articleEntity == null || articleEntity.getArticleDel() == 1)
             return null;
 
         /* 성능이 크리티컬한 부분임, 캐싱 필요  */
         return ArticleDto.ArticleReadResponse.builder()
-                .body(entity.getArticleBody())
-                .title(entity.getArticleTitle())
-                .writeTime(entity.getArticleWriteTime())
-                .lastModifiedTime(entity.getArticleLastUpdateTime())
-                .comment(entity.getArticleCommentCount())
-                .notice(entity.getArticleNotice())
-                .view(entity.getArticleView())
-                .up(entity.getArticleUpvote())
-                .down(entity.getArticleDownvote())
-                .bookmark(entity.getArticleBookmarkCount())
+                .body(articleEntity.getArticleBody())
+                .title(articleEntity.getArticleTitle())
+                .writeTime(articleEntity.getArticleWriteTime())
+                .lastModifiedTime(articleEntity.getArticleLastUpdateTime())
+                .comment(articleEntity.getArticleCommentCount())
+                .notice(articleEntity.getArticleNotice())
+                .view(articleEntity.getArticleView())
+                .up(articleEntity.getArticleUpvote())
+                .down(articleEntity.getArticleDownvote())
+                .bookmark(articleEntity.getArticleBookmarkCount())
                 .build();
     }
 }
