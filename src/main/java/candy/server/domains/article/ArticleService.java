@@ -13,6 +13,7 @@ import candy.server.domains.user.repository.JpaUserRepository;
 import candy.server.utils.ScalarUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -140,6 +141,21 @@ public class ArticleService {
 
         if (articleEntity == null || articleEntity.getArticleDel() == 1)
             return null;
+
+        if (articleEntity.getArticleHide() == 1) {
+            if (articleEntity.getUserId() == null)
+                return null;
+
+            var user = session.getAttribute("user");
+            if (user == null)
+                return null;
+
+            SessionUser sessionUser = (SessionUser)user;
+            CaUserEntity userEntity = userRepository.findById(sessionUser.getId()).orElse(null);
+
+            if (userEntity == null || articleEntity.getUserId() != userEntity)
+                return null;
+        }
 
         /* 성능이 크리티컬한 부분임, 캐싱 필요  */
         return ArticleDto.ArticleReadResponse.builder()
