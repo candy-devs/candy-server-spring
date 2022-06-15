@@ -34,38 +34,6 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    private String convertPasswordToHash(String pw) {
-        return passwordEncoder.encode(pw);
-    }
-
-    private boolean checkProperIdFormat(String id) {
-        if (id.length() < 6 || id.length() > 255)
-            return false;
-        return id.matches("\\w+");
-    }
-
-    private boolean checkProperPwFormat(String pw) {
-        return 8 <= pw.length() && pw.length() <= 64;
-    }
-
-    public void join(UserDto.SignupRequest dto) throws Exception {
-        if (userRepository.findByUserIdid(dto.getId()).isPresent())
-            throw new IllegalArgumentException("User-id is exists!");
-        if (userRepository.findByUserNickname(dto.getNickname()).isPresent())
-            throw new IllegalArgumentException("User-nickname is exists!");
-
-        if (!checkProperIdFormat(dto.getId()) || !checkProperPwFormat(dto.getPw())) {
-            throw new IllegalArgumentException("check id or pw format!");
-        }
-
-        dto.setPw(convertPasswordToHash(dto.getPw()));
-
-        CaUserEntity user = dto.toEntity();
-        user.setUserRole(UserRoleEnum.USER);
-
-        userRepository.save(user);
-    }
-
     @Transactional(readOnly = true)
     public List<UserDto.UserListsResponse> findAllUsers() {
         return userRepository
@@ -73,25 +41,5 @@ public class UserService {
                 .stream()
                 .map(UserDto.UserListsResponse::new)
                 .collect(Collectors.toList());
-    }
-
-    public boolean tryLogin(HttpSession session, UserDto.LoginRequest dto) {
-        Optional<CaUserEntity> userIdid = userRepository.findByUserIdid(dto.getId());
-        if (userIdid.isEmpty())
-            return false;
-
-        if (!passwordEncoder.matches(dto.getPw(), userIdid.get().getUserPw()))
-            return false;
-
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userIdid.get().getUserIdid(), dto.getPw()));
-        SecurityContext securityContext = SecurityContextHolder.getContext();
-        securityContext.setAuthentication(authentication);
-
-        // login success
-        session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-        session.setAttribute("user", SessionUser.fromEntity(userIdid.get()));
-
-        return true;
     }
 }

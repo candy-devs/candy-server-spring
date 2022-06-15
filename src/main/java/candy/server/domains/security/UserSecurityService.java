@@ -1,4 +1,4 @@
-package candy.server.domains.user;
+package candy.server.domains.security;
 
 import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.entity.CaUserEntity;
