@@ -25,4 +25,11 @@ public class ArticleController {
                 .build();
     }
 
+    @GetMapping("/article/read")
+    @ResponseBody
+    public ArticleDto.ArticleReadResponse articleRead(HttpSession session,
+                                                      @RequestBody ArticleDto.ArticleReadRequest dto) {
+        return articleService.articleRead(session, dto);
+    }
+
 }

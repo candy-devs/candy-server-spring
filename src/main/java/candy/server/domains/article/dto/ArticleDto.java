@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 public class ArticleDto {
@@ -28,5 +29,30 @@ public class ArticleDto {
     @AllArgsConstructor
     public static class ArticleWriteResponse {
         public Long articleId;
+    }
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class ArticleReadRequest {
+        private Long articleId;
+    }
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    public static class ArticleReadResponse{
+        public String title;
+        public String body;
+        public String author;
+        public Timestamp writeTime;
+        public Timestamp lastModifiedTime;
+        private int comment;
+        private int notice;
+        private int view;
+        private int up;
+        private int down;
+        private int bookmark;
     }
 }

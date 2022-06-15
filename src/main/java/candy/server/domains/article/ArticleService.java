@@ -9,10 +9,12 @@ import candy.server.domains.board.repository.JpaBoardRepository;
 import candy.server.domains.common.utils.HttpReqRespUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Transactional
@@ -77,4 +79,24 @@ public class ArticleService {
         return -1L;
     }
 
+    public ArticleDto.ArticleReadResponse articleRead(HttpSession session, ArticleDto.ArticleReadRequest dto)  {
+        CaArticleEntity entity = articleRepository.findById(dto.getArticleId()).orElse(null);
+
+        if (entity == null || entity.getArticleDel() == 1)
+            return null;
+
+        /* 성능이 크리티컬한 부분임, 캐싱 필요  */
+        return ArticleDto.ArticleReadResponse.builder()
+                .body(entity.getArticleBody())
+                .title(entity.getArticleTitle())
+                .writeTime(entity.getArticleWriteTime())
+                .lastModifiedTime(entity.getArticleLastUpdateTime())
+                .comment(entity.getArticleCommentCount())
+                .notice(entity.getArticleNotice())
+                .view(entity.getArticleView())
+                .up(entity.getArticleUpvote())
+                .down(entity.getArticleDownvote())
+                .bookmark(entity.getArticleBookmarkCount())
+                .build();
+    }
 }
