@@ -1,13 +1,15 @@
 package candy.server.domains.board.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
 @Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CaTagEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
