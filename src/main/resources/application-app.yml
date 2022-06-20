@@ -60,6 +60,7 @@ server:
   servlet:
     session:
       timeout: 30m
+    context-path: /api
 
 
 #spring:
