@@ -74,10 +74,6 @@ public class QCaArticleEntity extends EntityPathBase<CaArticleEntity> {
 
     public final ListPath<CaArticleReadAnonEntity, QCaArticleReadAnonEntity> caArticleReadAnonEntityList = this.<CaArticleReadAnonEntity, QCaArticleReadAnonEntity>createList("caArticleReadAnonEntityList", CaArticleReadAnonEntity.class, QCaArticleReadAnonEntity.class, PathInits.DIRECT2);
 
-    public final ListPath<CaArticleReadUserEntity, QCaArticleReadUserEntity> caArticleReadUserEntityList = this.<CaArticleReadUserEntity, QCaArticleReadUserEntity>createList("caArticleReadUserEntityList", CaArticleReadUserEntity.class, QCaArticleReadUserEntity.class, PathInits.DIRECT2);
-
-    public final ListPath<CaArticleTagEntity, QCaArticleTagEntity> caArticleTagEntityList = this.<CaArticleTagEntity, QCaArticleTagEntity>createList("caArticleTagEntityList", CaArticleTagEntity.class, QCaArticleTagEntity.class, PathInits.DIRECT2);
-
     public final ListPath<CaArticleUpdateRecordEntity, QCaArticleUpdateRecordEntity> caArticleUpdateRecordEntityList = this.<CaArticleUpdateRecordEntity, QCaArticleUpdateRecordEntity>createList("caArticleUpdateRecordEntityList", CaArticleUpdateRecordEntity.class, QCaArticleUpdateRecordEntity.class, PathInits.DIRECT2);
 
     public final candy.server.domains.user.entity.QCaUserEntity userId;

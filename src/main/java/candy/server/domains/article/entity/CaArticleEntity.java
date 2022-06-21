@@ -61,10 +61,6 @@ public class CaArticleEntity {
     @OneToMany(mappedBy = "articleId")
     private List<CaArticleMetaEntity> caArticleMetaEntityList;
     @OneToMany(mappedBy = "articleId")
-    private List<CaArticleTagEntity> caArticleTagEntityList;
-    @OneToMany(mappedBy = "articleId")
-    private List<CaArticleReadUserEntity> caArticleReadUserEntityList;
-    @OneToMany(mappedBy = "articleId")
     private List<CaArticleReadAnonEntity> caArticleReadAnonEntityList;
     @OneToMany(mappedBy = "articleId")
     private List<CaArticleAbuseEntity> caArticleAbuseEntityList;

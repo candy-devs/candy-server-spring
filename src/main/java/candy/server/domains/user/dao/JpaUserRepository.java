@@ -1,4 +1,4 @@
-package candy.server.domains.user.controller;
+package candy.server.domains.user.dao;
 
 import candy.server.domains.user.entity.CaUserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

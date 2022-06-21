@@ -1,4 +1,4 @@
-package candy.server.domains.article;
+package candy.server.domains.article.service;
 
 import candy.server.config.auth.SessionUser;
 import candy.server.domains.article.dto.ArticleDto;
@@ -9,7 +9,7 @@ import candy.server.domains.board.entity.CaBoardEntity;
 import candy.server.domains.board.dao.JpaBoardRepository;
 import candy.server.domains.common.utils.HttpReqRespUtils;
 import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.controller.JpaUserRepository;
+import candy.server.domains.user.dao.JpaUserRepository;
 import candy.server.utils.ScalarUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -133,8 +133,19 @@ public class ArticleService {
             return articleWriteUserAnonymous((SessionUser)user, dto);
     }
 
-    public ArticleDto.ArticleReadResponse articleRead(HttpSession session, ArticleDto.ArticleReadRequest dto)  {
-        CaArticleEntity articleEntity = articleRepository.findById(dto.getArticleId()).orElse(null);
+    /*
+    * 글 속성에 따른 읽기 형태
+    * 1. 익명 글 읽기
+    * 2. 로그인 글 읽기
+    * 3. 로그인/비익명 글 읽기
+    *
+    * 누가 이 글을 읽냐
+    * 1. 어떤 사용자가 어떤 글을 읽었는지는 저장하지 않음
+    *     => 너무 too much한 정보임, 대신 로컬에 저장함
+    * 2.
+    * */
+    public ArticleDto.ArticleReadResponse articleRead(HttpSession session, Long id)  {
+        CaArticleEntity articleEntity = articleRepository.findById(id).orElse(null);
 
         if (articleEntity == null || articleEntity.getArticleDel() == 1)
             return null;
@@ -153,6 +164,9 @@ public class ArticleService {
             if (userEntity == null || articleEntity.getUserId() != userEntity)
                 return null;
         }
+
+        /* 조회수 증가 */
+        articleEntity.setArticleView(articleEntity.getArticleView() + 1);
 
         /* 성능이 크리티컬한 부분임, 캐싱 필요  */
         return ArticleDto.ArticleReadResponse.builder()

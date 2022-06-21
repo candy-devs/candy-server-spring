@@ -4,7 +4,7 @@ import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
 import candy.server.domains.user.entity.UserRoleEnum;
-import candy.server.domains.user.controller.JpaUserRepository;
+import candy.server.domains.user.dao.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;

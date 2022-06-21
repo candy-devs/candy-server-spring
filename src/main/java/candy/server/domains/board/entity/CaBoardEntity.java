@@ -1,9 +1,7 @@
 package candy.server.domains.board.entity;
 
 import candy.server.domains.article.entity.CaArticleEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,8 +9,9 @@ import java.util.Objects;
 
 @Entity
 @Builder
-@NoArgsConstructor
+@Getter @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class CaBoardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

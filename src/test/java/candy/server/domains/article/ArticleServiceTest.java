@@ -1,6 +1,7 @@
 package candy.server.domains.article;
 
 import candy.server.domains.article.dto.ArticleDto;
+import candy.server.domains.article.service.ArticleService;
 import candy.server.domains.board.entity.CaBoardEntity;
 import candy.server.domains.board.dao.JpaBoardRepository;
 import org.assertj.core.api.Assertions;

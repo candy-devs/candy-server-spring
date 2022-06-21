@@ -39,8 +39,6 @@ public class CaUserEntity {
 
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
-    @OneToOne(mappedBy = "userId")
-    private CaUserProfileEntity profileEntity;
 
     public CaUserEntity update(String name, String picture) {
         this.userNickname = name;

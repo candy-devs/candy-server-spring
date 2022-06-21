@@ -3,6 +3,7 @@ package candy.server.domains.user.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -11,10 +12,13 @@ import java.util.Objects;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CaUserProfileEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CaUserProfileEntity implements Serializable {
     @Id
+    @Column(name = "userId")
+    private long profileId;
+    @MapsId
     @OneToOne
+    @JoinColumn(name = "userId")
     private CaUserEntity userId;
     @Column(length = 512)
     private String description;

@@ -58,9 +58,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .mvcMatchers("/", "/article/write", "/article/session").permitAll()
-                    .mvcMatchers("/user/**").permitAll()
-                    .mvcMatchers("/admin", "/user/all").hasRole(UserRoleEnum.ADMIN.name())
+                    .mvcMatchers("/", "/article/**", "/board/**").permitAll()
+                    .mvcMatchers("/user/**", "/auth/**").permitAll()
+                    .mvcMatchers("/admin/**").hasRole(UserRoleEnum.ADMIN.name())
+//                    .mvcMatchers("/admin/**").permitAll()
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager())
                 .and()
@@ -90,13 +91,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        String password = passwordEncoder().encode("1234");
-//        auth.inMemoryAuthentication()
-//                .withUser("rollrat").password(password).roles("USER").and()
-//                .withUser("admin").password(password).roles("ADMIN");
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // cannot login anybody
+        String password = passwordEncoder().encode("1234");
+        auth.inMemoryAuthentication()
+                .withUser("rollrat").password(password).roles("USER").and()
+                .withUser("admin").password(password).roles("ADMIN");
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

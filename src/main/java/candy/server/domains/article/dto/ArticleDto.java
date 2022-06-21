@@ -32,14 +32,6 @@ public class ArticleDto {
     }
 
     @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    public static class ArticleReadRequest {
-        private Long articleId;
-    }
-
-    @Data
     @Builder
     @AllArgsConstructor
     public static class ArticleReadResponse{

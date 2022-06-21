@@ -2,7 +2,7 @@ package candy.server.domains.security;
 
 import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.controller.JpaUserRepository;
+import candy.server.domains.user.dao.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
