@@ -1,7 +1,7 @@
 package candy.server.config.auth;
 
 import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.controller.JpaUserRepository;
+import candy.server.domains.user.dao.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -44,7 +44,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         return new DefaultOAuth2User(
                 Collections.singleton(
-                        new SimpleGrantedAuthority(user.getUserRole().name())),
+                        new SimpleGrantedAuthority(user.getUserRole().getKey())),
                 attributes.getAttributes(),
                 attributes.getNameAttributeKey()
         );

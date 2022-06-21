@@ -1,6 +1,7 @@
 package candy.server.domains.article;
 
 import candy.server.domains.article.dto.ArticleDto;
+import candy.server.domains.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
