@@ -1,10 +1,8 @@
 package candy.server.domains.article.dto;
 
 import candy.server.domains.article.entity.CaArticleEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import candy.server.domains.board.dto.BoardPaginationDto;
+import lombok.*;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -46,5 +44,27 @@ public class ArticleDto {
         private int up;
         private int down;
         private int bookmark;
+    }
+
+
+    @Data
+    @Builder
+    @AllArgsConstructor
+    /* this must be equal to article header model */
+    public static class ArticleRecentResponse {
+        @Getter
+        @Setter
+        @AllArgsConstructor
+        @Builder
+        public static class PaginationItem {
+            public long id;
+            public String title, author, summary, board;
+            public String thumbnail, authorImage;
+            public Timestamp writeTime;
+            public int up, down, view, comments, bookmark;
+            public List<String> tags;
+        }
+
+        public List<PaginationItem> articles;
     }
 }

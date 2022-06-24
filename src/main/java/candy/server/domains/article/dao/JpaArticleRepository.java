@@ -11,4 +11,5 @@ import java.util.Optional;
 
 public interface JpaArticleRepository extends JpaRepository<CaArticleEntity, Long> {
     Page<CaArticleEntity> findByBoardId(CaBoardEntity boardId, Pageable pageable);
+    Page<CaArticleEntity> findTopByOrderByArticleIdDesc(Pageable pageable);
 }

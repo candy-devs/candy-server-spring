@@ -1,6 +1,7 @@
 package candy.server.domains.article.controller;
 
 import candy.server.domains.article.dto.ArticleDto;
+import candy.server.domains.article.service.ArticleRecentService;
 import candy.server.domains.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.annotation.Secured;
@@ -38,4 +39,11 @@ public class ArticleController {
         return null;
     }
 
+
+    @GetMapping("/article/recent")
+    @ResponseBody
+    /* get recent articles regardless of boardKey */
+    public ArticleDto.ArticleRecentResponse articleRecent(HttpSession session, @RequestParam int p) {
+        return articleService.articleRecent(session, p);
+    }
 }

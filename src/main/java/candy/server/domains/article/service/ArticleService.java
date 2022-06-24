@@ -5,6 +5,7 @@ import candy.server.domains.article.dto.ArticleDto;
 import candy.server.domains.article.entity.CaArticleEntity;
 import candy.server.domains.article.entity.CaArticleTypeEnum;
 import candy.server.domains.article.dao.JpaArticleRepository;
+import candy.server.domains.article.util.ArticleUtils;
 import candy.server.domains.board.entity.CaBoardEntity;
 import candy.server.domains.board.dao.JpaBoardRepository;
 import candy.server.domains.common.utils.HttpReqRespUtils;
@@ -13,10 +14,14 @@ import candy.server.domains.user.dao.JpaUserRepository;
 import candy.server.utils.ScalarUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Transactional
@@ -180,6 +185,27 @@ public class ArticleService {
                 .up(articleEntity.getArticleUpvote())
                 .down(articleEntity.getArticleDownvote())
                 .bookmark(articleEntity.getArticleBookmarkCount())
+                .build();
+    }
+
+    public ArticleDto.ArticleRecentResponse articleRecent(HttpSession session, int p) {
+        /* todo: this query must get result with board key, user nickname (if exists) */
+        Page<CaArticleEntity> articles = articleRepository.findTopByOrderByArticleIdDesc(PageRequest.of(p, 10));
+
+        List<ArticleDto.ArticleRecentResponse.PaginationItem> items = articles.stream().map(article ->
+                ArticleDto.ArticleRecentResponse.PaginationItem.builder()
+                        .id(article.getArticleId())
+                        .title(article.getArticleTitlePretty())
+                        .summary(article.getArticleBody())
+                        .author(ArticleUtils.getAuthor(article))
+                        .up(article.getArticleUpvote())
+                        .down(article.getArticleDownvote())
+                        .view(article.getArticleView())
+                        .build()
+        ).collect(Collectors.toList());
+
+        return ArticleDto.ArticleRecentResponse.builder()
+                .articles(items)
                 .build();
     }
 }
