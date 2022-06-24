@@ -6,13 +6,17 @@ import candy.server.domains.board.entity.CaBoardEntity;
 import candy.server.domains.board.dao.JpaBoardRepository;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpSession;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
+@AutoConfigureMockMvc
 class ArticleServiceTest {
 
     @Autowired
@@ -20,8 +24,8 @@ class ArticleServiceTest {
     @Autowired
     private JpaBoardRepository boardRepository;
 
-    @Before
-    void 테스트_게시판_생성() {
+    @BeforeAll
+    static void 테스트_게시판_생성(@Autowired JpaBoardRepository boardRepository) {
         boardRepository.save(CaBoardEntity.builder()
                 .boardKey("test-board")
                 .boardName("test-board")
@@ -30,8 +34,9 @@ class ArticleServiceTest {
 
     @Test
     void 글쓰기_익명() throws Exception {
+        var session = new MockHttpSession();
         var result =articleService.articleWrite(
-                null,
+                session,
                 ArticleDto.ArticleWriteRequest.builder()
                         .nickname("test-nick")
                         .password("test-pw")
@@ -40,5 +45,19 @@ class ArticleServiceTest {
                         .body("test-body")
                         .build());
         Assertions.assertThat(result).isGreaterThan(0L);
+    }
+
+    @Test
+    void 글읽기_HAPPY() {
+        var session = new MockHttpSession();
+        var result = articleService.articleRead(session, 1L);
+        Assertions.assertThat(result.title).isNotNull();
+    }
+
+    @Test
+    void 글읽기_SAD() {
+        var session = new MockHttpSession();
+        var result = articleService.articleRead(session, 1234567L);
+        Assertions.assertThat(result).isNull();
     }
 }
