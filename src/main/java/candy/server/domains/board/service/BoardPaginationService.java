@@ -2,6 +2,7 @@ package candy.server.domains.board.service;
 
 import candy.server.domains.article.dao.JpaArticleRepository;
 import candy.server.domains.article.entity.CaArticleEntity;
+import candy.server.domains.article.util.ArticleUtils;
 import candy.server.domains.board.dao.JpaBoardRepository;
 import candy.server.domains.board.dto.BoardPaginationDto;
 import candy.server.domains.board.entity.CaBoardEntity;
@@ -32,7 +33,7 @@ public class BoardPaginationService {
                         .id(article.getArticleId())
                         .title(article.getArticleTitlePretty())
                         .summary(article.getArticleBody())
-                        .author("TODO: Implements")
+                        .author(ArticleUtils.getAuthor(article))
                         .up(article.getArticleUpvote())
                         .down(article.getArticleDownvote())
                         .view(article.getArticleView())
