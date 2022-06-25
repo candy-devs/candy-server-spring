@@ -1,7 +1,10 @@
 # Candy Server (using Spring)
 
-## 개발
+## 계획
 
 ```
-1. Generate Persistence Mapping - By Database Schema를 통해 Entity 자동 생성  
+ - 조회, 생성&업데이트 프로젝트 분리
+ - Article 엔티티의 조회수,북마크 수 증감 부하가 큼으로 캐시노드로 분리해야함
+    (조회를 따로 만들면 캐시 미스시에만 db조회 나머지는 그냥 디비 조회,
+     조회가 백엔드에 미치는 영향을 최소화하자)
 ```
