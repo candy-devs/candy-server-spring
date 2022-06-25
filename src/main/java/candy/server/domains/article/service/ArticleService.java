@@ -150,13 +150,13 @@ public class ArticleService {
     * 2.
     * */
     public ArticleDto.ArticleReadResponse articleRead(HttpSession session, Long id)  {
-        CaArticleEntity articleEntity = articleRepository.findById(id).orElse(null);
+        CaArticleEntity article = articleRepository.findById(id).orElse(null);
 
-        if (articleEntity == null || articleEntity.getArticleDel() == 1)
+        if (article == null || article.getArticleDel() == 1)
             return null;
 
-        if (articleEntity.getArticleHide() == 1) {
-            if (articleEntity.getUserId() == null)
+        if (article.getArticleHide() == 1) {
+            if (article.getUserId() == null)
                 return null;
 
             var user = session.getAttribute("user");
@@ -166,31 +166,33 @@ public class ArticleService {
             SessionUser sessionUser = (SessionUser)user;
             CaUserEntity userEntity = userRepository.findById(sessionUser.getId()).orElse(null);
 
-            if (userEntity == null || articleEntity.getUserId() != userEntity)
+            if (userEntity == null || article.getUserId() != userEntity)
                 return null;
         }
 
         /* 조회수 증가 */
-        articleEntity.setArticleView(articleEntity.getArticleView() + 1);
+        article.setArticleView(article.getArticleView() + 1);
 
         /* 성능이 크리티컬한 부분임, 캐싱 필요  */
         return ArticleDto.ArticleReadResponse.builder()
-                .body(articleEntity.getArticleBody())
-                .title(articleEntity.getArticleTitle())
-                .writeTime(articleEntity.getArticleWriteTime())
-                .lastModifiedTime(articleEntity.getArticleLastUpdateTime())
-                .comment(articleEntity.getArticleCommentCount())
-                .notice(articleEntity.getArticleNotice())
-                .view(articleEntity.getArticleView())
-                .up(articleEntity.getArticleUpvote())
-                .down(articleEntity.getArticleDownvote())
-                .bookmark(articleEntity.getArticleBookmarkCount())
+                .body(article.getArticleBody())
+                .title(article.getArticleTitle())
+                .author(ArticleUtils.getAuthor(article))
+                .writeTime(article.getArticleWriteTime())
+                .lastModifiedTime(article.getArticleLastUpdateTime())
+                .comment(article.getArticleCommentCount())
+                .notice(article.getArticleNotice())
+                .view(article.getArticleView())
+                .up(article.getArticleUpvote())
+                .down(article.getArticleDownvote())
+                .bookmark(article.getArticleBookmarkCount())
                 .build();
     }
 
-    public ArticleDto.ArticleRecentResponse articleRecent(HttpSession session, int p) {
+    public ArticleDto.ArticleRecentResponse articleRecent(int p) {
         /* todo: this query must get result with board key, user nickname (if exists) */
-        Page<CaArticleEntity> articles = articleRepository.findTopByOrderByArticleIdDesc(PageRequest.of(p, 10));
+        Page<CaArticleEntity> articles = articleRepository
+                .findByArticleDelAndArticleHideOrderByArticleIdDesc(0,0,PageRequest.of(p, 10));
 
         List<ArticleDto.ArticleRecentResponse.PaginationItem> items = articles.stream().map(article ->
                 ArticleDto.ArticleRecentResponse.PaginationItem.builder()

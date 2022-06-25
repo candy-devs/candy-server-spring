@@ -60,4 +60,10 @@ class ArticleServiceTest {
         var result = articleService.articleRead(session, 1234567L);
         Assertions.assertThat(result).isNull();
     }
+
+    @Test
+    void 최근글() {
+        var result = articleService.articleRecent(0);
+        Assertions.assertThat(result.articles.size()).isGreaterThanOrEqualTo(1);
+    }
 }

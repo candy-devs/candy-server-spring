@@ -12,4 +12,7 @@ import java.util.Optional;
 public interface JpaArticleRepository extends JpaRepository<CaArticleEntity, Long> {
     Page<CaArticleEntity> findByBoardId(CaBoardEntity boardId, Pageable pageable);
     Page<CaArticleEntity> findTopByOrderByArticleIdDesc(Pageable pageable);
+
+    /* for reduce inquiry cost, we separate article to article and deleted article */
+    Page<CaArticleEntity> findByArticleDelAndArticleHideOrderByArticleIdDesc(int articleDel, int articleHide, Pageable pageable);
 }

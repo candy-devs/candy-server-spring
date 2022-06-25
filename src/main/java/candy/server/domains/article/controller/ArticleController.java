@@ -42,7 +42,7 @@ public class ArticleController {
     @GetMapping("/article/recent")
     @ResponseBody
     /* get recent articles regardless of boardKey */
-    public ArticleDto.ArticleRecentResponse articleRecent(HttpSession session, @RequestParam int p) {
-        return articleService.articleRecent(session, p);
+    public ArticleDto.ArticleRecentResponse articleRecent(@RequestParam int p) {
+        return articleService.articleRecent(p);
     }
 }
