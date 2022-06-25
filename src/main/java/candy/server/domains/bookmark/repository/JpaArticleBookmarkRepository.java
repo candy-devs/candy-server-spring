@@ -12,4 +12,5 @@ public interface JpaArticleBookmarkRepository extends JpaRepository<CaArticleBoo
     Optional<List<CaArticleBookmarkEntity>> findByUserId(CaUserEntity user);
     Optional<Integer> countByArticleId(CaArticleEntity article);
     Optional<Integer> countByUserId(CaUserEntity user);
+    Optional<CaArticleBookmarkEntity> findByUserIdAndArticleId(CaUserEntity user, CaArticleEntity article);
 }
