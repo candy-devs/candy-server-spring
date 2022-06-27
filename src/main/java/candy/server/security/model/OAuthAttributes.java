@@ -1,7 +1,7 @@
 package candy.server.security.model;
 
-import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.entity.UserRoleEnum;
+import candy.server.domain.user.entity.CaUserEntity;
+import candy.server.domain.user.entity.UserRoleEnum;
 import lombok.Builder;
 import lombok.Getter;
 

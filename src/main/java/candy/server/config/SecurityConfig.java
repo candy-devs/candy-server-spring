@@ -1,7 +1,7 @@
 package candy.server.config;
 
 import candy.server.security.service.CustomOAuth2UserService;
-import candy.server.domains.user.entity.UserRoleEnum;
+import candy.server.domain.user.entity.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

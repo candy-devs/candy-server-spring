@@ -1,6 +1,6 @@
 package candy.server.model;
 
-import candy.server.domains.article.entity.CaArticleEntity;
+import candy.server.domain.article.entity.CaArticleEntity;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 

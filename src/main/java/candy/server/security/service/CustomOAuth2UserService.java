@@ -2,8 +2,8 @@ package candy.server.security.service;
 
 import candy.server.security.model.OAuthAttributes;
 import candy.server.security.model.SessionUser;
-import candy.server.domains.user.entity.CaUserEntity;
-import candy.server.domains.user.dao.JpaUserRepository;
+import candy.server.domain.user.entity.CaUserEntity;
+import candy.server.domain.user.dao.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

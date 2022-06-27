@@ -1,6 +1,6 @@
 package candy.server.security.model;
 
-import candy.server.domains.user.entity.CaUserEntity;
+import candy.server.domain.user.entity.CaUserEntity;
 import lombok.Getter;
 
 import java.io.Serializable;
