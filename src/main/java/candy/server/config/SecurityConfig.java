@@ -1,5 +1,6 @@
-package candy.server.config.auth;
+package candy.server.config;
 
+import candy.server.security.service.CustomOAuth2UserService;
 import candy.server.domains.user.entity.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -16,16 +17,10 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
-import org.springframework.security.web.csrf.CsrfLogoutHandler;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -33,8 +28,6 @@ import java.util.List;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomOAuth2UserService customOAuth2UserService;
-
-//    private final CustomOAuth2UserService
 
     public AccessDecisionManager accessDecisionManager() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -61,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .mvcMatchers("/", "/article/**", "/board/**").permitAll()
                     .mvcMatchers("/user/**", "/auth/**").permitAll()
                     .mvcMatchers("/admin/**").hasRole(UserRoleEnum.ADMIN.name())
-//                    .mvcMatchers("/admin/**").permitAll()
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager())
                 .and()
@@ -75,15 +67,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .userService(customOAuth2UserService);
         http.formLogin();
         http.httpBasic();
-
-//        http.sessionManagement()
-////                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-//                .sessionFixation()
-//                .changeSessionId()
-//                .invalidSessionUrl("/")
-//                .maximumSessions(1)
-////                    .expiredUrl("/")
-//                .maxSessionsPreventsLogin(true);
     }
 
     @Override
@@ -93,7 +76,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // cannot login anybody
         String password = passwordEncoder().encode("1234");
         auth.inMemoryAuthentication()
                 .withUser("rollrat").password(password).roles("USER").and()

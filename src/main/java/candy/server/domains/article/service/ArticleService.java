@@ -1,6 +1,6 @@
 package candy.server.domains.article.service;
 
-import candy.server.config.auth.SessionUser;
+import candy.server.security.model.SessionUser;
 import candy.server.domains.article.dto.ArticleDto;
 import candy.server.domains.article.entity.CaArticleEntity;
 import candy.server.domains.article.entity.CaArticleTypeEnum;
@@ -8,14 +8,12 @@ import candy.server.domains.article.dao.JpaArticleRepository;
 import candy.server.domains.article.util.ArticleUtils;
 import candy.server.domains.board.entity.CaBoardEntity;
 import candy.server.domains.board.dao.JpaBoardRepository;
-import candy.server.domains.bookmark.repository.JpaArticleBookmarkRepository;
 import candy.server.domains.common.utils.HttpReqRespUtils;
 import candy.server.domains.user.entity.CaUserEntity;
 import candy.server.domains.user.dao.JpaUserRepository;
 import candy.server.utils.ScalarUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;

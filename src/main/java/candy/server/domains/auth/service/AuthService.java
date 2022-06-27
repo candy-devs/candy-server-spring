@@ -1,6 +1,6 @@
 package candy.server.domains.auth.service;
 
-import candy.server.config.auth.SessionUser;
+import candy.server.security.model.SessionUser;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.entity.CaUserEntity;
 import candy.server.domains.user.entity.UserRoleEnum;

@@ -1,5 +1,7 @@
-package candy.server.config.auth;
+package candy.server.security.service;
 
+import candy.server.security.model.OAuthAttributes;
+import candy.server.security.model.SessionUser;
 import candy.server.domains.user.entity.CaUserEntity;
 import candy.server.domains.user.dao.JpaUserRepository;
 import lombok.RequiredArgsConstructor;

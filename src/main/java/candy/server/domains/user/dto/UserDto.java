@@ -1,6 +1,6 @@
 package candy.server.domains.user.dto;
 
-import candy.server.config.auth.SessionUser;
+import candy.server.security.model.SessionUser;
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.*;
 

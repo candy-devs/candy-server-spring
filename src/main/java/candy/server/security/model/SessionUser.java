@@ -1,8 +1,7 @@
-package candy.server.config.auth;
+package candy.server.security.model;
 
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.Getter;
-import org.hibernate.Session;
 
 import java.io.Serializable;
 

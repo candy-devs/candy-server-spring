@@ -1,6 +1,7 @@
-package candy.server.config.auth;
+package candy.server.security.model;
 
-import io.lettuce.core.dynamic.annotation.CommandNaming;
+import candy.server.security.model.LoginUser;
+import candy.server.security.model.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

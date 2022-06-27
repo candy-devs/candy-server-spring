@@ -1,4 +1,4 @@
-package candy.server.config.auth;
+package candy.server.security.model;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

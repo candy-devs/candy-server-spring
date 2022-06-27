@@ -1,16 +1,13 @@
 package candy.server.domains.article.controller;
 
-import candy.server.config.auth.LoginUser;
-import candy.server.config.auth.SessionUser;
+import candy.server.security.model.LoginUser;
+import candy.server.security.model.SessionUser;
 import candy.server.domains.article.dto.ArticleDto;
 import candy.server.domains.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
 
 @Controller
 @RequiredArgsConstructor

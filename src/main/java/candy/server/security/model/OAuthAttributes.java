@@ -1,10 +1,9 @@
-package candy.server.config.auth;
+package candy.server.security.model;
 
 import candy.server.domains.user.entity.CaUserEntity;
 import candy.server.domains.user.entity.UserRoleEnum;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.security.core.userdetails.User;
 
 import java.util.Map;
 

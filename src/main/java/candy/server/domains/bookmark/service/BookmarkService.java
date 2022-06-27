@@ -1,6 +1,6 @@
 package candy.server.domains.bookmark.service;
 
-import candy.server.config.auth.SessionUser;
+import candy.server.security.model.SessionUser;
 import candy.server.domains.article.dao.JpaArticleRepository;
 import candy.server.domains.article.entity.CaArticleEntity;
 import candy.server.domains.bookmark.dto.BookmarkDto;
@@ -11,10 +11,8 @@ import candy.server.domains.user.dao.JpaUserRepository;
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @RequiredArgsConstructor

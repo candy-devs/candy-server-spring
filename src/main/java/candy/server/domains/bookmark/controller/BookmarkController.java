@@ -1,7 +1,7 @@
 package candy.server.domains.bookmark.controller;
 
-import candy.server.config.auth.LoginUser;
-import candy.server.config.auth.SessionUser;
+import candy.server.security.model.LoginUser;
+import candy.server.security.model.SessionUser;
 import candy.server.domains.bookmark.dto.BookmarkDto;
 import candy.server.domains.bookmark.service.BookmarkService;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @Controller
