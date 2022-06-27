@@ -8,7 +8,7 @@ import candy.server.domain.article.dao.JpaArticleRepository;
 import candy.server.domain.article.util.ArticleUtils;
 import candy.server.domain.board.entity.CaBoardEntity;
 import candy.server.domain.board.dao.JpaBoardRepository;
-import candy.server.domain.common.utils.HttpReqRespUtils;
+import candy.server.utils.HttpReqRespUtils;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.dao.JpaUserRepository;
 import candy.server.utils.ScalarUtils;

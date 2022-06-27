@@ -1,4 +1,4 @@
-package candy.server.domain.common.utils;
+package candy.server.utils;
 
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
