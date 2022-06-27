@@ -4,7 +4,10 @@ import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.service.ArticleService;
 import candy.server.domain.board.entity.CaBoardEntity;
 import candy.server.domain.board.dao.JpaBoardRepository;
+import candy.server.domain.user.entity.CaUserEntity;
+import candy.server.security.model.SessionUser;
 import org.assertj.core.api.Assertions;
+import org.hibernate.Session;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +34,19 @@ class ArticleServiceTest {
                 .build());
     }
 
+    private SessionUser mockSessionUser() {
+       return SessionUser.fromEntity(CaUserEntity.UserBuilder()
+                .userIdid("test-id")
+                .userNickname("test-nick")
+                .userEmail("test-email")
+                .userImage("test-image")
+                .build());
+    }
+
     @Test
     void 글쓰기_익명() throws Exception {
-        var session = new MockHttpSession();
         var result =articleService.articleWrite(
-                session,
+                mockSessionUser(),
                 ArticleDto.ArticleWriteRequest.builder()
                         .nickname("test-nick")
                         .password("test-pw")
@@ -48,15 +59,13 @@ class ArticleServiceTest {
 
     @Test
     void 글읽기_HAPPY() {
-        var session = new MockHttpSession();
-        var result = articleService.articleRead(session, 1L);
+        var result = articleService.articleRead(mockSessionUser(), 1L);
         Assertions.assertThat(result.title).isNotNull();
     }
 
     @Test
     void 글읽기_SAD() {
-        var session = new MockHttpSession();
-        var result = articleService.articleRead(session, 1234567L);
+        var result = articleService.articleRead(mockSessionUser(), 1234567L);
         Assertions.assertThat(result).isNull();
     }
 
