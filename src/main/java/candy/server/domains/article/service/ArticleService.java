@@ -15,12 +15,12 @@ import candy.server.domains.user.dao.JpaUserRepository;
 import candy.server.utils.ScalarUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -123,12 +123,10 @@ public class ArticleService {
         return article.getArticleId();
     }
 
-    public Long articleWrite(HttpSession session, ArticleDto.ArticleWriteRequest dto) {
+    public Long articleWrite(SessionUser user, ArticleDto.ArticleWriteRequest dto) {
         // request dto 명세 확인
         if (!checkArticleWriteDto(dto) || dto.getBoardKey() == null)
             return -1L;
-
-        var user = session.getAttribute("user");
 
         // 비로그인 상태 글쓰기
         if (user == null)
@@ -150,7 +148,7 @@ public class ArticleService {
     *     => 너무 too much한 정보임, 대신 로컬에 저장함
     * 2.
     * */
-    public ArticleDto.ArticleReadResponse articleRead(HttpSession session, Long id)  {
+    public ArticleDto.ArticleReadResponse articleRead(SessionUser user, Long id)  {
         CaArticleEntity article = articleRepository.findById(id).orElse(null);
 
         if (article == null || article.getArticleDel() == 1)
@@ -160,12 +158,10 @@ public class ArticleService {
             if (article.getUserId() == null)
                 return null;
 
-            var user = session.getAttribute("user");
             if (user == null)
                 return null;
 
-            SessionUser sessionUser = (SessionUser)user;
-            CaUserEntity userEntity = userRepository.findById(sessionUser.getId()).orElse(null);
+            CaUserEntity userEntity = userRepository.findById(user.getId()).orElse(null);
 
             if (userEntity == null || article.getUserId() != userEntity)
                 return null;

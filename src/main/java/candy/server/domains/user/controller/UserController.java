@@ -1,11 +1,13 @@
 package candy.server.domains.user.controller;
 
+import candy.server.config.auth.LoginUser;
 import candy.server.config.auth.SessionUser;
 import candy.server.domains.user.dto.UserDto;
 import candy.server.domains.user.service.UserService;
 import candy.server.domains.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Session;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,10 +35,9 @@ public class UserController {
 
     @GetMapping("/user/mysinfo")
     @ResponseBody
-    public UserDto.UserSimpInfoResponse mySimpInfo(HttpSession session) {
-        var userData = session.getAttribute("user");
-        if (userData != null)
-            return new UserDto.UserSimpInfoResponse((SessionUser)userData);
+    public UserDto.UserSimpInfoResponse mySimpInfo(@LoginUser SessionUser user) {
+        if (user != null)
+            return new UserDto.UserSimpInfoResponse(user);
         return null;
     }
 }
