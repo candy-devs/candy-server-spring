@@ -1,4 +1,4 @@
-package candy.server.model;
+package candy.server.domain.article.entity;
 
 import candy.server.domain.article.entity.CaArticleEntity;
 import org.assertj.core.api.Assertions;

@@ -1,4 +1,4 @@
-package candy.server.domain.article;
+package candy.server.domain.article.service;
 
 import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.service.ArticleService;
