@@ -1,5 +1,8 @@
 package candy.server.domain.article.controller;
 
+import candy.server.domain.article.dto.ArticleReadResponseDto;
+import candy.server.domain.article.dto.ArticleWriteRequestDto;
+import candy.server.domain.article.dto.ArticleWriteResponseDto;
 import candy.server.security.model.LoginUser;
 import candy.server.security.model.SessionUser;
 import candy.server.domain.article.dto.ArticleDto;
@@ -20,9 +23,9 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @PostMapping
-    public ResponseEntity<ArticleDto.ArticleWriteResponse> write(@LoginUser SessionUser user,
-                                                                 @RequestBody ArticleDto.ArticleWriteRequest dto) {
-        ArticleDto.ArticleWriteResponse response = ArticleDto.ArticleWriteResponse.builder()
+    public ResponseEntity<ArticleWriteResponseDto> write(@LoginUser SessionUser user,
+                                                         @RequestBody ArticleWriteRequestDto dto) {
+        ArticleWriteResponseDto response = ArticleWriteResponseDto.builder()
                 .articleId(articleService.articleWrite(user, dto))
                 .build();
 
@@ -31,9 +34,9 @@ public class ArticleController {
     }
 
     @GetMapping
-    public ResponseEntity<ArticleDto.ArticleReadResponse> read(@LoginUser SessionUser user,
+    public ResponseEntity<ArticleReadResponseDto> read(@LoginUser SessionUser user,
                                                                @RequestParam Long id) {
-        ArticleDto.ArticleReadResponse response = articleService.articleRead(user, id);
+        ArticleReadResponseDto response = articleService.articleRead(user, id);
 
         return ResponseEntity.ok()
                 .body(response);

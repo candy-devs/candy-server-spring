@@ -1,8 +1,7 @@
 package candy.server.domain.article.service;
 
-import candy.server.domain.article.dto.ArticleRecentDto;
+import candy.server.domain.article.dto.*;
 import candy.server.security.model.SessionUser;
-import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.entity.CaArticleEntity;
 import candy.server.domain.article.entity.CaArticleTypeEnum;
 import candy.server.domain.article.dao.JpaArticleRepository;
@@ -33,7 +32,7 @@ public class ArticleService {
     private final JpaBoardRepository boardRepository;
     private final JpaUserRepository userRepository;
 
-    private boolean checkArticleWriteDto(ArticleDto.ArticleWriteRequest dto) {
+    private boolean checkArticleWriteDto(ArticleWriteRequestDto dto) {
         return dto.getTitle().length() <= 50;
     }
 
@@ -41,7 +40,7 @@ public class ArticleService {
         return boardRepository.findByBoardKey(key).orElse(null);
     }
 
-    private CaArticleEntity defaultEntityFromDto(ArticleDto.ArticleWriteRequest dto) {
+    private CaArticleEntity defaultEntityFromDto(ArticleWriteRequestDto dto) {
         return CaArticleEntity.builder()
                 .articleTitle(dto.getTitle())
                 .articleBody(dto.getBody())
@@ -50,7 +49,7 @@ public class ArticleService {
                 .build();
     }
 
-    private Long articleWriteAnonymous(ArticleDto.ArticleWriteRequest dto) {
+    private Long articleWriteAnonymous(ArticleWriteRequestDto dto) {
         // 익명 글쓰기의 경우 request dto에 nickname과 pw가 포함되어야 함
         if (dto.getNickname() == null || dto.getPassword() == null)
             return -1L;
@@ -73,7 +72,7 @@ public class ArticleService {
         return article.getArticleId();
     }
 
-    private Long articleWriteUser(SessionUser user, ArticleDto.ArticleWriteRequest dto) {
+    private Long articleWriteUser(SessionUser user, ArticleWriteRequestDto dto) {
         if (user.getId() == null)
             return -1L;
 
@@ -97,7 +96,7 @@ public class ArticleService {
         return article.getArticleId();
     }
 
-    private Long articleWriteUserAnonymous(SessionUser user, ArticleDto.ArticleWriteRequest dto) {
+    private Long articleWriteUserAnonymous(SessionUser user, ArticleWriteRequestDto dto) {
         // 로그인-익명 글쓰기의 경우 request dto에 nickname이 포함되어야 함
         if (dto.getNickname() == null)
             return -1L;
@@ -125,7 +124,7 @@ public class ArticleService {
         return article.getArticleId();
     }
 
-    public Long articleWrite(SessionUser user, ArticleDto.ArticleWriteRequest dto) {
+    public Long articleWrite(SessionUser user, ArticleWriteRequestDto dto) {
         // request dto 명세 확인
         if (!checkArticleWriteDto(dto) || dto.getBoardKey() == null)
             return -1L;
@@ -150,7 +149,7 @@ public class ArticleService {
     *     => 너무 too much한 정보임, 대신 로컬에 저장함
     * 2.
     * */
-    public ArticleDto.ArticleReadResponse articleRead(SessionUser user, Long id)  {
+    public ArticleReadResponseDto articleRead(SessionUser user, Long id)  {
         CaArticleEntity article = articleRepository.findById(id).orElse(null);
 
         if (article == null || article.getArticleDel() == 1)
@@ -173,7 +172,7 @@ public class ArticleService {
         article.setArticleView(article.getArticleView() + 1);
 
         /* 성능이 크리티컬한 부분임, 캐싱 필요  */
-        return ArticleDto.ArticleReadResponse.builder()
+        return ArticleReadResponseDto.builder()
                 .body(article.getArticleBody())
                 .title(article.getArticleTitle())
                 .author(ArticleUtils.getAuthor(article))
@@ -188,13 +187,13 @@ public class ArticleService {
                 .build();
     }
 
-    public ArticleRecentDto.ArticleRecentResponse articleRecent(int p) {
+    public ArticleRecentResponseDto articleRecent(int p) {
         /* todo: this query must get result with board key, user nickname (if exists) */
         Page<CaArticleEntity> articles = articleRepository
                 .findByArticleDelAndArticleHideOrderByArticleIdDesc(0,0,PageRequest.of(p, 10));
 
-        List<ArticleRecentDto.ArticleRecentResponse.PaginationItem> items = articles.stream().map(article ->
-                ArticleRecentDto.ArticleRecentResponse.PaginationItem.builder()
+        List<ArticleRecentResponseDto.PaginationItem> items = articles.stream().map(article ->
+                ArticleRecentResponseDto.PaginationItem.builder()
                         .id(article.getArticleId())
                         .title(article.getArticleTitlePretty())
                         .summary(article.getArticleBody())
@@ -208,7 +207,7 @@ public class ArticleService {
                         .build()
         ).collect(Collectors.toList());
 
-        return ArticleRecentDto.ArticleRecentResponse.builder()
+        return ArticleRecentResponseDto.builder()
                 .articles(items)
                 .build();
     }

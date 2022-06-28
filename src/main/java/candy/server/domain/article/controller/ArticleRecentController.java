@@ -2,6 +2,7 @@ package candy.server.domain.article.controller;
 
 import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.dto.ArticleRecentDto;
+import candy.server.domain.article.dto.ArticleRecentResponseDto;
 import candy.server.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,8 @@ public class ArticleRecentController {
 
     @GetMapping
     /* get recent articles regardless of boardKey */
-    public ResponseEntity<ArticleRecentDto.ArticleRecentResponse> recent(@RequestParam int p) {
-        ArticleRecentDto.ArticleRecentResponse response = articleService.articleRecent(p);
+    public ResponseEntity<ArticleRecentResponseDto> recent(@RequestParam int p) {
+        ArticleRecentResponseDto response = articleService.articleRecent(p);
 
         return ResponseEntity.ok()
                 .body(response);
