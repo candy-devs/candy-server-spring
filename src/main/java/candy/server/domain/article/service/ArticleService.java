@@ -1,5 +1,6 @@
 package candy.server.domain.article.service;
 
+import candy.server.domain.article.dto.ArticleRecentDto;
 import candy.server.security.model.SessionUser;
 import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.entity.CaArticleEntity;
@@ -184,13 +185,13 @@ public class ArticleService {
                 .build();
     }
 
-    public ArticleDto.ArticleRecentResponse articleRecent(int p) {
+    public ArticleRecentDto.ArticleRecentResponse articleRecent(int p) {
         /* todo: this query must get result with board key, user nickname (if exists) */
         Page<CaArticleEntity> articles = articleRepository
                 .findByArticleDelAndArticleHideOrderByArticleIdDesc(0,0,PageRequest.of(p, 10));
 
-        List<ArticleDto.ArticleRecentResponse.PaginationItem> items = articles.stream().map(article ->
-                ArticleDto.ArticleRecentResponse.PaginationItem.builder()
+        List<ArticleRecentDto.ArticleRecentResponse.PaginationItem> items = articles.stream().map(article ->
+                ArticleRecentDto.ArticleRecentResponse.PaginationItem.builder()
                         .id(article.getArticleId())
                         .title(article.getArticleTitlePretty())
                         .summary(article.getArticleBody())
@@ -204,7 +205,7 @@ public class ArticleService {
                         .build()
         ).collect(Collectors.toList());
 
-        return ArticleDto.ArticleRecentResponse.builder()
+        return ArticleRecentDto.ArticleRecentResponse.builder()
                 .articles(items)
                 .build();
     }
