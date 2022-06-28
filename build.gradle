@@ -43,6 +43,10 @@ dependencies {
 	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.16.2'
 }
 
+tasks.named("bootBuildImage") {
+	imageName = "candyss:latest"
+}
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
