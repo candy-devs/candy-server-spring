@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/article/recent")
+@RequestMapping("/v1/article/recent")
 public class ArticleRecentController {
 
     private final ArticleService articleService;

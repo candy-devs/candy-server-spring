@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/v1/auth")
 @Slf4j
 public class AuthController {
 
