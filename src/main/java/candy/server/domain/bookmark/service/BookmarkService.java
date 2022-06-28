@@ -1,9 +1,9 @@
 package candy.server.domain.bookmark.service;
 
+import candy.server.domain.bookmark.dto.BookmarkArticleRequestDto;
 import candy.server.security.model.SessionUser;
 import candy.server.domain.article.dao.JpaArticleRepository;
 import candy.server.domain.article.entity.CaArticleEntity;
-import candy.server.domain.bookmark.dto.BookmarkDto;
 import candy.server.domain.bookmark.entity.CaArticleBookmarkEntity;
 import candy.server.domain.bookmark.repository.JpaArticleBookmarkRepository;
 import candy.server.domain.bookmark.repository.JpaBoardBookmarkRepository;
@@ -24,7 +24,7 @@ public class BookmarkService {
     private JpaArticleBookmarkRepository articleBookmarkRepository;
     private JpaBoardBookmarkRepository boardBookmarkRepository;
 
-    public Long article(SessionUser sessionUser, BookmarkDto.ArticleRequest dto) {
+    public Long article(SessionUser sessionUser, BookmarkArticleRequestDto dto) {
         if (sessionUser == null) return -1L;
 
         /* todo: should we check user if a user exists? */
@@ -42,7 +42,7 @@ public class BookmarkService {
         return 1L;
     }
 
-    public Long unArticle(SessionUser sessionUser, BookmarkDto.ArticleRequest dto) {
+    public Long unArticle(SessionUser sessionUser, BookmarkArticleRequestDto dto) {
         if (sessionUser == null) return -1L;
 
         /* todo: should we check user if a user exists? */

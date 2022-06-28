@@ -1,8 +1,8 @@
 package candy.server.domain.bookmark.controller;
 
+import candy.server.domain.bookmark.dto.BookmarkArticleRequestDto;
 import candy.server.security.model.LoginUser;
 import candy.server.security.model.SessionUser;
-import candy.server.domain.bookmark.dto.BookmarkDto;
 import candy.server.domain.bookmark.service.BookmarkService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,13 +19,13 @@ public class BookmarkController {
 
     @PostMapping("/bookmark/article")
     @ResponseBody
-    private Long article(@LoginUser SessionUser sessionUser, @RequestBody BookmarkDto.ArticleRequest dto) {
+    private Long article(@LoginUser SessionUser sessionUser, @RequestBody BookmarkArticleRequestDto dto) {
         return bookmarkService.article(sessionUser, dto);
     }
 
     @PostMapping("/bookmark/unarticle")
     @ResponseBody
-    private Long unArticle(@LoginUser SessionUser sessionUser, @RequestBody BookmarkDto.ArticleRequest dto) {
+    private Long unArticle(@LoginUser SessionUser sessionUser, @RequestBody BookmarkArticleRequestDto dto) {
         return bookmarkService.unArticle(sessionUser, dto);
     }
 
