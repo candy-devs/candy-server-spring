@@ -4,20 +4,23 @@ import candy.server.domain.auth.service.AuthService;
 import candy.server.domain.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
+@RequestMapping("/api/v1/auth")
 @Slf4j
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/auth/signup")
+    @PostMapping("/signup")
     @ResponseBody
     public String userSignup(@RequestBody UserDto.SignupRequest dto) throws Exception {
         authService.join(dto);
@@ -25,12 +28,12 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @PostMapping(value = "/auth/login", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public String userLogin(HttpSession session, @RequestBody UserDto.LoginRequest dto) {
-        if (authService.tryLogin(session, dto)) {
-            return "success";
-        }
-        return "fail";
+    public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody UserDto.LoginRequest dto) {
+        boolean tryLogin = authService.tryLogin(session, dto);
+
+        return ResponseEntity.ok()
+                .body(tryLogin ? 0 : -1);
     }
 }
