@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BoardCreateRequestDto {
-    public String boardKey;
-    public String boardName;
+    private String boardKey;
+    private String boardName;
 }

@@ -6,5 +6,5 @@ import lombok.Builder;
 @Builder
 @AllArgsConstructor
 public class TagCreateRequestDto {
-    public String tagName;
+    private String tagName;
 }
