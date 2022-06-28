@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Controller
+@RequestMapping("/v1/user")
+@RestController
 @Slf4j
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/user/all")
+    @GetMapping("/all")
     @ResponseBody
     public List<CaUserEntity> userAll() {
         return userService.findAll();
@@ -30,7 +31,7 @@ public class UserController {
 //
 //    }
 
-    @GetMapping("/user/mysinfo")
+    @GetMapping("/mysinfo")
     @ResponseBody
     public UserDto.UserSimpInfoResponse mySimpInfo(@LoginUser SessionUser user) {
         if (user != null)

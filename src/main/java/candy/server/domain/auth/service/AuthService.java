@@ -1,5 +1,8 @@
 package candy.server.domain.auth.service;
 
+import candy.server.domain.auth.dto.AuthSignupRequestDto;
+import candy.server.domain.auth.dto.AuthSignupResponseDto;
+import candy.server.domain.auth.dto.AuthSignupResponseDtoCode;
 import candy.server.security.model.SessionUser;
 import candy.server.domain.user.dto.UserDto;
 import candy.server.domain.user.entity.CaUserEntity;
@@ -28,7 +31,6 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-
     private String convertPasswordToHash(String pw) {
         return passwordEncoder.encode(pw);
     }
@@ -43,15 +45,19 @@ public class AuthService {
         return 8 <= pw.length() && pw.length() <= 64;
     }
 
-    public void join(UserDto.SignupRequest dto) throws Exception {
-        if (userRepository.findByUserIdid(dto.getId()).isPresent())
-            throw new IllegalArgumentException("User-id is exists!");
-        if (userRepository.findByUserNickname(dto.getNickname()).isPresent())
-            throw new IllegalArgumentException("User-nickname is exists!");
-
-        if (!checkProperIdFormat(dto.getId()) || !checkProperPwFormat(dto.getPw())) {
-            throw new IllegalArgumentException("check id or pw format!");
+    public AuthSignupResponseDtoCode join(AuthSignupRequestDto dto) {
+        if (!checkProperIdFormat(dto.getId())) {
+            return AuthSignupResponseDtoCode.INVALID_ID_FORMAT;
         }
+
+        if (!checkProperPwFormat(dto.getPw())) {
+            return AuthSignupResponseDtoCode.INVALID_PW_FORMAT;
+        }
+
+        if (userRepository.findByUserIdid(dto.getId()).isPresent())
+            return AuthSignupResponseDtoCode.USERID_ALREADY_EXISTS;
+        if (userRepository.findByUserNickname(dto.getNickname()).isPresent())
+            return AuthSignupResponseDtoCode.NICKNAME_ALREADY_EXISTS;
 
         dto.setPw(convertPasswordToHash(dto.getPw()));
 
@@ -59,9 +65,11 @@ public class AuthService {
         user.setUserRole(UserRoleEnum.USER);
 
         userRepository.save(user);
+
+        return AuthSignupResponseDtoCode.SUCCESS;
     }
 
-    public boolean tryLogin(HttpSession session, UserDto.LoginRequest dto) {
+    public boolean tryLogin(HttpSession session, AuthSignupRequestDto dto) {
         Optional<CaUserEntity> user = userRepository.findByUserIdid(dto.getId());
         if (user.isEmpty())
             return false;

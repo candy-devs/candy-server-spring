@@ -1,16 +1,16 @@
 package candy.server.domain.auth.controller;
 
+import candy.server.domain.auth.dto.AuthSignupResponseDto;
+import candy.server.domain.auth.dto.AuthSignupRequestDto;
+import candy.server.domain.auth.dto.AuthSignupResponseDtoCode;
 import candy.server.domain.auth.service.AuthService;
-import candy.server.domain.user.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Locale;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,15 +21,21 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/signup")
-    @ResponseBody
-    public String userSignup(@RequestBody UserDto.SignupRequest dto) throws Exception {
-        authService.join(dto);
+    public ResponseEntity<AuthSignupResponseDto> userSignup(@RequestBody AuthSignupRequestDto dto) {
+        AuthSignupResponseDtoCode responseCode = authService.join(dto);
+        AuthSignupResponseDto response = AuthSignupResponseDto.builder()
+                .code(responseCode)
+                .message(responseCode.name().toLowerCase())
+                .build();
+
         log.info("/user/signup!");
-        return "redirect:/";
+
+        return ResponseEntity.ok()
+                .body(response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody UserDto.LoginRequest dto) {
+    public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody AuthSignupRequestDto dto) {
         boolean tryLogin = authService.tryLogin(session, dto);
 
         return ResponseEntity.ok()
