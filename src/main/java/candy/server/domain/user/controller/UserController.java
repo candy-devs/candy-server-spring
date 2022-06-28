@@ -1,13 +1,13 @@
 package candy.server.domain.user.controller;
 
+import candy.server.domain.user.dto.UserSimpleInfoResponseDto;
 import candy.server.security.model.LoginUser;
 import candy.server.security.model.SessionUser;
-import candy.server.domain.user.dto.UserDto;
 import candy.server.domain.user.service.UserService;
 import candy.server.domain.user.entity.CaUserEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,21 +21,21 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/all")
-    @ResponseBody
-    public List<CaUserEntity> userAll() {
-        return userService.findAll();
+    public ResponseEntity<List<CaUserEntity>> all() {
+        List<CaUserEntity> response = userService.findAll();
+
+        return ResponseEntity.ok()
+                .body(response);
     }
 
-//    @PostMapping("/user/signup-guest")
-//    public String userSignupGuest(HttpSession session, @RequestBody UserDto.SignupRequest dto) {
-//
-//    }
+    @GetMapping("/info")
+    public ResponseEntity<UserSimpleInfoResponseDto> info(@LoginUser SessionUser user) {
+        if (user != null) {
+            UserSimpleInfoResponseDto response = new UserSimpleInfoResponseDto(user);
+            return ResponseEntity.ok()
+                    .body(response);
+        }
 
-    @GetMapping("/mysinfo")
-    @ResponseBody
-    public UserDto.UserSimpInfoResponse mySimpInfo(@LoginUser SessionUser user) {
-        if (user != null)
-            return new UserDto.UserSimpInfoResponse(user);
-        return null;
+        return ResponseEntity.badRequest().build();
     }
 }

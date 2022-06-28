@@ -1,6 +1,6 @@
 package candy.server.domain.user.service;
 
-import candy.server.domain.user.dto.UserDto;
+import candy.server.domain.user.dto.UserListsResponseDto;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.dao.JpaUserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +27,11 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<UserDto.UserListsResponse> findAllUsers() {
+    public List<UserListsResponseDto> findAllUsers() {
         return userRepository
                 .findAll()
                 .stream()
-                .map(UserDto.UserListsResponse::new)
+                .map(UserListsResponseDto::new)
                 .collect(Collectors.toList());
     }
 }
