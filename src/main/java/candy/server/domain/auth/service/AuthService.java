@@ -62,21 +62,22 @@ public class AuthService {
     }
 
     public boolean tryLogin(HttpSession session, UserDto.LoginRequest dto) {
-        Optional<CaUserEntity> userIdid = userRepository.findByUserIdid(dto.getId());
-        if (userIdid.isEmpty())
+        Optional<CaUserEntity> user = userRepository.findByUserIdid(dto.getId());
+        if (user.isEmpty())
             return false;
 
-        if (!passwordEncoder.matches(dto.getPw(), userIdid.get().getUserPw()))
+        if (!passwordEncoder.matches(dto.getPw(), user.get().getUserPw()))
             return false;
 
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userIdid.get().getUserIdid(), dto.getPw()));
+        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
+                user.get().getUserIdid(), dto.getPw());
+        Authentication authentication = authenticationManager.authenticate(token);
         SecurityContext securityContext = SecurityContextHolder.getContext();
         securityContext.setAuthentication(authentication);
 
         // login success
         session.setAttribute("SPRING_SECURITY_CONTEXT", securityContext);
-        session.setAttribute("user", SessionUser.fromEntity(userIdid.get()));
+        session.setAttribute("user", SessionUser.fromEntity(user.get()));
 
         return true;
     }

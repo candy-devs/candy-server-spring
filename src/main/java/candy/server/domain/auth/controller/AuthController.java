@@ -28,8 +28,7 @@ public class AuthController {
         return "redirect:/";
     }
 
-    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
+    @PostMapping("/login")
     public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody UserDto.LoginRequest dto) {
         boolean tryLogin = authService.tryLogin(session, dto);
 

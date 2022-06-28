@@ -1,10 +1,12 @@
 package candy.server.security.model;
 
 import candy.server.domain.user.entity.CaUserEntity;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.io.Serializable;
 
+@Builder
 @Getter
 public class SessionUser implements Serializable {
     private final Long id;
@@ -12,14 +14,12 @@ public class SessionUser implements Serializable {
     private final String email;
     private final String picture;
 
-    private SessionUser(CaUserEntity user) {
-        this.id = user.getUserId();
-        this.name = user.getUserNickname();
-        this.email = user.getUserEmail();
-        this.picture = user.getUserImage();
-    }
-
     public static SessionUser fromEntity(CaUserEntity entity) {
-        return new SessionUser(entity);
+        return SessionUser.builder()
+                .id(entity.getUserId())
+                .name(entity.getUserNickname())
+                .email(entity.getUserEmail())
+                .picture(entity.getUserImage())
+                .build();
     }
 }

@@ -74,6 +74,9 @@ public class ArticleService {
     }
 
     private Long articleWriteUser(SessionUser user, ArticleDto.ArticleWriteRequest dto) {
+        if (user.getId() == null)
+            return -1L;
+
         CaUserEntity userEntity = userRepository.findById(user.getId()).orElse(null);
 
         if (userEntity == null)

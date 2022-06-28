@@ -2,6 +2,7 @@ package candy.server.config;
 
 import candy.server.security.service.CustomOAuth2UserService;
 import candy.server.domain.user.entity.UserRoleEnum;
+import candy.server.security.service.UserSecurityService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +29,7 @@ import java.util.List;
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomOAuth2UserService customOAuth2UserService;
+    private final UserSecurityService userDetailsService;
 
     public AccessDecisionManager accessDecisionManager() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -51,10 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .mvcMatchers("/", "/article/**", "/board/**").permitAll()
-                    .mvcMatchers("/user/**", "/auth/**", "/api/v1/**").permitAll()
-                    .mvcMatchers("/api/v1/**").permitAll()
-                    .mvcMatchers("/admin/**").hasRole(UserRoleEnum.ADMIN.name())
+                    .antMatchers("/", "/**").permitAll()
+                    .antMatchers("/admin/**").hasRole(UserRoleEnum.ADMIN.name())
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager())
                 .and()
@@ -68,6 +68,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .userService(customOAuth2UserService);
         http.formLogin();
         http.httpBasic();
+
+        http.sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionFixation()
+                .changeSessionId()
+                .invalidSessionUrl("/")
+                .maximumSessions(1)
+//                    .expiredUrl("/")
+                .maxSessionsPreventsLogin(true);
     }
 
     @Override
@@ -77,7 +86,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        String password = passwordEncoder().encode("1234");
+        PasswordEncoder encode = passwordEncoder();
+        String password = encode.encode("1234");
+        auth.userDetailsService(userDetailsService).passwordEncoder(encode);
         auth.inMemoryAuthentication()
                 .withUser("rollrat").password(password).roles("USER").and()
                 .withUser("admin").password(password).roles("ADMIN");

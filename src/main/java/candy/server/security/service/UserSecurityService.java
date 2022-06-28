@@ -1,4 +1,4 @@
-package candy.server.domain.security;
+package candy.server.security.service;
 
 import candy.server.security.model.SessionUser;
 import candy.server.domain.user.entity.CaUserEntity;
@@ -17,8 +17,6 @@ import javax.servlet.http.HttpSession;
 @Service
 public class UserSecurityService implements UserDetailsService {
     private final JpaUserRepository userRepository;
-
-    private final PasswordEncoder passwordEncoder;
     private final HttpSession httpSession;
 
     @Override
