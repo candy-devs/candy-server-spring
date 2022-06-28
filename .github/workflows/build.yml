@@ -29,8 +29,3 @@ jobs:
           ./gradlew bootBuildImage
           docker tag candyss:latest rollrat/candyss:latest
           docker push rollrat/candyss:latest
-      # - name: Build and push
-      #   uses: docker/build-push-action@v3
-      #   with:
-      #     push: true
-      #     tags: rollrat/candyss:latest
