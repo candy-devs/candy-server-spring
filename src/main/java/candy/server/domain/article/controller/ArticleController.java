@@ -5,44 +5,45 @@ import candy.server.security.model.SessionUser;
 import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
+@RequestMapping("/api/v1/article")
 public class ArticleController {
 
     private final ArticleService articleService;
 
-    @PostMapping("/article/write")
-    @ResponseBody
-    public ArticleDto.ArticleWriteResponse articleWrite(@LoginUser SessionUser user,
-                                                        @RequestBody ArticleDto.ArticleWriteRequest dto) {
-        return ArticleDto.ArticleWriteResponse.builder()
+    @PostMapping
+    public ResponseEntity<ArticleDto.ArticleWriteResponse> write(@LoginUser SessionUser user,
+                                                                 @RequestBody ArticleDto.ArticleWriteRequest dto) {
+        ArticleDto.ArticleWriteResponse response = ArticleDto.ArticleWriteResponse.builder()
                 .articleId(articleService.articleWrite(user, dto))
                 .build();
+
+        return ResponseEntity.ok()
+                .body(response);
     }
 
-    @GetMapping("/article/read")
-    @ResponseBody
-    public ArticleDto.ArticleReadResponse articleRead(@LoginUser SessionUser user,
-                                                      @RequestParam Long id) {
-        return articleService.articleRead(user, id);
+    @GetMapping
+    public ResponseEntity<ArticleDto.ArticleReadResponse> read(@LoginUser SessionUser user,
+                                                               @RequestParam Long id) {
+        ArticleDto.ArticleReadResponse response = articleService.articleRead(user, id);
+
+        return ResponseEntity.ok()
+                .body(response);
     }
 
-    @GetMapping("/admin/article/read")
-    @Secured("hasRole('ROLE_ADMIN')")
-    public ArticleDto.ArticleWriteResponse adminArticleRead(@LoginUser SessionUser user,
-                                                            @RequestBody Long dto) {
-        return null;
-    }
+//    @GetMapping("/admin/article/read")
+//    @Secured("hasRole('ROLE_ADMIN')")
+//    public ArticleDto.ArticleWriteResponse adminArticleRead(@LoginUser SessionUser user,
+//                                                            @RequestBody Long dto) {
+//        return null;
+//    }
 
-
-    @GetMapping("/article/recent")
-    @ResponseBody
-    /* get recent articles regardless of boardKey */
-    public ArticleDto.ArticleRecentResponse articleRecent(@RequestParam int p) {
-        return articleService.articleRecent(p);
-    }
 }
