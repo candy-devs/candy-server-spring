@@ -4,7 +4,7 @@ import candy.server.domain.article.dao.JpaArticleRepository;
 import candy.server.domain.article.entity.CaArticleEntity;
 import candy.server.domain.article.util.ArticleUtils;
 import candy.server.domain.board.dao.JpaBoardRepository;
-import candy.server.domain.board.dto.BoardPaginationDto;
+import candy.server.domain.board.dto.BoardPaginationResponseDto;
 import candy.server.domain.board.entity.CaBoardEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -21,15 +21,15 @@ public class BoardPaginationService {
     private final JpaBoardRepository boardRepository;
     private final JpaArticleRepository articleRepository;
 
-    public BoardPaginationDto.BoardPaginationResponse articles(String id, int p) {
+    public BoardPaginationResponseDto articles(String id, int p) {
         Optional<CaBoardEntity> board = boardRepository.findByBoardKey(id);
         if (board.isEmpty())
             return  null;
 
         Page<CaArticleEntity> articles = articleRepository.findByBoardId(board.get(), PageRequest.of(p, 10));
 
-        List<BoardPaginationDto.BoardPaginationResponse.PaginationItem> items = articles.stream().map(article ->
-                BoardPaginationDto.BoardPaginationResponse.PaginationItem.builder()
+        List<BoardPaginationResponseDto.PaginationItem> items = articles.stream().map(article ->
+                BoardPaginationResponseDto.PaginationItem.builder()
                         .id(article.getArticleId())
                         .title(article.getArticleTitlePretty())
                         .summary(article.getArticleBody())
@@ -40,7 +40,7 @@ public class BoardPaginationService {
                         .build()
         ).collect(Collectors.toList());
 
-        return BoardPaginationDto.BoardPaginationResponse.builder()
+        return BoardPaginationResponseDto.builder()
                 .articles(items)
                 .build();
     }

@@ -1,7 +1,7 @@
 package candy.server.domain.board.service;
 
 import candy.server.domain.board.dao.JpaBoardRepository;
-import candy.server.domain.board.dto.BoardDto;
+import candy.server.domain.board.dto.BoardCreateRequestDto;
 import candy.server.domain.board.entity.CaBoardEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class BoardService {
     private final JpaBoardRepository boardRepository;
 
-    public Long createBoard(BoardDto.BoardCreateRequest dto) {
+    public Long createBoard(BoardCreateRequestDto dto) {
         if (boardRepository.findByBoardKeyOrBoardName(dto.boardKey, dto.boardName).isPresent())
             return -1L;
 

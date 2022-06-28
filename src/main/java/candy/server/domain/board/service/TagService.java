@@ -1,7 +1,7 @@
 package candy.server.domain.board.service;
 
 import candy.server.domain.board.dao.JpaTagRepository;
-import candy.server.domain.board.dto.TagDto;
+import candy.server.domain.board.dto.TagCreateRequestDto;
 import candy.server.domain.board.entity.CaTagEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class TagService {
     private final JpaTagRepository tagRepository;
 
-    public boolean createTag(TagDto.TagCreateRequest dto) {
+    public boolean createTag(TagCreateRequestDto dto) {
         Optional<CaTagEntity> tagOld = tagRepository.findByTagName(dto.tagName);
 
         if (tagOld.isPresent())
