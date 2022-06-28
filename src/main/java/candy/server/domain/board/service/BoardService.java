@@ -12,12 +12,12 @@ public class BoardService {
     private final JpaBoardRepository boardRepository;
 
     public Long createBoard(BoardCreateRequestDto dto) {
-        if (boardRepository.findByBoardKeyOrBoardName(dto.boardKey, dto.boardName).isPresent())
+        if (boardRepository.findByBoardKeyOrBoardName(dto.getBoardKey(), dto.getBoardName()).isPresent())
             return -1L;
 
         CaBoardEntity board = CaBoardEntity.builder()
-                .boardKey(dto.boardKey)
-                .boardName(dto.boardName)
+                .boardKey(dto.getBoardKey())
+                .boardName(dto.getBoardName())
                 .build();
 
         boardRepository.save(board);

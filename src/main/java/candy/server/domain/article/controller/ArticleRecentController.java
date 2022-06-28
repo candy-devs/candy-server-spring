@@ -1,7 +1,5 @@
 package candy.server.domain.article.controller;
 
-import candy.server.domain.article.dto.ArticleDto;
-import candy.server.domain.article.dto.ArticleRecentDto;
 import candy.server.domain.article.dto.ArticleRecentResponseDto;
 import candy.server.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;

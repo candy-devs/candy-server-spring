@@ -1,10 +1,8 @@
 package candy.server.domain.auth.service;
 
 import candy.server.domain.auth.dto.AuthSignupRequestDto;
-import candy.server.domain.auth.dto.AuthSignupResponseDto;
 import candy.server.domain.auth.dto.AuthSignupResponseDtoCode;
 import candy.server.security.model.SessionUser;
-import candy.server.domain.user.dto.UserDto;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.entity.UserRoleEnum;
 import candy.server.domain.user.dao.JpaUserRepository;

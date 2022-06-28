@@ -14,13 +14,13 @@ public class TagService {
     private final JpaTagRepository tagRepository;
 
     public boolean createTag(TagCreateRequestDto dto) {
-        Optional<CaTagEntity> tagOld = tagRepository.findByTagName(dto.tagName);
+        Optional<CaTagEntity> tagOld = tagRepository.findByTagName(dto.getTagName());
 
         if (tagOld.isPresent())
             return false;
 
         CaTagEntity tag = CaTagEntity.builder()
-                .tagName(dto.tagName)
+                .tagName(dto.getTagName())
                 .build();
 
         tagRepository.save(tag);
