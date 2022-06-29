@@ -10,20 +10,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@Controller
+@RestController("/v1/bookmark")
 @Slf4j
 public class BookmarkController {
     private BookmarkService bookmarkService;
 
-    @PostMapping("/bookmark/article")
+    @PostMapping("/article")
     @ResponseBody
     private Long article(@LoginUser SessionUser sessionUser, @RequestBody BookmarkArticleRequestDto dto) {
         return bookmarkService.article(sessionUser, dto);
     }
 
-    @PostMapping("/bookmark/unarticle")
+    @PostMapping("/unarticle")
     @ResponseBody
     private Long unArticle(@LoginUser SessionUser sessionUser, @RequestBody BookmarkArticleRequestDto dto) {
         return bookmarkService.unArticle(sessionUser, dto);
