@@ -3,7 +3,10 @@ package candy.server.domain.article.entity;
 import candy.server.domain.user.entity.CaAnonEntity;
 import candy.server.domain.board.entity.CaBoardEntity;
 import candy.server.domain.user.entity.CaUserEntity;
+import candy.server.global.entity.BaseTimeEntity;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -45,7 +48,9 @@ public class CaArticleEntity {
     @Column(length = 255)
     private String articlePassword;
     private CaArticleTypeEnum articleType;
+    @CreationTimestamp
     private Timestamp articleWriteTime;
+    @UpdateTimestamp
     private Timestamp articleLastUpdateTime;
     private int articleCommentCount;
     private int articleNotice;
