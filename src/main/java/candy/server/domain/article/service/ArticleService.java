@@ -211,6 +211,7 @@ public class ArticleService {
                         .view(article.getArticleView())
                         .bookmark(article.getArticleBookmarkCount())
                         .comments(article.getArticleCommentCount())
+                        .board(article.getBoardId().getBoardName())
                         .build()
         ).collect(Collectors.toList());
 
