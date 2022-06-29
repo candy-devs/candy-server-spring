@@ -36,6 +36,12 @@ public class ArticleService {
         return dto.getTitle().length() <= 50;
     }
 
+    private String makeArticleTitlePretty(String title) {
+        if (title.length() < 20)
+            return title;
+        return title.substring(0, 20);
+    }
+
     private CaBoardEntity getBoardFromKey(String key) {
         return boardRepository.findByBoardKey(key).orElse(null);
     }
@@ -43,6 +49,7 @@ public class ArticleService {
     private CaArticleEntity defaultEntityFromDto(ArticleWriteRequestDto dto) {
         return CaArticleEntity.builder()
                 .articleTitle(dto.getTitle())
+                .articleTitlePretty(makeArticleTitlePretty(dto.getTitle()))
                 .articleBody(dto.getBody())
                 .articleType(CaArticleTypeEnum.ANON)
                 .articleIp(HttpReqRespUtils.getClientIpAddressIfServletRequestExist())
