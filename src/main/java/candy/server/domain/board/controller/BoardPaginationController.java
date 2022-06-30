@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@RequestMapping("/v1/board")
+@RequestMapping("/api/v1/board")
 @RestController
 @Slf4j
 public class BoardPaginationController {

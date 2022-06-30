@@ -14,7 +14,7 @@ import java.util.Locale;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/auth")
+@RequestMapping("/api/v1/auth")
 @Slf4j
 public class AuthController {
 

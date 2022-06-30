@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
-@RestController("/v1/bookmark")
+@RestController("/api/v1/bookmark")
 @Slf4j
 public class BookmarkController {
     private BookmarkService bookmarkService;

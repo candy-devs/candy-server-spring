@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
-                    .antMatchers("/v1/", "/v1/**").permitAll()
+                    .antMatchers("/api/v1/", "/api/v1/**").permitAll()
                     .antMatchers("/admin/**").hasRole(UserRoleEnum.ADMIN.name())
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager())

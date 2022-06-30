@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/article")
+@RequestMapping("/api/v1/article")
 public class ArticleController {
 
     private final ArticleService articleService;
