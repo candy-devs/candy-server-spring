@@ -21,7 +21,7 @@ public class ArticleRecentResponseDto {
         private String thumbnail, authorImage;
         private Timestamp writeTime;
         private int up, down, view, comments, bookmark;
-        private List<String> tags;
+        private String[] tags;
     }
 
     private List<PaginationItem> articles;

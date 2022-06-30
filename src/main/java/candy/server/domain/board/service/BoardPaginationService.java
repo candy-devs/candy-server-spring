@@ -32,6 +32,7 @@ public class BoardPaginationService {
                 BoardPaginationResponseDto.PaginationItem.builder()
                         .id(article.getArticleId())
                         .title(article.getArticleTitlePretty())
+                        .tags(article.getArticleTags() != null ? article.getArticleTags().split(",") : null)
                         .summary(article.getArticleBody())
                         .author(ArticleUtils.getAuthor(article))
                         .up(article.getArticleUpvote())

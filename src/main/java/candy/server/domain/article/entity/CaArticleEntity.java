@@ -40,6 +40,8 @@ public class CaArticleEntity {
     private String articleTitlePretty;
     @Lob
     private String articleBody;
+    @Column(length = 255)
+    private String articleTags;
     private Integer articleUserSpecific;
     @Column(length = 64)
     private String articleIp;

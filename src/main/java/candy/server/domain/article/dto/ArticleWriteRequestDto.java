@@ -19,5 +19,5 @@ public class ArticleWriteRequestDto {
     // 익명 글쓰기에 한함
     private String nickname;
     private String password;
-    private List<String> tags;
+    private String[] tags;
 }

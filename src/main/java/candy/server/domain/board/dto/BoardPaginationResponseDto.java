@@ -19,6 +19,7 @@ public class BoardPaginationResponseDto {
         private String author;
         // body summary
         private String summary;
+        private String[] tags;
         private int up, down, view;
     }
 

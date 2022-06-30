@@ -19,6 +19,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,12 @@ public class ArticleService {
     private final JpaUserRepository userRepository;
 
     private boolean checkArticleWriteDto(ArticleWriteRequestDto dto) {
-        return dto.getTitle().length() <= 50;
+        boolean title = dto.getTitle().length() <= 50;
+        boolean tags = dto.getTags() == null || Arrays.stream(dto.getTags())
+                .filter(t -> t.length() > 12 || t.contains(" ") || t.contains(","))
+                .findAny()
+                .isEmpty();
+        return title && tags;
     }
 
     private String makeArticleTitlePretty(String title) {
@@ -53,6 +59,7 @@ public class ArticleService {
                 .articleBody(dto.getBody())
                 .articleType(CaArticleTypeEnum.ANON)
                 .articleIp(HttpReqRespUtils.getClientIpAddressIfServletRequestExist())
+                .articleTags(String.join(",",dto.getTags()))
                 .build();
     }
 
@@ -182,6 +189,7 @@ public class ArticleService {
         return ArticleReadResponseDto.builder()
                 .body(article.getArticleBody())
                 .title(article.getArticleTitle())
+                .tags(article.getArticleTags().split(","))
                 .author(ArticleUtils.getAuthor(article))
                 .writeTime(article.getArticleWriteTime())
                 .lastModifiedTime(article.getArticleLastUpdateTime())
@@ -204,6 +212,7 @@ public class ArticleService {
                         .id(article.getArticleId())
                         .title(article.getArticleTitlePretty())
                         .summary(article.getArticleBody())
+                        .tags(article.getArticleTags() != null ? article.getArticleTags().split(",") : null)
                         .author(ArticleUtils.getAuthor(article))
                         .writeTime(article.getArticleWriteTime())
                         .up(article.getArticleUpvote())
