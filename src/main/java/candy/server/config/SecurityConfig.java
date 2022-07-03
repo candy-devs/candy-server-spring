@@ -1,5 +1,7 @@
 package candy.server.config;
 
+import candy.server.security.filter.JwtAuthenticationFilter;
+import candy.server.security.model.JwtProvider;
 import candy.server.security.service.CustomOAuth2UserService;
 import candy.server.domain.user.entity.UserRoleEnum;
 import candy.server.security.service.UserSecurityService;
@@ -21,6 +23,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler;
 import org.springframework.security.web.access.expression.WebExpressionVoter;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.util.List;
 
@@ -30,6 +33,8 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomOAuth2UserService customOAuth2UserService;
     private final UserSecurityService userDetailsService;
+
+    private final JwtProvider jwtProvider;
 
     public AccessDecisionManager accessDecisionManager() {
         RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
@@ -65,7 +70,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .oauth2Login()
                     .userInfoEndpoint()
-                    .userService(customOAuth2UserService);
+                    .userService(customOAuth2UserService)
+                    .and()
+                .and()
+                    .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
+                        UsernamePasswordAuthenticationFilter.class);
         http.formLogin();
         http.httpBasic();
 

@@ -1,7 +1,9 @@
 package candy.server.domain.auth.service;
 
+import candy.server.domain.auth.dto.AuthLoginRequestDto;
 import candy.server.domain.auth.dto.AuthSignupRequestDto;
 import candy.server.domain.auth.dto.AuthSignupResponseDtoCode;
+import candy.server.security.model.JwtProvider;
 import candy.server.security.model.SessionUser;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.entity.UserRoleEnum;
@@ -28,6 +30,7 @@ public class AuthService {
     private final JpaUserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     private String convertPasswordToHash(String pw) {
         return passwordEncoder.encode(pw);
@@ -67,7 +70,7 @@ public class AuthService {
         return AuthSignupResponseDtoCode.SUCCESS;
     }
 
-    public boolean tryLogin(HttpSession session, AuthSignupRequestDto dto) {
+    public boolean tryLogin(HttpSession session, AuthLoginRequestDto dto) {
         Optional<CaUserEntity> user = userRepository.findByUserIdid(dto.getId());
         if (user.isEmpty())
             return false;
@@ -86,5 +89,16 @@ public class AuthService {
         session.setAttribute("user", SessionUser.fromEntity(user.get()));
 
         return true;
+    }
+
+    public String tryLoginApp(AuthLoginRequestDto dto) {
+        Optional<CaUserEntity> user = userRepository.findByUserIdid(dto.getId());
+        if (user.isEmpty())
+            return "";
+
+        if (!passwordEncoder.matches(dto.getPw(), user.get().getUserPw()))
+            return "";
+
+        return jwtProvider.createToken(user.get().getUserIdid(), user.get().getUserRole());
     }
 }

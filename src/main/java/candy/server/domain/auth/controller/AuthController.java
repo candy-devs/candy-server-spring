@@ -1,5 +1,6 @@
 package candy.server.domain.auth.controller;
 
+import candy.server.domain.auth.dto.AuthLoginRequestDto;
 import candy.server.domain.auth.dto.AuthSignupResponseDto;
 import candy.server.domain.auth.dto.AuthSignupRequestDto;
 import candy.server.domain.auth.dto.AuthSignupResponseDtoCode;
@@ -9,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.DocFlavor;
 import javax.servlet.http.HttpSession;
 import java.util.Locale;
 
@@ -35,10 +37,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody AuthSignupRequestDto dto) {
+    public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody AuthLoginRequestDto dto) {
         boolean tryLogin = authService.tryLogin(session, dto);
 
         return ResponseEntity.ok()
                 .body(tryLogin ? 0 : -1);
+    }
+
+    @PostMapping("/loginapp")
+    public ResponseEntity<String> loginApp(@RequestBody AuthLoginRequestDto dto) {
+        String result = authService.tryLoginApp(dto);
+
+        return ResponseEntity.ok()
+                .body(result);
     }
 }
