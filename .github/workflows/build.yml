@@ -28,6 +28,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: Build and Push
         run: \
-          ./gradlew bootBuildImage
-          docker tag candyss:latest rollrat/candyss:latest
+          chmod +x ./gradlew
+          ./gradlew bootJar
+          docker build -t rollrat/candyss:latest ./
           docker push rollrat/candyss:latest
