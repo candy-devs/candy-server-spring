@@ -10,7 +10,9 @@ import candy.server.security.model.SessionUser;
 import org.assertj.core.api.Assertions;
 import org.hibernate.Session;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @AutoConfigureMockMvc
 class ArticleServiceTest {
 
@@ -27,8 +30,8 @@ class ArticleServiceTest {
     @Autowired
     private JpaBoardRepository boardRepository;
 
-    @BeforeAll
-    static void 테스트_게시판_생성(@Autowired JpaBoardRepository boardRepository) {
+    @BeforeEach
+    void 테스트_게시판_생성() {
         boardRepository.save(CaBoardEntity.builder()
                 .boardKey("test-board")
                 .boardName("test-board")
@@ -46,8 +49,8 @@ class ArticleServiceTest {
 
     @Test
     void 글쓰기_익명() throws Exception {
-        var result =articleService.articleWrite(
-                mockSessionUser(),
+        var result = articleService.articleWrite(
+                null,
                 ArticleWriteRequestDto.builder()
                         .nickname("test-nick")
                         .password("test-pw")

@@ -59,7 +59,7 @@ public class ArticleService {
                 .articleBody(dto.getBody())
                 .articleType(CaArticleTypeEnum.ANON)
                 .articleIp(HttpReqRespUtils.getClientIpAddressIfServletRequestExist())
-                .articleTags(String.join(",",dto.getTags()))
+                .articleTags(dto.getTags() != null ? String.join(",",dto.getTags()) : null)
                 .build();
     }
 
@@ -189,7 +189,7 @@ public class ArticleService {
         return ArticleReadResponseDto.builder()
                 .body(article.getArticleBody())
                 .title(article.getArticleTitle())
-                .tags(article.getArticleTags().split(","))
+                .tags(article.getArticleTags() != null ? article.getArticleTags().split(",") : null)
                 .author(ArticleUtils.getAuthor(article))
                 .writeTime(article.getArticleWriteTime())
                 .lastModifiedTime(article.getArticleLastUpdateTime())
