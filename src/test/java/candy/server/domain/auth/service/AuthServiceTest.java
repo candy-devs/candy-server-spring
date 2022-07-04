@@ -1,6 +1,6 @@
 package candy.server.domain.auth.service;
 
-import candy.server.domain.user.dto.UserDto;
+import candy.server.domain.auth.dto.AuthSignupRequestDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ public class AuthServiceTest {
 
     @Test
     void 유저_회원가입_성공() throws Exception {
-        UserDto.SignupRequest signup = UserDto.SignupRequest
+        AuthSignupRequestDto signup = AuthSignupRequestDto
                 .builder()
                 .id("testid")
                 .pw("testpw")
@@ -28,7 +28,7 @@ public class AuthServiceTest {
 
     @Test
     void 유저_회원가입_실패() throws Exception {
-        UserDto.SignupRequest signup = UserDto.SignupRequest
+        AuthSignupRequestDto signup = AuthSignupRequestDto
                 .builder()
                 .id("testid")
                 .pw("testpw")
@@ -41,7 +41,7 @@ public class AuthServiceTest {
 
     @Test
     void 유저_로그인_실패() {
-        UserDto.SignupRequest login = UserDto.SignupRequest
+        AuthSignupRequestDto login = AuthSignupRequestDto
                 .builder()
                 .id("testid")
                 .pw("testpw")

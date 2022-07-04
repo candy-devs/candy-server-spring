@@ -1,6 +1,7 @@
 package candy.server.domain.article.service;
 
 import candy.server.domain.article.dto.ArticleDto;
+import candy.server.domain.article.dto.ArticleWriteRequestDto;
 import candy.server.domain.article.service.ArticleService;
 import candy.server.domain.board.entity.CaBoardEntity;
 import candy.server.domain.board.dao.JpaBoardRepository;
@@ -47,7 +48,7 @@ class ArticleServiceTest {
     void 글쓰기_익명() throws Exception {
         var result =articleService.articleWrite(
                 mockSessionUser(),
-                ArticleDto.ArticleWriteRequest.builder()
+                ArticleWriteRequestDto.builder()
                         .nickname("test-nick")
                         .password("test-pw")
                         .boardKey("test-board")
@@ -60,7 +61,7 @@ class ArticleServiceTest {
     @Test
     void 글읽기_HAPPY() {
         var result = articleService.articleRead(mockSessionUser(), 1L);
-        Assertions.assertThat(result.title).isNotNull();
+        Assertions.assertThat(result.getTitle()).isNotNull();
     }
 
     @Test
@@ -72,6 +73,6 @@ class ArticleServiceTest {
     @Test
     void 최근글() {
         var result = articleService.articleRecent(0);
-        Assertions.assertThat(result.articles.size()).isGreaterThanOrEqualTo(1);
+        Assertions.assertThat(result.getArticles().size()).isGreaterThanOrEqualTo(1);
     }
 }
