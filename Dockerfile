@@ -1,4 +1,4 @@
-FROM graalvm-ce:java17-0.11.x
+FROM springci/graalvm-ce:java17-0.11.x
 COPY build/libs/* ./server.jar
 CMD ["java", "-jar", "server.jar", \
     "-Xloggc:gc.log", "-XX:+PrintGCDetails", \
