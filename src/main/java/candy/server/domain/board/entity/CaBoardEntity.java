@@ -16,9 +16,9 @@ public class CaBoardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long boardId;
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String boardKey;
-    @Column(length = 50)
+    @Column(length = 50, unique = true)
     private String boardName;
 
     @OneToMany(mappedBy = "boardId")
