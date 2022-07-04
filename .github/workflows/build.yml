@@ -33,3 +33,9 @@ jobs:
           ./gradlew bootJar
           docker build -t rollrat/candyss:latest ./
           docker push rollrat/candyss:latest
+      - name: Diploy
+        uses: fjogeleit/http-request-action@v1
+        with:
+          url: ${{ secrets.WEBHOOK_URL }}
+          method: "POST"
+          timeout: 60000
