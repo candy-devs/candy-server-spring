@@ -52,6 +52,8 @@ public class QCaArticleEntity extends EntityPathBase<CaArticleEntity> {
 
     public final StringPath articlePassword = createString("articlePassword");
 
+    public final StringPath articleTags = createString("articleTags");
+
     public final StringPath articleTitle = createString("articleTitle");
 
     public final StringPath articleTitlePretty = createString("articleTitlePretty");

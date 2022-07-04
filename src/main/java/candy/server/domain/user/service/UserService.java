@@ -1,8 +1,10 @@
 package candy.server.domain.user.service;
 
 import candy.server.domain.user.dto.UserListsResponseDto;
+import candy.server.domain.user.dto.UserModifyRequestDto;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.dao.JpaUserRepository;
+import candy.server.security.model.SessionUser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -33,5 +36,15 @@ public class UserService {
                 .stream()
                 .map(UserListsResponseDto::new)
                 .collect(Collectors.toList());
+    }
+
+    public Long modify(SessionUser sessionUser, UserModifyRequestDto dto) {
+        Optional<CaUserEntity> user = userRepository.findByUserId(sessionUser.getId());
+
+        if (user.isEmpty()) return -1L;
+
+        user.get().setUserNickname(dto.getNickname());
+
+        return 0L;
     }
 }
