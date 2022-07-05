@@ -1,7 +1,7 @@
 package candy.server.domain.article.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import candy.server.domain.user.entity.CaUserEntity;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -9,6 +9,9 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter @Setter
 public class CaArticleMetaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +22,10 @@ public class CaArticleMetaEntity {
     private CaArticleEntity articleId;
     @OneToOne
     private CaArticleResizeImageEntity ariId;
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private CaUserEntity userId;
+    private String amURL;
     private String amToken;
     private String amOFilename;
     private String amFilename;
