@@ -33,7 +33,7 @@ public class UserController {
     @GetMapping("/info")
     public ResponseEntity<UserSimpleInfoResponseDto> info(@LoginUser SessionUser user) {
         if (user != null) {
-            UserSimpleInfoResponseDto response = new UserSimpleInfoResponseDto(user);
+            UserSimpleInfoResponseDto response = UserSimpleInfoResponseDto.fromSessionUser(user);
             return ResponseEntity.ok()
                     .body(response);
         }
