@@ -99,6 +99,6 @@ public class AuthService {
         if (!passwordEncoder.matches(dto.getPw(), user.get().getUserPw()))
             return "";
 
-        return jwtProvider.createToken(user.get().getUserIdid(), user.get().getUserRole());
+        return jwtProvider.createToken(user.get());
     }
 }

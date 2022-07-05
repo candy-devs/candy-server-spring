@@ -1,5 +1,6 @@
 package candy.server.security.model;
 
+import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.entity.UserRoleEnum;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
@@ -27,11 +28,11 @@ public class JwtProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String userPk,
-                              UserRoleEnum role) {
+    public String createToken(CaUserEntity entity) {
         Claims claims = Jwts.claims()
-                .setSubject(userPk);
-        claims.put("roles", role.name());
+                .setSubject(entity.getUserIdid());
+        claims.put("picture", entity.getUserImage());
+        claims.put("roles", entity.getUserRole().name());
 
         Date now = new Date();
 
