@@ -51,4 +51,31 @@ tasks.named("bootBuildImage") {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+bootJar {
+	layered {
+		enabled = true
+
+		application {
+			intoLayer("spring-boot-loader") {
+				include "org/springframework/boot/loader/**"
+			}
+			intoLayer("application")
+		}
+
+		dependencies {
+			intoLayer("snapshot-dependencies") {
+				include "*:*:*SNAPSHOT"
+			}
+			intoLayer("dependencies")
+		}
+
+		layerOrder = ["dependencies", "spring-boot-loader", "snapshot-dependencies", "application"]
+	}
+}
+
+tasks.named("bootBuildImage") {
+	imageName = "rollrat/candyss:latest"
+}
+
 targetCompatibility = JavaVersion.VERSION_17
