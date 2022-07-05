@@ -1,6 +1,7 @@
 package candy.server.security.model;
 
 import candy.server.domain.user.entity.CaUserEntity;
+import candy.server.domain.user.entity.UserRoleEnum;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -13,6 +14,7 @@ public class SessionUser implements Serializable {
     private final String name;
     private final String email;
     private final String picture;
+    private final UserRoleEnum role;
 
     public static SessionUser fromEntity(CaUserEntity entity) {
         return SessionUser.builder()
@@ -20,6 +22,7 @@ public class SessionUser implements Serializable {
                 .name(entity.getUserNickname())
                 .email(entity.getUserEmail())
                 .picture(entity.getUserImage())
+                .role(entity.getUserRole())
                 .build();
     }
 }
