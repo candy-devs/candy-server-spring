@@ -23,6 +23,7 @@ dependencies {
 //	implementation 'org.springframework.session:spring-session-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 	implementation 'org.springframework.session:spring-session-data-redis'
+	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 //	implementation 'org.springframework.session:spring-session-core'
 	implementation 'org.projectlombok:lombok'
 	implementation 'com.google.guava:guava:31.1-jre'
