@@ -42,6 +42,8 @@ public class QCaArticleMetaEntity extends EntityPathBase<CaArticleMetaEntity> {
 
     public final NumberPath<Integer> amType = createNumber("amType", Integer.class);
 
+    public final StringPath amURL = createString("amURL");
+
     public final NumberPath<Integer> amWidth = createNumber("amWidth", Integer.class);
 
     public final DateTimePath<java.sql.Timestamp> amWriteTime = createDateTime("amWriteTime", java.sql.Timestamp.class);
@@ -49,6 +51,8 @@ public class QCaArticleMetaEntity extends EntityPathBase<CaArticleMetaEntity> {
     public final QCaArticleResizeImageEntity ariId;
 
     public final QCaArticleEntity articleId;
+
+    public final candy.server.domain.user.entity.QCaUserEntity userId;
 
     public QCaArticleMetaEntity(String variable) {
         this(CaArticleMetaEntity.class, forVariable(variable), INITS);
@@ -70,6 +74,7 @@ public class QCaArticleMetaEntity extends EntityPathBase<CaArticleMetaEntity> {
         super(type, metadata, inits);
         this.ariId = inits.isInitialized("ariId") ? new QCaArticleResizeImageEntity(forProperty("ariId"), inits.get("ariId")) : null;
         this.articleId = inits.isInitialized("articleId") ? new QCaArticleEntity(forProperty("articleId"), inits.get("articleId")) : null;
+        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId")) : null;
     }
 
 }
