@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/v1/upload")
+@RequestMapping("/api/v1/upload")
 public class UploadController {
     private UploadService uploadService;
 
