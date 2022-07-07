@@ -56,7 +56,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // csrf issue: https://stackoverflow.com/a/38669526/3355656
         http
                 .csrf()
-                    .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and()
                     .headers().frameOptions().disable()
                 .and()

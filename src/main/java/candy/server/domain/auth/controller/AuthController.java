@@ -30,7 +30,7 @@ public class AuthController {
                 .message(responseCode.name().toLowerCase())
                 .build();
 
-        log.info("/user/signup!");
+        log.info(String.format("signup: %s, %s", dto.getId(), dto.getNickname()));
 
         return ResponseEntity.ok()
                 .body(response);
@@ -38,6 +38,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody AuthLoginRequestDto dto) {
+        log.info(String.format("login: %s", dto.getId()));
+
         boolean tryLogin = authService.tryLogin(session, dto);
 
         return ResponseEntity.ok()
