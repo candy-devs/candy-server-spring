@@ -70,7 +70,7 @@ public class UploadService {
                                                 long fileLength) {
         String ext = getExtensionFromFileName(fileName);
 
-        if (checkDto(fileName, ext, fileLength))
+        if (!checkDto(fileName, ext, fileLength))
             return UploadResponseDto.builder()
                     .success(1)
                     .build();
