@@ -22,6 +22,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
@@ -59,9 +60,9 @@ public class UploadService {
         return split[split.length - 1];
     }
 
-    private String getPreSignedURL(String fileName) {
+    private String getPreSignedURL(String hashedFileName) {
         GeneratePresignedUrlRequest generatePresignedUrlRequest =
-                new GeneratePresignedUrlRequest(rawImageBucket, fileName)
+                new GeneratePresignedUrlRequest(rawImageBucket, hashedFileName)
                         .withMethod(HttpMethod.PUT);
 
         generatePresignedUrlRequest.addRequestParameter(Headers.S3_CANNED_ACL,
@@ -88,16 +89,18 @@ public class UploadService {
                 Optional.empty();
 
         // TODO: s3 pre-signed URL 발급
-        String url = getPreSignedURL(fileName);
+        String hashedFileName = UUID.randomUUID().toString() +"." +  ext;
+        String url = getPreSignedURL(hashedFileName);
 
         log.info(String.format("upload: get presigned %s", url));
 
         CaArticleMetaEntity meta = CaArticleMetaEntity.builder()
                 .amOFilename(fileName)
+                .amFilename(hashedFileName)
                 .amExt(ext)
                 .amSize(fileLength)
                 .amIp(HttpReqRespUtils.getClientIpAddressIfServletRequestExist())
-                .amURL(url)
+                .amURL(String.format("https://%s.ap-northeast-2.amazonaws.com/%s", rawImageBucket, hashedFileName))
                 .userId(user.orElse(null))
                 .build();
 
