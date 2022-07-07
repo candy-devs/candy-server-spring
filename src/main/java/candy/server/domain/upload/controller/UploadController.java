@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/upload")
 public class UploadController {
-    private UploadService uploadService;
+    private final UploadService uploadService;
 
     @GetMapping
     private ResponseEntity<UploadResponseDto> request(@LoginUser SessionUser sessionUser,
