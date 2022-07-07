@@ -61,6 +61,9 @@ server:
     session:
       timeout: 30m
 
+logging:
+  config: classpath:logback-spring.xml
+
 
 #spring:
 #  datasource:
