@@ -25,7 +25,7 @@ class UploadServiceTest {
     @Test
     void validFilenameTest() {
         UploadResponseDto result = uploadService
-                .requestResignedURL(null, "test.jpg", 1000);
+                .requestPresignedURL(null, "test.jpg", 1000);
 
         Assertions.assertThat(result.getSuccess()).isEqualTo(0);
     }

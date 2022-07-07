@@ -22,7 +22,7 @@ public class UploadController {
     private ResponseEntity<UploadResponseDto> request(@LoginUser SessionUser sessionUser,
                                                       @RequestParam String fileName,
                                                       @RequestParam long fileLength) {
-        UploadResponseDto response = uploadService.requestResignedURL(sessionUser, fileName, fileLength);
+        UploadResponseDto response = uploadService.requestPresignedURL(sessionUser, fileName, fileLength);
 
         return ResponseEntity.ok()
                 .body(response);

@@ -9,13 +9,17 @@ import candy.server.security.model.SessionUser;
 import candy.server.utils.HttpReqRespUtils;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
+import com.amazonaws.services.s3.Headers;
+import com.amazonaws.services.s3.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Optional;
 
@@ -23,9 +27,9 @@ import java.util.Optional;
 @Service
 @Slf4j
 public class UploadService {
-    private JpaArticleMetaEntity articleMetaEntity;
-    private JpaUserRepository userRepository;
-    private AmazonS3 amazonS3;
+    private final JpaArticleMetaEntity articleMetaEntity;
+    private final JpaUserRepository userRepository;
+    private final AmazonS3 amazonS3;
 
     @Value("${cloud.aws.s3.bucket}")
     private String rawImageBucket;
@@ -58,14 +62,17 @@ public class UploadService {
     private String getPreSignedURL(String fileName) {
         GeneratePresignedUrlRequest generatePresignedUrlRequest =
                 new GeneratePresignedUrlRequest(rawImageBucket, fileName)
-                        .withMethod(HttpMethod.GET);
+                        .withMethod(HttpMethod.PUT);
+
+        generatePresignedUrlRequest.addRequestParameter(Headers.S3_CANNED_ACL,
+                CannedAccessControlList.PublicRead.toString());
 
         URL url = amazonS3.generatePresignedUrl(generatePresignedUrlRequest);
 
         return url.toString();
     }
 
-    public UploadResponseDto requestResignedURL(SessionUser sessionUser,
+    public UploadResponseDto requestPresignedURL(SessionUser sessionUser,
                                                 String fileName,
                                                 long fileLength) {
         String ext = getExtensionFromFileName(fileName);
@@ -76,10 +83,14 @@ public class UploadService {
                     .build();
 
         // TODO: user 정보가 필요한가?
-        Optional<CaUserEntity> user = userRepository.findByUserId(sessionUser.getId());
+        Optional<CaUserEntity> user = sessionUser != null ?
+                userRepository.findByUserId(sessionUser.getId()) :
+                Optional.empty();
 
         // TODO: s3 pre-signed URL 발급
         String url = getPreSignedURL(fileName);
+
+        log.info(String.format("upload: get presigned %s", url));
 
         CaArticleMetaEntity meta = CaArticleMetaEntity.builder()
                 .amOFilename(fileName)
