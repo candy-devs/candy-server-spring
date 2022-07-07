@@ -107,7 +107,6 @@ public class UploadService {
         articleMetaEntity.save(meta);
 
         return UploadResponseDto.builder()
-                .id(meta.getAmId())
                 .uploadUrl(url)
                 .success(0)
                 .build();

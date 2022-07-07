@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 public class UploadResponseDto {
-    private long id;
     private String uploadUrl;
     private String message;
     // 0: ok, 1: fail
