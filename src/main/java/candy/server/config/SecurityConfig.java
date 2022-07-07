@@ -79,14 +79,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         UsernamePasswordAuthenticationFilter.class);
         http.httpBasic();
 
-        http.sessionManagement()
+//        http.sessionManagement()
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .sessionFixation()
-                .changeSessionId()
-                .invalidSessionUrl("/")
-                .maximumSessions(1)
+//                .sessionFixation()
+//                .changeSessionId()
+//                .invalidSessionUrl("/")
+//                .maximumSessions(1)
 //                    .expiredUrl("/")
-                .maxSessionsPreventsLogin(true);
+//                .maxSessionsPreventsLogin(true);
     }
 
     @Override
