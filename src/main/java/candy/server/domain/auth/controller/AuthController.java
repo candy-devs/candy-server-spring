@@ -7,11 +7,15 @@ import candy.server.domain.auth.dto.AuthSignupResponseDtoCode;
 import candy.server.domain.auth.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.print.DocFlavor;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Locale;
 
 @RequiredArgsConstructor
@@ -36,14 +40,32 @@ public class AuthController {
                 .body(response);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<Integer> userLogin(HttpSession session, @RequestBody AuthLoginRequestDto dto) {
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Integer> userLoginJson(HttpSession session, @RequestBody AuthLoginRequestDto dto) {
         log.info(String.format("login: %s", dto.getId()));
 
         boolean tryLogin = authService.tryLogin(session, dto);
 
         return ResponseEntity.ok()
                 .body(tryLogin ? 0 : -1);
+    }
+
+    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public void userLoginForm(HttpServletRequest req,
+                              HttpServletResponse res,
+                              HttpSession session,
+                              AuthLoginRequestDto dto) throws IOException {
+        log.info(String.format("login: %s", dto.getId()));
+
+        boolean tryLogin = authService.tryLogin(session, dto);
+
+        if (tryLogin) {
+            // success
+            res.sendRedirect(req.getHeader("referer"));
+        } else {
+            // fail
+            res.sendRedirect(req.getHeader("referer"));
+        }
     }
 
     @PostMapping("/loginapp")
