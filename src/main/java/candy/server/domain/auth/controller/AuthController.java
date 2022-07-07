@@ -61,10 +61,10 @@ public class AuthController {
 
         if (tryLogin) {
             // success
-            res.sendRedirect(req.getHeader("referer"));
+            res.sendRedirect(req.getHeader("referer") + "?result=0");
         } else {
             // fail
-            res.sendRedirect(req.getHeader("referer"));
+            res.sendRedirect(req.getHeader("referer") + "?result=1&userid=" + dto.getId());
         }
     }
 
