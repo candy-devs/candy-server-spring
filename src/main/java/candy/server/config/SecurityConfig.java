@@ -54,7 +54,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         // csrf issue: https://stackoverflow.com/a/38669526/3355656
         http
-                .csrf().disable()
                 .headers().frameOptions().disable()
                 .and()
                     .authorizeRequests()
