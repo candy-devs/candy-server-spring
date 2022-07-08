@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 @RequiredArgsConstructor
@@ -59,12 +61,15 @@ public class AuthController {
 
         boolean tryLogin = authService.tryLogin(session, dto);
 
+        String redirectUrl = req.getHeader("referer").split("\\?")[0];
+
         if (tryLogin) {
             // success
-            res.sendRedirect(req.getHeader("referer") + "?result=0");
+            res.sendRedirect(redirectUrl + "?result=0");
         } else {
-            // fail
-            res.sendRedirect(req.getHeader("referer") + "?result=1&userid=" + dto.getId());
+            // fail=
+            res.sendRedirect(redirectUrl + "?result=1&redirect=" +
+                    (dto.getRedirect() != null ? URLEncoder.encode(dto.getRedirect(), StandardCharsets.UTF_8) : ""));
         }
     }
 

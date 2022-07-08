@@ -12,4 +12,5 @@ import lombok.NoArgsConstructor;
 public class AuthLoginRequestDto {
     private String id;
     private String pw;
+    private String redirect;
 }
