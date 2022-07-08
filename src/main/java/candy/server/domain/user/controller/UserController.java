@@ -1,5 +1,6 @@
 package candy.server.domain.user.controller;
 
+import candy.server.domain.user.dto.UserGetRequestDto;
 import candy.server.domain.user.dto.UserModifyRequestDto;
 import candy.server.domain.user.dto.UserSimpleInfoResponseDto;
 import candy.server.security.model.LoginUser;
@@ -39,6 +40,25 @@ public class UserController {
         }
 
         return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/specific")
+    public ResponseEntity<String> specific(@LoginUser SessionUser user) {
+        if (user != null) {
+            String response = userService.getSpecific(user);
+            return ResponseEntity.ok()
+                    .body(response);
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/{specific}")
+    public ResponseEntity<UserGetRequestDto> get(@PathVariable("specific") String specific) {
+        UserGetRequestDto response = userService.getUserInfoFromSpecific(specific);
+
+        return ResponseEntity.ok()
+                .body(response);
     }
 
     @PutMapping

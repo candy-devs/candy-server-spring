@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @ToString
@@ -19,6 +20,8 @@ public class CaUserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     private long userId;
+    @Column(length = 255, unique = true)
+    private String userSpecificId;
     @Column(length = 255, unique = true)
     private String userIdid;
     @Column( length = 512)
@@ -60,4 +63,10 @@ public class CaUserEntity {
         return Objects.hash(userId, userIdid, userPw, userNickname, userSignupTime, userLastLoginTime, userRest);
     }
 
+    public void createAndSetUserSpecificIfNotExists() {
+        if (userSpecificId != null) return;
+        
+        String uuid = UUID.randomUUID().toString();
+        userSpecificId = uuid.replaceAll("-", "");
+    }
 }

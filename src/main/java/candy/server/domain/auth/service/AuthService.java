@@ -64,6 +64,7 @@ public class AuthService {
 
         CaUserEntity user = dto.toEntity();
         user.setUserRole(UserRoleEnum.USER);
+        user.createAndSetUserSpecificIfNotExists();
 
         userRepository.save(user);
 

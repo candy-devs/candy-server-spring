@@ -1,7 +1,9 @@
 package candy.server.domain.user.service;
 
+import candy.server.domain.user.dto.UserGetRequestDto;
 import candy.server.domain.user.dto.UserListsResponseDto;
 import candy.server.domain.user.dto.UserModifyRequestDto;
+import candy.server.domain.user.dto.UserSimpleInfoResponseDto;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.dao.JpaUserRepository;
 import candy.server.security.model.SessionUser;
@@ -46,5 +48,27 @@ public class UserService {
         user.get().setUserNickname(dto.getNickname());
 
         return 0L;
+    }
+
+    public String getSpecific(SessionUser sessionUser) {
+        Optional<CaUserEntity> user = userRepository.findByUserId(sessionUser.getId());
+
+        if (user.isEmpty()) return null;
+
+        return user.get().getUserSpecificId();
+    }
+
+    public UserGetRequestDto getUserInfoFromSpecific(String specific) {
+        Optional<CaUserEntity> user = userRepository.findByUserSpecificId(specific);
+
+        if (user.isEmpty()) return null;
+
+        CaUserEntity userEntity = user.get();
+
+        return UserGetRequestDto.builder()
+                .name(userEntity.getUserNickname())
+                .picture(userEntity.getUserImage())
+                .role(userEntity.getUserRole().name())
+                .build();
     }
 }

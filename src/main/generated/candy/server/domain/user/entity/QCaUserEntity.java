@@ -42,6 +42,8 @@ public class QCaUserEntity extends EntityPathBase<CaUserEntity> {
 
     public final DateTimePath<java.sql.Timestamp> userSignupTime = createDateTime("userSignupTime", java.sql.Timestamp.class);
 
+    public final StringPath userSpecificId = createString("userSpecificId");
+
     public QCaUserEntity(String variable) {
         super(CaUserEntity.class, forVariable(variable));
     }
