@@ -25,6 +25,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.access.expression.WebExpressionVoter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 
 import java.util.List;
 
@@ -59,6 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .disable()
                     .headers().frameOptions().disable()
                 .and()
+                    .requestCache().requestCache(getHttpSessionRequestCache())
+                .and()
                     .authorizeRequests()
                     .antMatchers("/api/v1/", "/api/v1/**").permitAll()
                     .antMatchers("/admin/**").hasRole(UserRoleEnum.ADMIN.name())
@@ -87,6 +90,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .maximumSessions(1)
 //                    .expiredUrl("/")
 //                .maxSessionsPreventsLogin(true);
+    }
+
+    // https://stackoverflow.com/questions/70769950/prevent-unauthorized-http-requests-redirected-to-error-from-setting-session-coo
+    public HttpSessionRequestCache getHttpSessionRequestCache() {
+        HttpSessionRequestCache httpSessionRequestCache = new HttpSessionRequestCache();
+        httpSessionRequestCache.setCreateSessionAllowed(false); // I modified this parameter
+        return httpSessionRequestCache;
     }
 
     @Override
