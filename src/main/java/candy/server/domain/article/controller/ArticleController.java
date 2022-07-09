@@ -9,11 +9,15 @@ import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
+import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,8 +26,8 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    @PostMapping
-    public ResponseEntity<ArticleWriteResponseDto> write(@LoginUser SessionUser user,
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ArticleWriteResponseDto> writeJson(@LoginUser SessionUser user,
                                                          @RequestBody ArticleWriteRequestDto dto) {
         ArticleWriteResponseDto response = ArticleWriteResponseDto.builder()
                 .articleId(articleService.articleWrite(user, dto))
@@ -31,6 +35,15 @@ public class ArticleController {
 
         return ResponseEntity.ok()
                 .body(response);
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public void writeForm(HttpServletResponse res,
+                          @LoginUser SessionUser user,
+                          ArticleWriteRequestDto dto) throws IOException {
+        Long articleId = articleService.articleWrite(user, dto);
+
+        res.sendRedirect("/read/" + articleId.toString());
     }
 
     @GetMapping
