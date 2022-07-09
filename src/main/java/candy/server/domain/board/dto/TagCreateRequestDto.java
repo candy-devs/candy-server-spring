@@ -1,14 +1,11 @@
 package candy.server.domain.board.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Builder
+@Data
 @NoArgsConstructor
-@Getter
 @AllArgsConstructor
+@Builder
 public class TagCreateRequestDto {
     private String tagName;
 }

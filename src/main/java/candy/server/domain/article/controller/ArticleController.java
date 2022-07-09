@@ -8,6 +8,7 @@ import candy.server.security.model.SessionUser;
 import candy.server.domain.article.dto.ArticleDto;
 import candy.server.domain.article.service.ArticleService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
@@ -23,6 +24,7 @@ import java.io.IOException;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/article")
+@Slf4j
 public class ArticleController {
 
     private final ArticleService articleService;
@@ -39,12 +41,15 @@ public class ArticleController {
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public void writeForm(HttpServletResponse res,
+    public ResponseEntity<ArticleWriteResponseDto> writeForm(HttpServletResponse res,
                           @LoginUser SessionUser user,
                           @Valid ArticleWriteRequestDto dto) throws IOException {
-        Long articleId = articleService.articleWrite(user, dto);
+        ArticleWriteResponseDto response = ArticleWriteResponseDto.builder()
+                .articleId(articleService.articleWrite(user, dto))
+                .build();
 
-        res.sendRedirect("/read/" + articleId.toString());
+        return ResponseEntity.ok()
+                .body(response);
     }
 
     @GetMapping

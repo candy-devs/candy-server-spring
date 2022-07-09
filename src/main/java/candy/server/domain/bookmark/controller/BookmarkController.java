@@ -34,5 +34,4 @@ public class BookmarkController {
         return bookmarkService.unArticle(sessionUser, dto);
     }
 
-
 }
