@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RequiredArgsConstructor
 @RestController("/api/v1/bookmark")
 @Slf4j
@@ -20,13 +22,15 @@ public class BookmarkController {
 
     @PostMapping("/article")
     @ResponseBody
-    private Long article(@LoginUser SessionUser sessionUser, @RequestBody BookmarkArticleRequestDto dto) {
+    private Long article(@LoginUser SessionUser sessionUser,
+                         @Valid @RequestBody BookmarkArticleRequestDto dto) {
         return bookmarkService.article(sessionUser, dto);
     }
 
     @PostMapping("/unarticle")
     @ResponseBody
-    private Long unArticle(@LoginUser SessionUser sessionUser, @RequestBody BookmarkArticleRequestDto dto) {
+    private Long unArticle(@LoginUser SessionUser sessionUser,
+                           @Valid @RequestBody BookmarkArticleRequestDto dto) {
         return bookmarkService.unArticle(sessionUser, dto);
     }
 

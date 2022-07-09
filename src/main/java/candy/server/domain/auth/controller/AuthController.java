@@ -15,6 +15,7 @@ import javax.print.DocFlavor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -43,7 +44,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Integer> userLoginJson(HttpSession session, @RequestBody AuthLoginRequestDto dto) {
+    public ResponseEntity<Integer> userLoginJson(HttpSession session, @Valid @RequestBody AuthLoginRequestDto dto) {
         log.info(String.format("login: %s", dto.getId()));
 
         boolean tryLogin = authService.tryLogin(session, dto);
@@ -56,7 +57,7 @@ public class AuthController {
     public void userLoginForm(HttpServletRequest req,
                               HttpServletResponse res,
                               HttpSession session,
-                              AuthLoginRequestDto dto) throws IOException {
+                              @Valid AuthLoginRequestDto dto) throws IOException {
         log.info(String.format("login: %s", dto.getId()));
 
         boolean tryLogin = authService.tryLogin(session, dto);

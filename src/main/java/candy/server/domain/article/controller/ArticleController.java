@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 
 @RestController
@@ -28,7 +29,7 @@ public class ArticleController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArticleWriteResponseDto> writeJson(@LoginUser SessionUser user,
-                                                         @RequestBody ArticleWriteRequestDto dto) {
+                                                             @Valid @RequestBody ArticleWriteRequestDto dto) {
         ArticleWriteResponseDto response = ArticleWriteResponseDto.builder()
                 .articleId(articleService.articleWrite(user, dto))
                 .build();
@@ -40,7 +41,7 @@ public class ArticleController {
     @PostMapping(consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public void writeForm(HttpServletResponse res,
                           @LoginUser SessionUser user,
-                          ArticleWriteRequestDto dto) throws IOException {
+                          @Valid ArticleWriteRequestDto dto) throws IOException {
         Long articleId = articleService.articleWrite(user, dto);
 
         res.sendRedirect("/read/" + articleId.toString());
