@@ -16,7 +16,7 @@ public class BoardController {
 
     private final BoardService boardService;
 
-    @PostMapping("/admin/board/create")
+    @PostMapping("/api/admin/board/create")
     public ResponseEntity<Long> createBoard(@RequestBody BoardCreateRequestDto dto) {
         Long response = boardService.createBoard(dto);
 

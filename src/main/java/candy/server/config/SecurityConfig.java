@@ -64,7 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/api/v1/", "/api/v1/**").permitAll()
-                    .antMatchers("/admin/**").hasRole(UserRoleEnum.ADMIN.name())
+                    .antMatchers("/api/admin/","/api/admin/**").hasRole(UserRoleEnum.ADMIN.name())
                     .anyRequest().authenticated()
                     .accessDecisionManager(accessDecisionManager())
                 .and()
