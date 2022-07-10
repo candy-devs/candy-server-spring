@@ -63,18 +63,27 @@ public class ArticleService {
                 .build();
     }
 
-    private Long articleWriteAnonymous(ArticleWriteRequestDto dto) {
+    private ArticleWriteResponseDto articleWriteAnonymous(ArticleWriteRequestDto dto) {
         // 익명 글쓰기의 경우 request dto에 nickname과 pw가 포함되어야 함
         if (dto.getNickname() == null || dto.getPassword() == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("nickname or pw not found")
+                    .articleId(-1L)
+                    .build();
         if (!ScalarUtils.inside(dto.getNickname().length(), 2, 16) || !ScalarUtils.inside(dto.getPassword().length(), 4, 32))
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("nickname or pw format is incorrect.")
+                    .articleId(-1L)
+                    .build();
 
         CaBoardEntity board = getBoardFromKey(dto.getBoardKey());
 
         // 게시판 존재하지 않음
         if (board == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("board not found")
+                    .articleId(-1L)
+                    .build();
 
         CaArticleEntity article = defaultEntityFromDto(dto);
         article.setBoardId(board);
@@ -83,23 +92,34 @@ public class ArticleService {
 
         articleRepository.save(article);
 
-        return article.getArticleId();
+        return ArticleWriteResponseDto.builder()
+                .articleId(article.getArticleId())
+                .build();
     }
 
-    private Long articleWriteUser(SessionUser user, ArticleWriteRequestDto dto) {
+    private ArticleWriteResponseDto articleWriteUser(SessionUser user, ArticleWriteRequestDto dto) {
         if (user.getId() == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("session user not found")
+                    .articleId(-1L)
+                    .build();
 
         CaUserEntity userEntity = userRepository.findById(user.getId()).orElse(null);
 
         if (userEntity == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("user not found")
+                    .articleId(-1L)
+                    .build();
 
         CaBoardEntity board = getBoardFromKey(dto.getBoardKey());
 
         // 게시판 존재하지 않음
         if (board == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("board not found")
+                    .articleId(-1L)
+                    .build();
 
         CaArticleEntity article = defaultEntityFromDto(dto);
         article.setBoardId(board);
@@ -107,26 +127,40 @@ public class ArticleService {
 
         articleRepository.save(article);
 
-        return article.getArticleId();
+        return ArticleWriteResponseDto.builder()
+                .articleId(article.getArticleId())
+                .build();
     }
 
-    private Long articleWriteUserAnonymous(SessionUser user, ArticleWriteRequestDto dto) {
+    private ArticleWriteResponseDto articleWriteUserAnonymous(SessionUser user, ArticleWriteRequestDto dto) {
         // 로그인-익명 글쓰기의 경우 request dto에 nickname이 포함되어야 함
         if (dto.getNickname() == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("nickname not found")
+                    .articleId(-1L)
+                    .build();
         if (!ScalarUtils.inside(dto.getNickname().length(), 2, 16))
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("nickname format is invalid")
+                    .articleId(-1L)
+                    .build();
 
         CaUserEntity userEntity = userRepository.findById(user.getId()).orElse(null);
 
         if (userEntity == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("user not found")
+                    .articleId(-1L)
+                    .build();
 
         CaBoardEntity board = getBoardFromKey(dto.getBoardKey());
 
         // 게시판 존재하지 않음
         if (board == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("board not found")
+                    .articleId(-1L)
+                    .build();
 
         CaArticleEntity article = defaultEntityFromDto(dto);
         article.setBoardId(board);
@@ -135,13 +169,18 @@ public class ArticleService {
 
         articleRepository.save(article);
 
-        return article.getArticleId();
+        return ArticleWriteResponseDto.builder()
+                .articleId(article.getArticleId())
+                .build();
     }
 
-    public Long articleWrite(SessionUser user, ArticleWriteRequestDto dto) {
+    public ArticleWriteResponseDto articleWrite(SessionUser user, ArticleWriteRequestDto dto) {
         // request dto 명세 확인
         if (!checkArticleWriteDto(dto) || dto.getBoardKey() == null)
-            return -1L;
+            return ArticleWriteResponseDto.builder()
+                    .message("data is invalid")
+                    .articleId(-1L)
+                    .build();
 
         // 비로그인 상태 글쓰기
         if (user == null)

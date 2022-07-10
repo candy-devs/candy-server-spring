@@ -32,9 +32,7 @@ public class ArticleController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ArticleWriteResponseDto> writeJson(@LoginUser SessionUser user,
                                                              @Valid @RequestBody ArticleWriteRequestDto dto) {
-        ArticleWriteResponseDto response = ArticleWriteResponseDto.builder()
-                .articleId(articleService.articleWrite(user, dto))
-                .build();
+        ArticleWriteResponseDto response = articleService.articleWrite(user, dto);
 
         return ResponseEntity.ok()
                 .body(response);
@@ -44,9 +42,7 @@ public class ArticleController {
     public ResponseEntity<ArticleWriteResponseDto> writeForm(HttpServletResponse res,
                           @LoginUser SessionUser user,
                           @Valid ArticleWriteRequestDto dto) throws IOException {
-        ArticleWriteResponseDto response = ArticleWriteResponseDto.builder()
-                .articleId(articleService.articleWrite(user, dto))
-                .build();
+        ArticleWriteResponseDto response = articleService.articleWrite(user, dto);
 
         return ResponseEntity.ok()
                 .body(response);

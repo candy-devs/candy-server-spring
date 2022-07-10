@@ -7,5 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ArticleWriteResponseDto {
+    private String message;
     private Long articleId;
 }
