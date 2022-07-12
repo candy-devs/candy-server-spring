@@ -58,7 +58,7 @@ class ArticleServiceTest {
                         .title("test-title")
                         .body("test-body")
                         .build());
-        Assertions.assertThat(result).isGreaterThan(0L);
+        Assertions.assertThat(result.getArticleId()).isGreaterThan(0L);
     }
 
     @Test
