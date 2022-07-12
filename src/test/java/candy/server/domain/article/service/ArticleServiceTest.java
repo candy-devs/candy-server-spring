@@ -36,6 +36,17 @@ class ArticleServiceTest {
                 .boardKey("test-board")
                 .boardName("test-board")
                 .build());
+
+        articleService.articleWrite(
+                null,
+                ArticleWriteRequestDto.builder()
+                        .nickname("test-nick")
+                        .password("test-pw")
+                        .boardKey("test-board")
+                        .title("test-title")
+                        .body("test-body")
+                        .build()
+        );
     }
 
     private SessionUser mockSessionUser() {

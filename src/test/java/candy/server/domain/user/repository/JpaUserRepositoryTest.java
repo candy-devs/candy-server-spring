@@ -2,24 +2,26 @@ package candy.server.domain.user.repository;
 
 import candy.server.domain.user.dao.JpaUserRepository;
 import candy.server.domain.user.entity.CaUserEntity;
+import candy.server.domain.user.entity.UserRoleEnum;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.Optional;
 
 @SpringBootTest
-//@Transactional
+@Transactional
 public class JpaUserRepositoryTest {
 
     @Autowired
     private JpaUserRepository userRepository;
 
-    @BeforeEach
-    void beforeEach() {
+    @Test
+    void  findByUserNickname() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         CaUserEntity caUserEntity = CaUserEntity.UserBuilder()
                 .userIdid("testid")
@@ -27,15 +29,12 @@ public class JpaUserRepositoryTest {
                 .userNickname("testnickname")
                 .userSignupTime(timestamp)
                 .userLastLoginTime(timestamp)
+                .userRole(UserRoleEnum.USER)
                 .build();
         userRepository.saveAndFlush(caUserEntity);
-    }
 
-    @Test
-    void  findByUserNickname() {
-        System.out.println(userRepository.count());
-        CaUserEntity caUserEntity = userRepository.findByUserNickname("testnickname").get();
-        Assertions.assertThat(caUserEntity).isNotNull();
+        CaUserEntity caUserEntity1 = userRepository.findByUserNickname("testnickname").get();
+        Assertions.assertThat(caUserEntity1).isNotNull();
     }
 
     @Test
@@ -49,6 +48,7 @@ public class JpaUserRepositoryTest {
                     .userNickname("test-nick-" + i)
                     .userSignupTime(timestamp)
                     .userLastLoginTime(timestamp)
+                    .userRole(UserRoleEnum.USER)
                     .build();
 
             userRepository.save(user);

@@ -1,5 +1,6 @@
 package candy.server.domain.article.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
 @Embeddable
 @Getter
 @Builder
+@AllArgsConstructor
 public class ImmArticleInteractionInfo {
     private int articleCommentCount;
     private int articleNotice;

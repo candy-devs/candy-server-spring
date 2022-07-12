@@ -1,6 +1,9 @@
 package candy.server.domain.auth.service;
 
 import candy.server.domain.auth.dto.AuthSignupRequestDto;
+import candy.server.domain.auth.dto.AuthSignupResponseDtoCode;
+import org.assertj.core.api.Assertions;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -36,7 +39,8 @@ public class AuthServiceTest {
                 .build();
 
         authService.join(signup);
-        assertThrows(IllegalArgumentException.class, () -> authService.join(signup));
+        Assertions.assertThat(authService.join(signup).getValue()).isEqualTo(
+                AuthSignupResponseDtoCode.USERID_ALREADY_EXISTS.getValue());
     }
 
     @Test
