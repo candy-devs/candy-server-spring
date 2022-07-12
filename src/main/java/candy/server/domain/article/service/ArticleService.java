@@ -32,6 +32,7 @@ public class ArticleService {
     private final JpaArticleRepository articleRepository;
     private final JpaBoardRepository boardRepository;
     private final JpaUserRepository userRepository;
+    private final XSSFilterService xssFilterService;
 
     private boolean checkArticleWriteDto(ArticleWriteRequestDto dto) {
         boolean title = dto.getTitle().length() <= 50;
@@ -39,7 +40,8 @@ public class ArticleService {
                 .filter(t -> t.length() > 12 || t.contains(" ") || t.contains(","))
                 .findAny()
                 .isEmpty();
-        return title && tags;
+        boolean body = dto.getBody().length() <= 65536;
+        return title && tags && body;
     }
 
     private String makeArticleTitlePretty(String title) {
@@ -56,7 +58,7 @@ public class ArticleService {
         return CaArticleEntity.builder()
                 .articleTitle(dto.getTitle())
                 .articleTitlePretty(makeArticleTitlePretty(dto.getTitle()))
-                .articleBody(dto.getBody())
+                .articleBody(xssFilterService.makeSafeDocument(dto.getBody()))
                 .articleType(CaArticleTypeEnum.ANON)
                 .articleIp(HttpReqRespUtils.getClientIpAddressIfServletRequestExist())
                 .articleTags(dto.getTags() != null ? String.join(",",dto.getTags()) : null)
