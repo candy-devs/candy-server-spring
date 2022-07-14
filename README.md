@@ -1,4 +1,4 @@
-# Candy Server (using Spring)
+`# Candy Server (using Spring)
 
 ## 계획
 
@@ -22,4 +22,39 @@
 
 ```
  - 테스트 서버가 작아서 bootBuildImage 이미지를 못 돌림
+```
+
+## Spring 부가 내용들
+
+### JVM
+
+```
+ - GC Logging 필요한가? 더 정확히는 GC Log 분석이 필요할까?
+   - 일단 트래픽이 커지면 Scale Out 방식으로 서버를 늘리자
+ - APM을 언제 사용해야할까?
+```
+
+#### GraalVM?
+
+```
+ - SubstracteVM으로 AOT 빌드 가능
+   - Monolithic Arch에선 일단 JIT이 더 낫다고 생각
+     - G1GC보다 낮은 성능의 GC
+     - JIT의 HotSpot Optimization 이점이 사라짐     
+```
+
+### Security
+
+```
+ - Session과 Token 기반 인증을 조화롭게 설정하는 방법은 무엇인가
+```
+
+### JPA
+
+```
+ - Prefetch나 Fetch/Inner Join, QueryDSL으로 N+1문제 해결
+ - Presentation Layer 건드려서 Proxy Object 참조들 한 번에 가져오기
+   - 이렇게까지 해야할 필요가 있는가? 프로젝트의 복잡성 증대, 유지보수 불편할 것 같다고 생각
+ - Read가 압도적으로 많은 상황을 가정하면 Spring Backend를 통해 DB를 조회하는게 합당한가?
+   - JPA Persistence Context, 2차 캐시 고갈 문제
 ```
