@@ -1,4 +1,4 @@
-`# Candy Server (using Spring)
+# Candy Server (using Spring)
 
 ## 계획
 
@@ -7,6 +7,7 @@
  - Article 엔티티의 조회수,북마크 수 증감 부하가 큼으로 캐시노드로 분리해야함
     (조회를 따로 만들면 캐시 미스시에만 db조회 나머지는 그냥 디비 조회,
      조회가 백엔드에 미치는 영향을 최소화하자)
+ - Github Actions 코드부분 커밋아니면 안돌아가게 설정
 ```
 
 ## 개발 방법
