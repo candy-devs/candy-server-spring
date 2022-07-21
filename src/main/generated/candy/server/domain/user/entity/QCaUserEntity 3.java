@@ -18,11 +18,7 @@ public class QCaUserEntity extends EntityPathBase<CaUserEntity> {
 
     private static final long serialVersionUID = 1118668060L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QCaUserEntity caUserEntity = new QCaUserEntity("caUserEntity");
-
-    public final candy.server.domain.account.entity.QCaAccountEntity caAccountEntity;
 
     public final ListPath<CaUserLoginEntity, QCaUserLoginEntity> caUserLoginEntityList = this.<CaUserLoginEntity, QCaUserLoginEntity>createList("caUserLoginEntityList", CaUserLoginEntity.class, QCaUserLoginEntity.class, PathInits.DIRECT2);
 
@@ -49,24 +45,15 @@ public class QCaUserEntity extends EntityPathBase<CaUserEntity> {
     public final StringPath userSpecificId = createString("userSpecificId");
 
     public QCaUserEntity(String variable) {
-        this(CaUserEntity.class, forVariable(variable), INITS);
+        super(CaUserEntity.class, forVariable(variable));
     }
 
     public QCaUserEntity(Path<? extends CaUserEntity> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QCaUserEntity(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QCaUserEntity(PathMetadata metadata, PathInits inits) {
-        this(CaUserEntity.class, metadata, inits);
-    }
-
-    public QCaUserEntity(Class<? extends CaUserEntity> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.caAccountEntity = inits.isInitialized("caAccountEntity") ? new candy.server.domain.account.entity.QCaAccountEntity(forProperty("caAccountEntity"), inits.get("caAccountEntity")) : null;
+        super(CaUserEntity.class, metadata);
     }
 
 }

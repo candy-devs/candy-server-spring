@@ -1,6 +1,9 @@
 package candy.server.domain.user.entity;
 
+import candy.server.domain.account.entity.CaAccountEntity;
+//import candy.server.domain.account.entity.CaTransactionEntity;
 import lombok.*;
+import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -15,6 +18,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor(access  = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Accessors(chain = true)
 @Builder(builderMethodName = "UserBuilder")
 public class CaUserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +46,15 @@ public class CaUserEntity {
 
     @OneToMany(mappedBy = "userId")
     private List<CaUserLoginEntity> caUserLoginEntityList;
+
+    @OneToOne(mappedBy = "caUserEntity")
+    private CaAccountEntity caAccountEntity;
+
+//    @OneToOne(mappedBy = "senderId")
+//    private CaTransactionEntity caTransactionEntity;
+//
+//    @OneToOne(mappedBy = "receiverId")
+//    private CaTransactionEntity caTransactionEntity1;
 
     public CaUserEntity update(String name, String picture) {
         this.userNickname = name;
