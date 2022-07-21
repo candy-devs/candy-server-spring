@@ -16,8 +16,8 @@ public class AccountSendService {
 
     public AccountSendRequestDto sendCandy(AccountSendRequestDto dto){
 
-        Optional<CaAccountEntity> sender = accountRepository.findByAccountId(dto.getAccountSenderId());
-        Optional<CaAccountEntity> receiver = accountRepository.findByAccountId(dto.getAccountReceiverId());
+        Optional<CaAccountEntity> sender = accountRepository.findByCaUserEntity_UserSpecificId(dto.getAccountSenderSpecificId());
+        Optional<CaAccountEntity> receiver = accountRepository.findByCaUserEntity_UserSpecificId(dto.getAccountReceiverSpecificId());
         if(receiver.isEmpty()){
             return AccountSendRequestDto.builder().accountErrorMessage("받는사람의 id가 없습니다.").build();
         }

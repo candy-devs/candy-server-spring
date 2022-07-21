@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AccountSendRequestDto {
     private Long accountCandyCnt;
-    private Long accountSenderId;
-    private Long accountReceiverId;
+    private String accountSenderSpecificId;
+    private String accountReceiverSpecificId;
     private String accountErrorMessage;
 
 }

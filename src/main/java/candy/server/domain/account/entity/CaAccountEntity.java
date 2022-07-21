@@ -23,7 +23,7 @@ public class CaAccountEntity {
     @Column
     private Long accountUserCandyCnt;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(name="userId")
+    @JoinColumn(name="userSpecificId")
     private CaUserEntity caUserEntity;
 
     @Override
