@@ -37,6 +37,7 @@ public class AccountServiceTest {
                 .userIdid("test_id")
                 .userPw("testpw")
                 .userNickname("testnickname")
+                .userSpecificId("test1")
                 .userSignupTime(timestamp)
                 .userLastLoginTime(timestamp)
                 .userRole(UserRoleEnum.USER)
@@ -46,19 +47,20 @@ public class AccountServiceTest {
                 .userIdid("test_id2")
                 .userPw("testpw")
                 .userNickname("testnickname2")
+                .userSpecificId("test2")
                 .userSignupTime(timestamp)
                 .userLastLoginTime(timestamp)
                 .userRole(UserRoleEnum.USER)
                 .build();
         userRepository.save(receiverUser);
         caAccountEntity =CaAccountEntity.builder()
-                .accountId(senderUser.getUserId())
+//                .accountId(senderUser.getUserSpecificId())
                 .caUserEntity(senderUser)
                 .accountUserCandyCnt(3L)
                 .build();
         accountRepository.save(caAccountEntity);
         caAccountEntity2 =CaAccountEntity.builder()
-                .accountId(receiverUser.getUserId())
+//                .accountId(receiverUser.getUserSpecificId())
                 .caUserEntity(receiverUser)
                 .accountUserCandyCnt(3L)
                 .build();
@@ -68,13 +70,14 @@ public class AccountServiceTest {
     @Test
     void sendCandyTest(){
         System.out.println(accountRepository.findAll());
-        CaAccountEntity accountSendUser = accountRepository.findByAccountId(senderUser.getUserId()).get();
-        CaAccountEntity accountReceiveUser = accountRepository.findByAccountId(receiverUser.getUserId()).get();
+        CaAccountEntity accountSendUser = accountRepository.findByCaUserEntity_UserSpecificId(senderUser.getUserSpecificId()).get();
+        CaAccountEntity accountReceiveUser = accountRepository.findByCaUserEntity_UserSpecificId(receiverUser.getUserSpecificId()).get();
         accountSendService.sendCandy(AccountSendRequestDto.builder()
-                .accountSenderId(accountSendUser.getAccountId())
-                .accountReceiverId(accountReceiveUser.getAccountId())
+                .accountSenderSpecificId(accountSendUser.getCaUserEntity().getUserSpecificId())
+                .accountReceiverSpecificId(accountReceiveUser.getCaUserEntity().getUserSpecificId())
                 .accountCandyCnt(3L)
                 .build());
+
         Assertions.assertThat(accountReceiveUser.getAccountUserCandyCnt()).isEqualTo(6L);
     }
 }

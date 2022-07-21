@@ -38,6 +38,7 @@ public class JpaAccountRepositoryTest {
                 .userIdid("test_id")
                 .userPw("testpw")
                 .userNickname("testnickname")
+                .userSpecificId("test123")
                 .userSignupTime(timestamp)
                 .userLastLoginTime(timestamp)
                 .userRole(UserRoleEnum.USER)
@@ -50,13 +51,13 @@ public class JpaAccountRepositoryTest {
     @Test
     void findByUserId(){
         CaAccountEntity caAccountEntity =CaAccountEntity.builder()
-                .accountId(targetUser.getUserId())
                 .caUserEntity(targetUser)
                 .accountUserCandyCnt(3L)
                 .build();
+        System.out.println(caAccountEntity.getAccountId());
         accountRepository.saveAndFlush(caAccountEntity);
 
-        CaAccountEntity caAccountEntity1 = accountRepository.findByAccountId(targetUser.getUserId()).get();
+        CaAccountEntity caAccountEntity1 = accountRepository.findByCaUserEntity_UserSpecificId(targetUser.getUserSpecificId()).get();
         System.out.println(caAccountEntity1.getAccountUserCandyCnt());
         Assertions.assertThat(caAccountEntity1).isNotNull();
     }
