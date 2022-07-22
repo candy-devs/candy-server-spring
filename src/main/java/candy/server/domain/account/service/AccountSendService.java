@@ -1,9 +1,11 @@
 package candy.server.domain.account.service;
 
 import candy.server.domain.account.dao.JpaAccountRepository;
+import candy.server.domain.account.dto.AccountResponseDto;
 import candy.server.domain.account.dto.AccountSendRequestDto;
 import candy.server.domain.account.entity.CaAccountEntity;
 import candy.server.domain.user.dao.JpaUserRepository;
+import candy.server.security.model.SessionUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +16,20 @@ public class AccountSendService {
     private final JpaUserRepository userRepository;
     private final JpaAccountRepository accountRepository;
 
-    public AccountSendRequestDto sendCandy(AccountSendRequestDto dto){
-
-        Optional<CaAccountEntity> sender = accountRepository.findByCaUserEntity_UserSpecificId(dto.getAccountSenderSpecificId());
-        Optional<CaAccountEntity> receiver = accountRepository.findByCaUserEntity_UserSpecificId(dto.getAccountReceiverSpecificId());
+    public AccountResponseDto sendCandy(SessionUser user, AccountSendRequestDto dto){
+        Optional<CaAccountEntity> sender = accountRepository.findByCaUserEntityUserNickname(user.getName());
+        Optional<CaAccountEntity> receiver = accountRepository.findByCaUserEntity_UserSpecificId(dto.getReceiver());
+        Long senderAccountCount = sender.get().getAccountCount();
+        Long receiverAccountCount = receiver.get().getAccountCount();
         if(receiver.isEmpty()){
-            return AccountSendRequestDto.builder().accountErrorMessage("받는사람의 id가 없습니다.").build();
+            return AccountResponseDto.builder().message("받는 사람이 존재하지 않습니다.").build();
         }
-        if(sender.get().getAccountUserCandyCnt()-dto.getAccountCandyCnt()<0||sender.get().getAccountUserCandyCnt()==0){
-            return AccountSendRequestDto.builder().accountErrorMessage("Candy가 부족합니다.").build();
+        if(senderAccountCount-dto.getCount()<0||senderAccountCount==0){
+            return AccountResponseDto.builder().message("보유하신 캔디보다 많이 보낼 수 없습니다.").build();
         }
-        sender.get().setAccountUserCandyCnt(sender.get().getAccountUserCandyCnt()-dto.getAccountCandyCnt());
-        receiver.get().setAccountUserCandyCnt(receiver.get().getAccountUserCandyCnt()+dto.getAccountCandyCnt());
-        return AccountSendRequestDto.builder().accountErrorMessage("success").build();
+        sender.get().setAccountCount(senderAccountCount-dto.getCount());
+        receiver.get().setAccountCount(receiverAccountCount+dto.getCount());
+        return AccountResponseDto.builder().message("success").build();
 
     }
 }

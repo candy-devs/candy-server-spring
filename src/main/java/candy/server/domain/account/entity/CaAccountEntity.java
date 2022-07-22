@@ -21,7 +21,7 @@ public class CaAccountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
     @Column
-    private Long accountUserCandyCnt;
+    private Long accountCount;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name="userSpecificId")
     private CaUserEntity caUserEntity;
@@ -31,11 +31,11 @@ public class CaAccountEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CaAccountEntity that = (CaAccountEntity) o;
-        return Objects.equals(accountId, that.accountId) && Objects.equals(accountUserCandyCnt, that.accountUserCandyCnt) && Objects.equals(caUserEntity, that.caUserEntity);
+        return Objects.equals(accountId, that.accountId) && Objects.equals(accountCount, that.accountCount) && Objects.equals(caUserEntity, that.caUserEntity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountId, accountUserCandyCnt, caUserEntity);
+        return Objects.hash(accountId, accountCount, caUserEntity);
     }
 }

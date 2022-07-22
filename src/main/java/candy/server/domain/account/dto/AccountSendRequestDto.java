@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountSendRequestDto {
-    private Long accountCandyCnt;
-    private String accountSenderSpecificId;
-    private String accountReceiverSpecificId;
-    private String accountErrorMessage;
-
+    private Long count;
+    private String receiver;
 }
