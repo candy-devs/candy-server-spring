@@ -52,13 +52,13 @@ public class JpaAccountRepositoryTest {
     void findByUserId(){
         CaAccountEntity caAccountEntity =CaAccountEntity.builder()
                 .caUserEntity(targetUser)
-                .accountUserCandyCnt(3L)
+                .accountCount(3L)
                 .build();
         System.out.println(caAccountEntity.getAccountId());
         accountRepository.saveAndFlush(caAccountEntity);
 
         CaAccountEntity caAccountEntity1 = accountRepository.findByCaUserEntity_UserSpecificId(targetUser.getUserSpecificId()).get();
-        System.out.println(caAccountEntity1.getAccountUserCandyCnt());
+        System.out.println(caAccountEntity1.getAccountCount());
         Assertions.assertThat(caAccountEntity1).isNotNull();
     }
 
