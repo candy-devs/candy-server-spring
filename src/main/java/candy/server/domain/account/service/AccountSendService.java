@@ -17,13 +17,17 @@ public class AccountSendService {
     private final JpaAccountRepository accountRepository;
 
     public AccountResponseDto sendCandy(SessionUser user, AccountSendRequestDto dto){
-        Optional<CaAccountEntity> sender = accountRepository.findByCaUserEntityUserNickname(user.getName());
+        Optional<CaAccountEntity> sender = accountRepository.findByAccountId(user.getId());
         Optional<CaAccountEntity> receiver = accountRepository.findByCaUserEntity_UserSpecificId(dto.getReceiver());
-        Long senderAccountCount = sender.get().getAccountCount();
-        Long receiverAccountCount = receiver.get().getAccountCount();
-        if(receiver.isEmpty()){
+        Long receiverAccountCount;
+        try {
+            receiverAccountCount = receiver.get().getAccountCount();
+        }
+        catch(Exception e){
             return AccountResponseDto.builder().message("받는 사람이 존재하지 않습니다.").build();
         }
+        Long senderAccountCount = sender.get().getAccountCount();
+
         if(senderAccountCount-dto.getCount()<0||senderAccountCount==0){
             return AccountResponseDto.builder().message("보유하신 캔디보다 많이 보낼 수 없습니다.").build();
         }
