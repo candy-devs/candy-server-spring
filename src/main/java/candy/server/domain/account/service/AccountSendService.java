@@ -37,7 +37,7 @@ public class AccountSendService {
         receiver.get().setAccountCount(receiverAccountCount+dto.getCount());
 
         transactionRepository.save(CaTransactionEntity.builder()
-                .CandyCnt(dto.getCount())
+                .candyCnt(dto.getCount())
                 .caReceiverEntity(receiver.get().getCaUserEntity())
                 .caSenderEntity(receiver.get().getCaUserEntity())
                 .build());
