@@ -29,7 +29,7 @@ public class CaTransactionEntity {
     @JoinColumn(referencedColumnName="userId",name="transactionReceiverId")
     private CaUserEntity caReceiverEntity;
     @Column
-    private Long CandyCnt;
+    private Long candyCnt;
     @CreationTimestamp
     private Timestamp transactionTime;
 
