@@ -1,8 +1,10 @@
 package candy.server.domain.account.service;
 
 import candy.server.domain.account.dao.JpaAccountRepository;
+import candy.server.domain.account.dao.JpaTransactionRepository;
 import candy.server.domain.account.dto.AccountSendRequestDto;
 import candy.server.domain.account.entity.CaAccountEntity;
+import candy.server.domain.account.entity.CaTransactionEntity;
 import candy.server.domain.user.dao.JpaUserRepository;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.entity.UserRoleEnum;
@@ -25,12 +27,15 @@ public class AccountServiceTest {
     private CaUserEntity receiverUser;
     private CaAccountEntity caAccountEntity;
     private CaAccountEntity caAccountEntity2;
+    private Optional<CaTransactionEntity> caTransactionEntity;
     @Autowired
     private AccountSendService accountSendService;
     @Autowired
     JpaAccountRepository accountRepository;
     @Autowired
     JpaUserRepository userRepository;
+    @Autowired
+    JpaTransactionRepository transactionRepository;
     @BeforeEach
     void beforeEach(){
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -68,19 +73,14 @@ public class AccountServiceTest {
         accountRepository.save(caAccountEntity2);
     }
     private SessionUser mockSessionUser() {
-        return SessionUser.fromEntity(CaUserEntity.UserBuilder()
-                .userIdid("test_id")
-                .userNickname("testnickname")
-                .userEmail("test-email")
-                .userImage("test-image")
-                .userSpecificId("123")
-                .build());
+
+        return SessionUser.fromEntity(senderUser);
     }
     @Test
     void sendCandyTest(){
         CaAccountEntity accountReceiveUser = accountRepository.findByCaUserEntity_UserSpecificId(receiverUser.getUserSpecificId()).get();
         var result = accountSendService.sendCandy(mockSessionUser(),AccountSendRequestDto.builder()
-                .receiver(accountReceiveUser.getCaUserEntity().getUserSpecificId())
+                .receiver("test2")
                 .count(3L)
                 .build());
 
@@ -88,12 +88,33 @@ public class AccountServiceTest {
     }
 
     @Test
-    void checkError(){
+    void checkCountError(){
         CaAccountEntity accountReceiveUser = accountRepository.findByCaUserEntity_UserSpecificId(receiverUser.getUserSpecificId()).get();
         var result = accountSendService.sendCandy(mockSessionUser(),AccountSendRequestDto.builder()
                 .receiver(accountReceiveUser.getCaUserEntity().getUserSpecificId())
                 .count(4L)
                 .build());
         Assertions.assertThat(result.getMessage()).isEqualTo("보유하신 캔디보다 많이 보낼 수 없습니다.");
+    }
+
+    @Test
+    void checkReceiverError(){
+        var result = accountSendService.sendCandy(mockSessionUser(),AccountSendRequestDto.builder()
+                .receiver("-1")
+                .count(4L)
+                .build());
+        Assertions.assertThat(result.getMessage()).isEqualTo("받는 사람이 존재하지 않습니다.");
+    }
+
+    @Test
+    void checkTransactionError(){
+        CaAccountEntity accountReceiveUser = accountRepository.findByCaUserEntity_UserSpecificId(receiverUser.getUserSpecificId()).get();
+        var result = accountSendService.sendCandy(mockSessionUser(),AccountSendRequestDto.builder()
+                .receiver(accountReceiveUser.getCaUserEntity().getUserSpecificId())
+                .count(4L)
+                .build());
+        caTransactionEntity=transactionRepository.findCaTransactionEntityByCaReceiverEntity_UserSpecificId("test2");
+        Assertions.assertThat(caTransactionEntity.equals("test2"));
+
     }
 }
