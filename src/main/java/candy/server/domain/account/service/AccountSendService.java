@@ -36,8 +36,6 @@ public class AccountSendService {
         sender.get().setAccountCount(senderAccountCount-dto.getCount());
         receiver.get().setAccountCount(receiverAccountCount+dto.getCount());
 
-        System.out.println(sender.get().getAccountCount());
-        System.out.println(receiver.get().getAccountCount());
         transactionRepository.save(CaTransactionEntity.builder()
                 .CandyCnt(dto.getCount())
                 .caReceiverEntity(receiver.get().getCaUserEntity())
