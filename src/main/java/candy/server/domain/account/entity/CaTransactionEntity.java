@@ -23,10 +23,10 @@ public class CaTransactionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName="userId",name="transactionsenderId")
+    @JoinColumn(referencedColumnName="userId",name="transactionSenderId")
     private CaUserEntity caSenderEntity;
     @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-    @JoinColumn(referencedColumnName="userId",name="transactionreceiverId")
+    @JoinColumn(referencedColumnName="userId",name="transactionReceiverId")
     private CaUserEntity caReceiverEntity;
     @Column
     private Long CandyCnt;
