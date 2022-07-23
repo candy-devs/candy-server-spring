@@ -54,11 +54,9 @@ public class JpaAccountRepositoryTest {
                 .caUserEntity(targetUser)
                 .accountCount(3L)
                 .build();
-        System.out.println(caAccountEntity.getAccountId());
         accountRepository.saveAndFlush(caAccountEntity);
 
         CaAccountEntity caAccountEntity1 = accountRepository.findByCaUserEntity_UserSpecificId(targetUser.getUserSpecificId()).get();
-        System.out.println(caAccountEntity1.getAccountCount());
         Assertions.assertThat(caAccountEntity1).isNotNull();
     }
 
