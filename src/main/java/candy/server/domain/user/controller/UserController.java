@@ -59,14 +59,6 @@ public class UserController {
                 .body(response);
     }
 
-    @GetMapping("/{specific}/profile")
-    public ResponseEntity<UserProfileRequestDto> getProfile(@PathVariable("specific") String specific) {
-        UserProfileRequestDto response = userService.getuserProfileRequestDto(specific);
-
-        return ResponseEntity.ok()
-                .body(response);
-    }
-
     @PutMapping
     public ResponseEntity<Long> modify(@LoginUser SessionUser user, @RequestBody UserModifyRequestDto dto) {
         if (user != null) {
