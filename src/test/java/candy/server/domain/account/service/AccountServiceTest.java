@@ -8,6 +8,7 @@ import candy.server.domain.account.entity.CaTransactionEntity;
 import candy.server.domain.user.dao.JpaUserRepository;
 import candy.server.domain.user.entity.CaUserEntity;
 import candy.server.domain.user.entity.UserRoleEnum;
+import candy.server.domain.user.service.UserService;
 import candy.server.security.model.SessionUser;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +31,8 @@ public class AccountServiceTest {
     private Optional<CaTransactionEntity> caTransactionEntity;
     @Autowired
     private AccountSendService accountSendService;
+    @Autowired
+    private UserService userService;
     @Autowired
     JpaAccountRepository accountRepository;
     @Autowired
@@ -115,6 +118,18 @@ public class AccountServiceTest {
                 .build());
         caTransactionEntity=transactionRepository.findCaTransactionEntityByCaReceiverEntity_UserSpecificId("test2");
         Assertions.assertThat(caTransactionEntity.equals("test2"));
+    }
 
+    @Test
+    void checkTranscationProfile(){
+        CaAccountEntity accountReceiveUser = accountRepository.findByCaUserEntity_UserSpecificId(receiverUser.getUserSpecificId()).get();
+        var result = accountSendService.sendCandy(mockSessionUser(),AccountSendRequestDto.builder()
+                .receiver(accountReceiveUser.getCaUserEntity().getUserSpecificId())
+                .count(4L)
+                .build());
+        caTransactionEntity=transactionRepository.findCaTransactionEntityByCaReceiverEntity_UserSpecificId("test2");
+        var accountResult = userService.accountProfileUser(0,"testnickname",mockSessionUser());
+
+        Assertions.assertThat(accountResult.getAccounts().get(0).getTransactionSenderName()).isEqualTo("testnickname");
     }
 }
