@@ -20,7 +20,7 @@ public class AccountSendService {
     private final JpaTransactionRepository transactionRepository;
 
     public AccountResponseDto sendCandy(SessionUser user, AccountSendRequestDto dto){
-        Optional<CaAccountEntity> sender = accountRepository.findByAccountId(user.getId());
+        Optional<CaAccountEntity> sender = accountRepository.findByCaUserEntity_UserId(user.getId());
         Optional<CaAccountEntity> receiver = accountRepository.findByCaUserEntity_UserSpecificId(dto.getReceiver());
 
         if(receiver.isEmpty()){

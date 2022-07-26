@@ -12,4 +12,5 @@ public interface JpaArticleRepository extends JpaRepository<CaArticleEntity, Lon
 
     /* for reduce inquiry cost, we separate article to article and deleted article */
     Page<CaArticleEntity> findByArticleDelAndArticleHideOrderByArticleIdDesc(int articleDel, int articleHide, Pageable pageable);
+    Page<CaArticleEntity> findByArticleHideAndUserId_UserNickname(int articleHide, String userSpecificId , Pageable pageable);
 }
