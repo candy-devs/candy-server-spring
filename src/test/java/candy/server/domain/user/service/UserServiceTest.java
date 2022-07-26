@@ -99,7 +99,7 @@ public class UserServiceTest {
                 .build());
 
         articleService.articleWrite(
-                null,
+                mockSessionUser(),
                 ArticleWriteRequestDto.builder()
                         .nickname("test-nick")
                         .password("test-pw")
@@ -108,9 +108,8 @@ public class UserServiceTest {
                         .body("test-body")
                         .build()
         );
-
-        var result = userService.articleProfileUser(0,"1234",mockSessionUser());
-        Assertions.assertThat(!result.getArticles().isEmpty());
-
+        var result = userService.articleProfileUser(0,"testnickname",mockSessionUser());
+        Assertions.assertThat(result.getArticles().get(0).getTitle()).isEqualTo("test-title");
     }
+
 }
