@@ -128,4 +128,25 @@ public class UserService {
                 .articles(items)
                 .build();
     }
+
+    public UserProfileAccountResponseDto accountProfileUser(int p, String name, SessionUser user) {
+        /* todo: this query must get result with board key, user nickname (if exists) */
+        Page<CaAccountEntity> accounts;
+//        if(user.getName() == name) {
+            accounts = accountRepository
+                    .findByCaUserEntity_UserNickname(name, PageRequest.of(p, 10));
+//        }
+        List<UserProfileAccountResponseDto.PaginationItem> items = accounts.stream().map(account ->
+                UserProfileAccountResponseDto.PaginationItem.builder()
+                        .id(account.getAccountId())
+                        .candyCnt(account.getAccountCount())
+                        .transactionReceiverName(account.getCaUserEntity().getUserNickname())
+                        .transactionSenderName(user.getName())
+                        .build()
+        ).collect(Collectors.toList());
+
+        return UserProfileAccountResponseDto.builder()
+                .accounts(items)
+                .build();
+    }
 }

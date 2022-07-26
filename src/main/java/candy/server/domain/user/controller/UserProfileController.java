@@ -2,6 +2,7 @@ package candy.server.domain.user.controller;
 
 import candy.server.domain.article.dto.ArticleRecentResponseDto;
 import candy.server.domain.article.service.ArticleService;
+import candy.server.domain.user.dto.UserProfileAccountResponseDto;
 import candy.server.domain.user.dto.UserProfileArticleResponseDto;
 import candy.server.domain.user.dto.UserProfileRequestDto;
 import candy.server.domain.user.service.UserService;
@@ -20,17 +21,25 @@ public class UserProfileController {
     private final UserService userService;
     private final ArticleService articleService;
 
+    @GetMapping
+    public ResponseEntity<UserProfileRequestDto> getProfile(@PathVariable("specific") String specific) {
+        UserProfileRequestDto response = userService.getuserProfileRequestDto(specific);
+
+        return ResponseEntity.ok()
+                .body(response);
+    }
     @GetMapping("/article")
     /* get recent articles regardless of boardKey */
-    public ResponseEntity<UserProfileArticleResponseDto> recent(@LoginUser SessionUser user, @RequestParam int p, @PathVariable("specific") String specific) {
+    public ResponseEntity<UserProfileArticleResponseDto> user_article(@LoginUser SessionUser user, @RequestParam int p, @PathVariable("specific") String specific) {
         UserProfileArticleResponseDto response = userService.articleProfileUser(p,specific,user);
 
         return ResponseEntity.ok()
                 .body(response);
     }
-    @GetMapping
-    public ResponseEntity<UserProfileRequestDto> getProfile(@PathVariable("specific") String specific) {
-        UserProfileRequestDto response = userService.getuserProfileRequestDto(specific);
+    @GetMapping("/account")
+    /* get recent articles regardless of boardKey */
+    public ResponseEntity<UserProfileAccountResponseDto> user_account(@LoginUser SessionUser user, @RequestParam int p, @PathVariable("specific") String name) {
+        UserProfileAccountResponseDto response = userService.accountProfileUser(p, name, user);
 
         return ResponseEntity.ok()
                 .body(response);
