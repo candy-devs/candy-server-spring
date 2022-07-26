@@ -2,6 +2,9 @@ package candy.server.domain.user.service;
 
 import candy.server.domain.account.dao.JpaAccountRepository;
 import candy.server.domain.account.entity.CaAccountEntity;
+import candy.server.domain.article.dao.JpaArticleRepository;
+import candy.server.domain.article.dto.ArticleWriteRequestDto;
+import candy.server.domain.article.service.ArticleService;
 import candy.server.domain.board.dao.JpaBoardRepository;
 import candy.server.domain.board.entity.CaBoardEntity;
 import candy.server.domain.user.dao.JpaUserProfileRepository;
@@ -13,6 +16,7 @@ import candy.server.domain.user.entity.CaUserProfileEntity;
 import candy.server.domain.user.entity.UserRoleEnum;
 import candy.server.security.model.SessionUser;
 import org.assertj.core.api.Assertions;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,11 +36,17 @@ public class UserServiceTest {
     @Autowired
     private UserService userService;
     @Autowired
+    private ArticleService articleService;
+    @Autowired
     private JpaUserRepository userRepository;
     @Autowired
     private JpaAccountRepository accountRepository;
     @Autowired
     private JpaUserProfileRepository userProfileRepository;
+    @Autowired
+    private JpaBoardRepository boardRepository;
+    @Autowired
+    private JpaArticleRepository articleRepository;
     private CaUserEntity caUserEntity;
     @BeforeEach
     void 테스트_유저_생성() {
@@ -52,7 +62,10 @@ public class UserServiceTest {
                 .build();
         userRepository.save(caUserEntity);
     }
+    private SessionUser mockSessionUser() {
 
+        return SessionUser.fromEntity(caUserEntity);
+    }
     @Test
     void test_modify() {
         Optional<CaUserEntity> userEntity = userRepository.findByUserNickname("testnickname");
@@ -77,5 +90,27 @@ public class UserServiceTest {
         accountRepository.save(accountEntity);
         UserProfileRequestDto userProfileRequestDto = userService.getuserProfileRequestDto("1234");
         Assertions.assertThat(userProfileRequestDto.getAccountCount()).isEqualTo(3L);
+    }
+    @Test
+    void 특정유저_글찾기() {
+        boardRepository.save(CaBoardEntity.builder()
+                .boardKey("test-board")
+                .boardName("test-board")
+                .build());
+
+        articleService.articleWrite(
+                null,
+                ArticleWriteRequestDto.builder()
+                        .nickname("test-nick")
+                        .password("test-pw")
+                        .boardKey("test-board")
+                        .title("test-title")
+                        .body("test-body")
+                        .build()
+        );
+
+        var result = userService.articleProfileUser(0,"1234",mockSessionUser());
+        Assertions.assertThat(!result.getArticles().isEmpty());
+
     }
 }
