@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface JpaAccountRepository extends JpaRepository<CaAccountEntity,Long> {
     Optional<CaAccountEntity> findByAccountId(Long id);
     Optional<CaAccountEntity> findByCaUserEntity_UserSpecificId(String id);
-    Optional<CaAccountEntity> findByCaUserEntityUserNickname(String id);
+    Optional<CaAccountEntity> findBy(String id);
 
 }
