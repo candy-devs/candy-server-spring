@@ -47,7 +47,7 @@ public class QCaBoardBookmarkEntity extends EntityPathBase<CaBoardBookmarkEntity
     public QCaBoardBookmarkEntity(Class<? extends CaBoardBookmarkEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.boardId = inits.isInitialized("boardId") ? new candy.server.domain.board.entity.QCaBoardEntity(forProperty("boardId")) : null;
-        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

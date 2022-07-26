@@ -71,4 +71,5 @@ public class UserService {
                 .role(userEntity.getUserRole().name())
                 .build();
     }
+
 }

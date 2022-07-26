@@ -51,7 +51,7 @@ public class QCaArticleReadUserEntity extends EntityPathBase<CaArticleReadUserEn
     public QCaArticleReadUserEntity(Class<? extends CaArticleReadUserEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.articleId = inits.isInitialized("articleId") ? new QCaArticleEntity(forProperty("articleId"), inits.get("articleId")) : null;
-        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

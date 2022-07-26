@@ -45,7 +45,7 @@ public class QCaUserOauthEntity extends EntityPathBase<CaUserOauthEntity> {
     public QCaUserOauthEntity(Class<? extends CaUserOauthEntity> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.oauthId = inits.isInitialized("oauthId") ? new QCaOauthEntity(forProperty("oauthId")) : null;
-        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }
