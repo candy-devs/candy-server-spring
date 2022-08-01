@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-data-redis'
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 //	implementation 'org.springframework.session:spring-session-core'
+	implementation 'org.springframework.data:spring-data-elasticsearch:4.3.2'
 	implementation 'org.projectlombok:lombok'
 	implementation 'com.google.guava:guava:31.1-jre'
 	implementation 'com.querydsl:querydsl-jpa:5.0.0'
