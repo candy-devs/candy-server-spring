@@ -1,0 +1,14 @@
+cloud:
+  aws:
+    credentials:
+      access-key: ''
+      secret-key: ''
+      instance-profile: false
+
+    s3:
+      bucket: candy-image-upload-raw
+    region:
+      static: ap-northeast-2
+      auto: false
+    stack:
+      auto: false
