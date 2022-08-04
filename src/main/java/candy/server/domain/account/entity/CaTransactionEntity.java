@@ -22,10 +22,10 @@ public class CaTransactionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long transactionId;
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName="userId",name="transactionSenderId")
     private CaUserEntity caSenderEntity;
-    @OneToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(referencedColumnName="userId",name="transactionReceiverId")
     private CaUserEntity caReceiverEntity;
     @Column
