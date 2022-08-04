@@ -89,4 +89,5 @@ class ArticleServiceTest {
         var result = articleService.articleRecent(0);
         Assertions.assertThat(result.getArticles().size()).isGreaterThanOrEqualTo(1);
     }
+
 }

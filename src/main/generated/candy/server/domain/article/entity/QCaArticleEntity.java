@@ -100,7 +100,7 @@ public class QCaArticleEntity extends EntityPathBase<CaArticleEntity> {
         super(type, metadata, inits);
         this.anonId = inits.isInitialized("anonId") ? new candy.server.domain.user.entity.QCaAnonEntity(forProperty("anonId")) : null;
         this.boardId = inits.isInitialized("boardId") ? new candy.server.domain.board.entity.QCaBoardEntity(forProperty("boardId")) : null;
-        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }

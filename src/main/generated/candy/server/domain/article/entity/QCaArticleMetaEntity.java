@@ -74,7 +74,7 @@ public class QCaArticleMetaEntity extends EntityPathBase<CaArticleMetaEntity> {
         super(type, metadata, inits);
         this.ariId = inits.isInitialized("ariId") ? new QCaArticleResizeImageEntity(forProperty("ariId"), inits.get("ariId")) : null;
         this.articleId = inits.isInitialized("articleId") ? new QCaArticleEntity(forProperty("articleId"), inits.get("articleId")) : null;
-        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId")) : null;
+        this.userId = inits.isInitialized("userId") ? new candy.server.domain.user.entity.QCaUserEntity(forProperty("userId"), inits.get("userId")) : null;
     }
 
 }
