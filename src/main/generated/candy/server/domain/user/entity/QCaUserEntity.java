@@ -24,6 +24,10 @@ public class QCaUserEntity extends EntityPathBase<CaUserEntity> {
 
     public final candy.server.domain.account.entity.QCaAccountEntity caAccountEntity;
 
+    public final ListPath<candy.server.domain.account.entity.CaTransactionEntity, candy.server.domain.account.entity.QCaTransactionEntity> caTransactionReceiverEntity = this.<candy.server.domain.account.entity.CaTransactionEntity, candy.server.domain.account.entity.QCaTransactionEntity>createList("caTransactionReceiverEntity", candy.server.domain.account.entity.CaTransactionEntity.class, candy.server.domain.account.entity.QCaTransactionEntity.class, PathInits.DIRECT2);
+
+    public final ListPath<candy.server.domain.account.entity.CaTransactionEntity, candy.server.domain.account.entity.QCaTransactionEntity> caTransactionSenderEntity = this.<candy.server.domain.account.entity.CaTransactionEntity, candy.server.domain.account.entity.QCaTransactionEntity>createList("caTransactionSenderEntity", candy.server.domain.account.entity.CaTransactionEntity.class, candy.server.domain.account.entity.QCaTransactionEntity.class, PathInits.DIRECT2);
+
     public final ListPath<CaUserLoginEntity, QCaUserLoginEntity> caUserLoginEntityList = this.<CaUserLoginEntity, QCaUserLoginEntity>createList("caUserLoginEntityList", CaUserLoginEntity.class, QCaUserLoginEntity.class, PathInits.DIRECT2);
 
     public final StringPath userEmail = createString("userEmail");
