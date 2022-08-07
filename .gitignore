@@ -40,4 +40,4 @@ application-oauth.yml
 application-aws.yml
 
 .DS_Store
-logs/**
+logs/
