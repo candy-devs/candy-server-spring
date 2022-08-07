@@ -1,7 +1,6 @@
 package candy.server.domain.user.entity;
 
 import candy.server.domain.account.entity.CaAccountEntity;
-//import candy.server.domain.account.entity.CaTransactionEntity;
 import candy.server.domain.account.entity.CaTransactionEntity;
 import lombok.*;
 import lombok.experimental.Accessors;
