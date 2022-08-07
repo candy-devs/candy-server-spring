@@ -1,11 +1,7 @@
 package candy.server.domain.user.entity;
 
 import candy.server.domain.account.entity.CaAccountEntity;
-<<<<<<< HEAD
 import candy.server.domain.account.entity.CaTransactionEntity;
-=======
-//import candy.server.domain.account.entity.CaTransactionEntity;
->>>>>>> dev
 import lombok.*;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
@@ -54,19 +50,11 @@ public class CaUserEntity {
     @OneToOne(mappedBy = "caUserEntity")
     private CaAccountEntity caAccountEntity;
 
-<<<<<<< HEAD
     @OneToMany(mappedBy = "caSenderEntity")
     private List<CaTransactionEntity> caTransactionSenderEntity;
 
     @OneToMany(mappedBy = "caReceiverEntity")
     private List<CaTransactionEntity> caTransactionReceiverEntity;
-=======
-//    @OneToOne(mappedBy = "senderId")
-//    private CaTransactionEntity caTransactionEntity;
-//
-//    @OneToOne(mappedBy = "receiverId")
-//    private CaTransactionEntity caTransactionEntity1;
->>>>>>> dev
 
     public CaUserEntity update(String name, String picture) {
         this.userNickname = name;
