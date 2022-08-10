@@ -16,9 +16,9 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 		exclude = { ElastiCacheAutoConfiguration.class,
 					ContextInstanceDataAutoConfiguration.class
 		})
-@EnableJpaRepositories(excludeFilters = @ComponentScan.Filter(
-		type = FilterType.ASSIGNABLE_TYPE,
-		classes = JpaSearchRepository.class))
+	@EnableJpaRepositories(excludeFilters = @ComponentScan.Filter(
+			type = FilterType.ASSIGNABLE_TYPE,
+			classes = JpaSearchRepository.class))
 public class ServerApplication {
 
 	public static void main(String[] args) {

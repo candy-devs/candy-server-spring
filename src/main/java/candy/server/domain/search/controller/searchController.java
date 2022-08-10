@@ -1,6 +1,6 @@
 package candy.server.domain.search.controller;
 
-import candy.server.domain.search.service.searchService;
+import candy.server.domain.search.service.SearchService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/article")
 @Slf4j
 public class searchController {
-    private final searchService searchService;
+    private final SearchService searchService;
 
     @GetMapping("/{title}")
     public ResponseEntity<List<String>> search(@PathVariable String name, Pageable pageable) {
