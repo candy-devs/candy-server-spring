@@ -76,7 +76,6 @@ public class CaArticleEntity {
     private List<CaArticleAbuseEntity> caArticleAbuseEntityList;
     @OneToMany(mappedBy = "articleId")
     private List<CaArticleUpdateRecordEntity> caArticleUpdateRecordEntityList;
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
