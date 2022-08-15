@@ -45,14 +45,14 @@ public class CommentService {
                     .message("article not found")
                     .build();
 
-    CaCommentEntity caCommentEntity = CaCommentEntity.builder()
-                                        .comment(dto.getBody())
-                                        .userId(userEntity)
-                                        .articlePassword(dto.getPassword())
-                                        .build();
+        CaCommentEntity caCommentEntity = CaCommentEntity.builder()
+                                                         .comment(dto.getBody())
+                                                         .userId(userEntity)
+                                                         .articlePassword(dto.getPassword())
+                                                         .build();
 
-    jpaCommentRepository.save(caCommentEntity);
+        jpaCommentRepository.save(caCommentEntity);
 
-    return CommentWriteResponseDto.builder().message("댓글 작성 완료").build();
+        return CommentWriteResponseDto.builder().message("댓글 작성 완료").build();
     }
 }
