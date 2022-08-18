@@ -64,6 +64,12 @@ server:
 logging:
   config: classpath:logback-spring.xml
 
+management:
+  endpoints:
+    enabled-by-default: true
+  endpoint:
+    health:
+      show-details: always
 
 #spring:
 #  datasource:
