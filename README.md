@@ -59,3 +59,10 @@
  - Read가 압도적으로 많은 상황을 가정하면 Spring Backend를 통해 DB를 조회하는게 합당한가?
    - JPA Persistence Context, 2차 캐시 고갈 문제
 ```
+
+## Spring Cloud 적용
+
+아래와 같은 spring boot starter 패키지들을 적용해보자
+
+ - [ ] actuator 적용
+ - [ ] eureka client 적용
